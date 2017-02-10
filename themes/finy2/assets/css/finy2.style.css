@@ -8508,21 +8508,27 @@ ul.dropdown-menu li {
   font-size: 28px;
   line-height: 44.8px;
   font-style: italic;
-  text-align: center; }
+  text-align: center;
+  color: white; }
   @media (min-width: 768px) {
     .highlight {
       font-size: 64px;
       line-height: 102.4px; } }
 
-.top-content .basic__body {
+.top-content .hero {
   display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-pack: center;
-      justify-content: center; }
-  .top-content .basic__body .highlight {
-    position: absolute; }
+  display: flex; }
+  .top-content .hero .hero__field-tag {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+        flex-direction: column;
+    -ms-flex-pack: center;
+        justify-content: center;
+    margin-left: -100%;
+    width: 100%; }
+    .top-content .hero .hero__field-tag .highlight {
+      margin: auto; }
 
 main {
   margin-top: 3em; }
@@ -8532,9 +8538,6 @@ footer {
   background-color: #333333;
   color: white;
   margin-top: 50px; }
-
-.block-content .highlight {
-  color: white; }
 
 .navbar-brand {
   height: 80px; }
