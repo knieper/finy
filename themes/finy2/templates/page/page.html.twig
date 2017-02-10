@@ -1,0 +1,53 @@
+{#
+/**
+ * @file
+ * Template for the main page.
+ * options for navbar are navbar-static-top, navbar-fixed-top
+ */
+#}
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span>MENU</span>
+      </button>
+      {{ page.navbar_branding }}
+    </div>
+
+    <div class="collapse navbar-collapse">
+      {% if page.navbar_left %}
+        <div class="navbar-left">
+          {{ page.navbar_left }}
+        </div>
+      {% endif %}
+
+      {% if page.navbar_right %}
+        <div class="navbar-right">
+          {{ page.navbar_right }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+<div role="top-content">
+  {% if page.top_content %}
+    <div class="top-content">
+      {{ page.top_content }}
+      </div>
+  {% endif %}
+</div>
+
+<main role="main">
+  <div class="container">
+    {{ page.content }}
+  </div>
+</main>
+
+{% if page.footer %}
+  <footer role="footer">
+    <div class="container">
+        {{ page.footer }}
+    </div>
+  </footer>
+{% endif %}

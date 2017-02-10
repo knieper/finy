@@ -1,0 +1,30 @@
+// Page Layout
+// -----------------------------------------------------------------------------
+//---layout for taglines/buttons in hero blocks--//
+.top-content .basic__body{
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+
+    align-items: center;
+    justify-content: center;
+
+  .highlight{
+    position:absolute;
+  }
+}
+
+main{
+  margin-top: 3em;
+}
+
+footer{
+  padding-top: 50px;
+  background-color: $gray-dark;
+  color: white;
+  margin-top: 50px;
+}

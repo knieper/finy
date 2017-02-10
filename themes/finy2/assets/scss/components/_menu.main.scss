@@ -1,0 +1,92 @@
+// Styles for Menus and Navs
+// -----------------------------------------------------------------------------
+//----main site navigation -----//
+.navbar-brand{
+  height: 80px;
+}
+
+.navbar {
+  margin-bottom: 0px;
+  ul{
+  	margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  .navbar-toggle{
+    margin-top: 18.5px; 
+  }
+}
+
+.navbar-collapse .navbar-right nav{
+  @include breakpoint(md){
+    position:static;
+    ul {
+      position:absolute;
+      bottom: 0px;
+      right: 0px;
+
+      display: -ms-flexbox;
+	    display: -webkit-flex;
+	    display: flex;
+
+	    -ms-flex-align: center;
+	    -webkit-align-items: center;
+	    -webkit-box-align: center;
+
+	    //align-items: center;
+      flex-direction: row;
+      align-items: stretch;
+
+      li{
+        max-width: 110px;
+        flex-grow: 1;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        &.active{
+          background-color: $navbar-default-link-active-bg;
+          a{
+            background: transparent;
+            &:hover,
+            &:focus {
+              background: transparent;
+            }
+          }
+        }
+        &:hover,
+        &:focus {
+          color: $navbar-default-link-hover-color;
+          background-color: $navbar-default-link-hover-bg;
+        }
+      }
+    }
+  }
+  a{
+    text-align: center;
+  }
+}
+
+//---breadcrumb-----//
+ol.breadcrumb {
+  padding-left: 0px;
+}
+
+//---local tasks ---///
+.block--finy2-local-tasks{
+  font-style: italic;
+  ul{
+    &:before{
+      content: 'Administrative tasks: ';
+    }
+    margin-top: 1em;
+    li{
+      display:inline;
+      a {
+        padding: 0px 1em 0px 0px;
+        }
+      &:first-of-type{
+        padding-left: 1em;
+      }
+    }
+  }
+}
