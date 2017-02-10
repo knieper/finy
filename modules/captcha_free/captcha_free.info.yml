@@ -1,0 +1,12 @@
+name: Captcha-free
+description: 'Form protection without captcha.'
+type: module
+package: Content
+# core: 8.x
+configure: captcha_free.config
+
+# Information added by Drupal.org packaging script on 2016-01-06
+version: '8.x-1.1'
+core: '8.x'
+project: 'captcha_free'
+datestamp: 1452090840

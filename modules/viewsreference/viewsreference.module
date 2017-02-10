@@ -1,0 +1,22 @@
+<?php
+
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+
+/**
+ * Implements template_preprocess_select().
+ *
+ * @param $variables
+ */
+function viewsreference_preprocess_select(&$variables) {
+
+  if (isset($variables['element']['#target_type'])
+    && $variables['element']['#target_type'] == 'view'
+    && $variables['element']['#key_column'] == 'target_id') {
+
+    $variables['element']['#empty_value'] = new TranslatableMarkup('');
+    // This removes the default _none option
+    // Todo is there are more robust way of doing this?
+    //
+    unset($variables['options'][1]);
+  }
+}
