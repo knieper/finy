@@ -1,16 +1,12 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\dropzonejs\src\Element.
- */
-
 namespace Drupal\dropzonejs\Element;
 
 use Drupal\Component\Utility\Bytes;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\FormElement;
+use Drupal\Core\Url;
 
 /**
  * Provides a DropzoneJS atop of the file element.
@@ -52,21 +48,19 @@ class DropzoneJs extends FormElement {
     $class = get_class($this);
     return [
       '#input' => TRUE,
-      '#multiple' => FALSE,
       '#process' => [[$class, 'processDropzoneJs']],
-      '#size' => 60,
       '#pre_render' => [[$class, 'preRenderDropzoneJs']],
       '#theme' => 'dropzonejs',
       '#theme_wrappers' => ['form_element'],
       '#tree' => TRUE,
       '#attached' => [
-        'library' => ['dropzonejs/integration']
+        'library' => ['dropzonejs/integration'],
       ],
     ];
   }
 
   /**
-   * Processes a dropzone upload element, make use of #multiple if present.
+   * Processes a dropzone upload element.
    */
   public static function processDropzoneJs(&$element, FormStateInterface $form_state, &$complete_form) {
     $element['uploaded_files'] = [
@@ -76,22 +70,22 @@ class DropzoneJs extends FormElement {
       // If we send a url with a token through drupalSettings the placeholder
       // doesn't get replaced, because the actual scripts markup is not there
       // yet. So we pass this information through a data attribute.
-      '#attributes' => ['data-upload-path' => \Drupal::url('dropzonejs.upload')],
+      '#attributes' => ['data-upload-path' => Url::fromRoute('dropzonejs.upload')->toString()],
     ];
 
     if (empty($element['#max_filesize'])) {
       $element['#max_filesize'] = file_upload_max_size();
     }
 
-    // If the element accepts multiple uploads, set #max_files to NULL
-    // (explicitly unlimited) if #max_files is not specified.
+    // Set #max_files to NULL (explicitly unlimited) if #max_files is not
+    // specified.
     if (empty($element['#max_files'])) {
       $element['#max_files'] = NULL;
     }
 
     if (!\Drupal::currentUser()->hasPermission('dropzone upload files')) {
       $element['#access'] = FALSE;
-      drupal_set_message("You don't have sufficent permissions to use the DropzoneJS uploader. Contact your system administrator", 'warning');
+      drupal_set_message(t("You don't have sufficent permissions to use the DropzoneJS uploader. Contact your system administrator"), 'warning');
     }
 
     return $element;
@@ -108,7 +102,7 @@ class DropzoneJs extends FormElement {
    * @return array
    *   The $element with prepared variables ready for input.html.twig.
    */
-  public static function preRenderDropzoneJs($element) {
+  public static function preRenderDropzoneJs(array $element) {
     // Convert the human size input to bytes, convert it to MB and round it.
     $max_size = round(Bytes::toInt($element['#max_filesize']) / pow(Bytes::KILOBYTE, 2), 2);
 
@@ -133,21 +127,19 @@ class DropzoneJs extends FormElement {
    * {@inheritdoc}
    */
   public static function valueCallback(&$element, $input, FormStateInterface $form_state) {
-    $file_names = [];
-    $return['uploaded_files'] = NULL;
+    $return['uploaded_files'] = [];
 
     if ($input !== FALSE) {
       $user_input = NestedArray::getValue($form_state->getUserInput(), $element['#parents'] + ['uploaded_files']);
 
       if (!empty($user_input['uploaded_files'])) {
         $file_names = array_filter(explode(';', $user_input['uploaded_files']));
-        $tmp_override = \Drupal::config('dropzonejs.settings')->get('tmp_dir');
-        $temp_path = ($tmp_override) ? $tmp_override : \Drupal::config('system.file')->get('path.temporary');
+        $tmp_upload_scheme = \Drupal::configFactory()->get('dropzonejs.settings')->get('tmp_upload_scheme');
 
         foreach ($file_names as $name) {
           // The upload handler appended the txt extension to the file for
           // security reasons. We will remove it in this callback.
-          $old_filepath = "$temp_path/$name";
+          $old_filepath = $tmp_upload_scheme . '://' . $name;
 
           // The upload handler appended the txt extension to the file for
           // security reasons. Because here we know the acceptable extensions
@@ -159,7 +151,7 @@ class DropzoneJs extends FormElement {
           // we still have to move.
           if (file_exists($old_filepath)) {
             // Finaly rename the file and add it to results.
-            $new_filepath = "$temp_path/$name";
+            $new_filepath = $tmp_upload_scheme . '://' . $name;
             $move_result = file_unmanaged_move($old_filepath, $new_filepath);
 
             if ($move_result) {
@@ -175,9 +167,8 @@ class DropzoneJs extends FormElement {
         }
       }
       $form_state->setValueForElement($element, $return);
-
-      return $return;
     }
+    return $return;
   }
 
   /**
@@ -189,7 +180,7 @@ class DropzoneJs extends FormElement {
    * @return string
    *   A space separated list of extensions.
    */
-  public static function getValidExtensions($element) {
+  public static function getValidExtensions(array $element) {
     return isset($element['#extensions']) ? $element['#extensions'] : self::DEFAULT_VALID_EXTENSIONS;
   }
 
@@ -210,4 +201,5 @@ class DropzoneJs extends FormElement {
     array_pop($parts);
     return implode('.', $parts);
   }
+
 }
