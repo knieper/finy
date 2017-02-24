@@ -8515,6 +8515,13 @@ ul.dropdown-menu li {
       font-size: 64px;
       line-height: 102.4px; } }
 
+.viewsreference-title {
+  font-size: 34px;
+  font: "Lato", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit; }
+
 .top-content .hero {
   display: -ms-flexbox;
   display: flex; }
