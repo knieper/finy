@@ -7,16 +7,16 @@ dependencies:
 id: even
 label: 'event name and date'
 type: 'canonical_entities:node'
-pattern: 'event/[node:title]/[node:field_event_start_date]'
+pattern: 'classes-workshops/[node:title]/[node:field_event_start_date]'
 selection_criteria:
-  a894fb2a-6444-4790-a8ed-1dd9b5f96e1b:
+  8298488e-c0c8-4796-90cd-92023667e4cf:
     id: node_type
     bundles:
       events: events
     negate: false
     context_mapping:
       node: node
-    uuid: a894fb2a-6444-4790-a8ed-1dd9b5f96e1b
+    uuid: 8298488e-c0c8-4796-90cd-92023667e4cf
 selection_logic: and
 weight: -5
 relationships: {  }

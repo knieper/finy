@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.brief_event
     - field.storage.node.field_event_end_date
     - field.storage.node.field_event_start_date
     - node.type.events
@@ -132,7 +133,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          view_mode: default
+          view_mode: brief_event
           entity_type: node
           plugin_id: rendered_entity
         field_event_start_date:
@@ -390,7 +391,7 @@ display:
           empty: false
           tokenize: false
           content:
-            value: '<p><a href="upcoming-events">More upcoming events</a></p>'
+            value: '<p><a class="btn btn-primary" href="/classes-workshops/upcoming-events" role="button" title="More upcoming events" rel="nofollow">More upcoming events</a></p>'
             format: basic_html
           plugin_id: text
       empty:
@@ -424,7 +425,9 @@ display:
         - 'config:core.entity_view_display.node.display_page.teaser'
         - 'config:core.entity_view_display.node.emergency_announcement.default'
         - 'config:core.entity_view_display.node.emergency_announcement.teaser'
+        - 'config:core.entity_view_display.node.events.brief_event'
         - 'config:core.entity_view_display.node.events.default'
+        - 'config:core.entity_view_display.node.events.full_event'
         - 'config:core.entity_view_display.node.events.teaser'
         - 'config:core.entity_view_display.node.store_item.default'
         - 'config:core.entity_view_display.node.store_item.teaser'
@@ -462,7 +465,9 @@ display:
         - 'config:core.entity_view_display.node.display_page.teaser'
         - 'config:core.entity_view_display.node.emergency_announcement.default'
         - 'config:core.entity_view_display.node.emergency_announcement.teaser'
+        - 'config:core.entity_view_display.node.events.brief_event'
         - 'config:core.entity_view_display.node.events.default'
+        - 'config:core.entity_view_display.node.events.full_event'
         - 'config:core.entity_view_display.node.events.teaser'
         - 'config:core.entity_view_display.node.store_item.default'
         - 'config:core.entity_view_display.node.store_item.teaser'
@@ -600,7 +605,9 @@ display:
         - 'config:core.entity_view_display.node.display_page.teaser'
         - 'config:core.entity_view_display.node.emergency_announcement.default'
         - 'config:core.entity_view_display.node.emergency_announcement.teaser'
+        - 'config:core.entity_view_display.node.events.brief_event'
         - 'config:core.entity_view_display.node.events.default'
+        - 'config:core.entity_view_display.node.events.full_event'
         - 'config:core.entity_view_display.node.events.teaser'
         - 'config:core.entity_view_display.node.store_item.default'
         - 'config:core.entity_view_display.node.store_item.teaser'
@@ -713,7 +720,9 @@ display:
         - 'config:core.entity_view_display.node.display_page.teaser'
         - 'config:core.entity_view_display.node.emergency_announcement.default'
         - 'config:core.entity_view_display.node.emergency_announcement.teaser'
+        - 'config:core.entity_view_display.node.events.brief_event'
         - 'config:core.entity_view_display.node.events.default'
+        - 'config:core.entity_view_display.node.events.full_event'
         - 'config:core.entity_view_display.node.events.teaser'
         - 'config:core.entity_view_display.node.store_item.default'
         - 'config:core.entity_view_display.node.store_item.teaser'
