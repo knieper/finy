@@ -4,7 +4,7 @@ status: true
 dependencies: {  }
 id: production_settings
 label: 'production settings'
-folder: ''
+folder: sites/default/files/finy-config/dev-settings
 module:
   devel: 0
   kint: 0
