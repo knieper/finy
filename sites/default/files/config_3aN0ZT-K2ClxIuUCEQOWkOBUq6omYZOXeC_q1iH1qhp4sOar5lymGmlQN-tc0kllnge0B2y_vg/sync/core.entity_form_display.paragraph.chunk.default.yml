@@ -1,0 +1,35 @@
+uuid: 2cd044cb-22af-40ea-8030-d17309d93859
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.chunk.field_chunk
+    - field.field.paragraph.chunk.field_classes
+    - paragraphs.paragraphs_type.chunk
+  module:
+    - text
+id: paragraph.chunk.default
+targetEntityType: paragraph
+bundle: chunk
+mode: default
+content:
+  field_chunk:
+    weight: 0
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea_with_summary
+  field_classes:
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+hidden:
+  created: true
+  status: true
+  uid: true

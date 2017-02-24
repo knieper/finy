@@ -1,0 +1,7 @@
+uuid: 9f012a11-fac2-4340-94ba-f178d30b2791
+langcode: en
+status: true
+dependencies: {  }
+id: 2_col_at_medium
+label: '2 column at medium and larger screens'
+classes: col-md-6

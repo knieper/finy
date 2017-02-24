@@ -1,0 +1,14 @@
+uuid: 112bcd9b-ee56-44d3-a212-edbc59fa8fa1
+langcode: en
+status: true
+dependencies: {  }
+name: xsmall_hero
+label: 'xsmall hero (700 x 394)'
+effects:
+  96413275-68df-4883-8388-316e4167108a:
+    uuid: 96413275-68df-4883-8388-316e4167108a
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 700
+      height: 394

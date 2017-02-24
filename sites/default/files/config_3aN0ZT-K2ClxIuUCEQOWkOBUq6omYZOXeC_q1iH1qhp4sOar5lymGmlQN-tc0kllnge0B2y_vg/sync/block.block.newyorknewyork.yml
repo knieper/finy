@@ -1,0 +1,31 @@
+uuid: fc6948fe-b7d2-4054-9246-56f9a96305d1
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:hero:22f42324-f600-48a1-bd56-6bd12dd772e6'
+  module:
+    - block_content
+    - system
+  theme:
+    - finy2
+id: newyorknewyork
+theme: finy2
+region: top_content
+weight: 0
+provider: null
+plugin: 'block_content:22f42324-f600-48a1-bd56-6bd12dd772e6'
+settings:
+  id: 'block_content:22f42324-f600-48a1-bd56-6bd12dd772e6'
+  label: 'New York, New York'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /about-finy
+    negate: false
+    context_mapping: {  }

@@ -1,0 +1,20 @@
+uuid: 61b4c8b4-710c-4ecc-b8f7-d3983c063f32
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.field_year_certified
+field_name: field_year_certified
+entity_type: taxonomy_term
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

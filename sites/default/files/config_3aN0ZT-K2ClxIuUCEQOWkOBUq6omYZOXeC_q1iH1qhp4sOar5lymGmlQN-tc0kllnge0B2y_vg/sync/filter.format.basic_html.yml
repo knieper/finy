@@ -1,0 +1,80 @@
+uuid: 146a457a-248e-4bee-82df-af450736be0c
+langcode: en
+status: true
+dependencies:
+  module:
+    - editor
+    - inline_responsive_images
+name: 'Basic HTML'
+format: basic_html
+weight: 0
+filters:
+  editor_file_reference:
+    id: editor_file_reference
+    provider: editor
+    status: true
+    weight: 0
+    settings: {  }
+  filter_align:
+    id: filter_align
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
+  filter_caption:
+    id: filter_caption
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: true
+    weight: -10
+    settings:
+      allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h3 id> <h4 id> <h5 id> <h6 id> <br> <span> <img src alt height width data-entity-type data-entity-uuid data-align data-caption data-image-style data-responsive-image-style> <h2 id class="text-center"> <hr> <div class="highlight"> <p class="btn-primary text-center test btn-hero-lg btn"> <drupal-entity data-entity-type data-entity-uuid data-entity-embed-display data-entity-embed-display-settings data-align data-caption data-embed-button> <a role href hreflang !href accesskey id rel target title class=" btn btn-primary">'
+      filter_html_help: true
+      filter_html_nofollow: true
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: 10
+    settings: {  }
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: true
+    weight: 0
+    settings:
+      filter_url_length: 72
+  filter_imagestyle:
+    id: filter_imagestyle
+    provider: inline_responsive_images
+    status: false
+    weight: 0
+    settings:
+      image_style_file_entity_browser_small: '0'
+      image_style_file_entity_browser_thumbnail: '0'
+      image_style_large: '0'
+      image_style_large_hero: '0'
+      image_style_linkit_result_thumbnail: '0'
+      image_style_medium: '1'
+      image_style_medium_hero: '0'
+      image_style_small_hero: '0'
+      image_style_thumbnail: '0'
+      image_style_xsmall_hero: '0'
+  filter_responsive_image_style:
+    id: filter_responsive_image_style
+    provider: inline_responsive_images
+    status: true
+    weight: 0
+    settings:
+      responsive_style_hero: '1'

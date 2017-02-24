@@ -1,0 +1,21 @@
+uuid: 71377241-fa4c-4e74-a53e-70085970dc15
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_are
+    - taxonomy.vocabulary.practitioner
+  module:
+    - text
+id: taxonomy_term.practitioner.field_are
+field_name: field_are
+entity_type: taxonomy_term
+bundle: practitioner
+label: 'Areas of Interest'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

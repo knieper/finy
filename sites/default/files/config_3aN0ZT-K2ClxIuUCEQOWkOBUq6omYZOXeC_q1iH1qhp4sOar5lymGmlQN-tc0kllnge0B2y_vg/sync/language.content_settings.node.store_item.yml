@@ -1,0 +1,11 @@
+uuid: 49a7d983-20c6-4bd0-b2ba-73405ddbec24
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.store_item
+id: node.store_item
+target_entity_type_id: node
+target_bundle: store_item
+default_langcode: site_default
+language_alterable: false

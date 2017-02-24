@@ -1,0 +1,8 @@
+uuid: 9cf0cfda-ed41-4a8a-a518-d5e7b6bacbe4
+langcode: en
+status: true
+dependencies: {  }
+id: full_day_and_year
+label: 'Full day and year'
+locked: false
+pattern: 'l, F j, Y'

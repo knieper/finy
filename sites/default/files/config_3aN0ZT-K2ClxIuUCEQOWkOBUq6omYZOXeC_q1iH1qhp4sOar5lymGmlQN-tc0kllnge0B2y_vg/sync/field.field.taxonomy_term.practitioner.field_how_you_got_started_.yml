@@ -1,0 +1,21 @@
+uuid: 4a64f8ff-5e36-48b5-8b15-7a0f3b1b3650
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_how_you_got_started_
+    - taxonomy.vocabulary.practitioner
+  module:
+    - text
+id: taxonomy_term.practitioner.field_how_you_got_started_
+field_name: field_how_you_got_started_
+entity_type: taxonomy_term
+bundle: practitioner
+label: 'How you got started?'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

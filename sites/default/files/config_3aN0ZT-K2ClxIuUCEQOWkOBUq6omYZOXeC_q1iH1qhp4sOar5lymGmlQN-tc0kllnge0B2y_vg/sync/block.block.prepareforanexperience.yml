@@ -1,0 +1,31 @@
+uuid: c9b9ea8b-1fd6-4c48-b8ac-eede9c7311d7
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:hero:378b88ff-b12c-4842-9795-a0f176d59c4b'
+  module:
+    - block_content
+    - system
+  theme:
+    - finy2
+id: prepareforanexperience
+theme: finy2
+region: top_content
+weight: 0
+provider: null
+plugin: 'block_content:378b88ff-b12c-4842-9795-a0f176d59c4b'
+settings:
+  id: 'block_content:378b88ff-b12c-4842-9795-a0f176d59c4b'
+  label: 'Prepare for an experience'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /first-time
+    negate: false
+    context_mapping: {  }

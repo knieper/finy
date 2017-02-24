@@ -1,0 +1,11 @@
+uuid: a8ce22f0-f3f6-4850-a7d9-f73d60cb86fb
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.emergency_announcement
+id: node.emergency_announcement
+target_entity_type_id: node
+target_bundle: emergency_announcement
+default_langcode: site_default
+language_alterable: false

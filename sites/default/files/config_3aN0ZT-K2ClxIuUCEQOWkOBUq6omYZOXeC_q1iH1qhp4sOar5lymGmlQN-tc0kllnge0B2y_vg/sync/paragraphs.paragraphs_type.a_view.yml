@@ -1,0 +1,6 @@
+uuid: adc85509-d4ff-4205-ae41-4f7aadc50c80
+langcode: en
+status: true
+dependencies: {  }
+id: a_view
+label: 'a view'

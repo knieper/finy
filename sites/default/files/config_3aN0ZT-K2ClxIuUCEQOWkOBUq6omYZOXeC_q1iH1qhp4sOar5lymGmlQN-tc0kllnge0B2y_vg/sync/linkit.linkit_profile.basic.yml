@@ -1,0 +1,56 @@
+uuid: a0e2f9ae-549f-48ae-bf3a-be97b083d2ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.linkit_result_thumbnail
+  module:
+    - file
+    - image
+    - node
+    - taxonomy
+id: basic
+label: Basic
+description: ''
+attributes:
+  title:
+    id: title
+    weight: -10
+    settings:
+      automatic_title: true
+  id:
+    id: id
+    weight: -9
+    settings: {  }
+matchers:
+  fa7a1be6-efa0-44d6-8777-75c09fcfff77:
+    uuid: fa7a1be6-efa0-44d6-8777-75c09fcfff77
+    id: 'entity:node'
+    weight: 0
+    settings:
+      result_description: ''
+      bundles:
+        display_page: display_page
+        events: events
+      group_by_bundle: true
+      include_unpublished: true
+  9e1faa6f-96d5-419e-b7df-ad4338829682:
+    uuid: 9e1faa6f-96d5-419e-b7df-ad4338829682
+    id: 'entity:file'
+    weight: 0
+    settings:
+      result_description: ''
+      bundles: null
+      group_by_bundle: null
+      images:
+        show_dimensions: true
+        show_thumbnail: true
+        thumbnail_image_style: linkit_result_thumbnail
+  3f749872-5402-4abd-816b-4c4befb9cf4c:
+    uuid: 3f749872-5402-4abd-816b-4c4befb9cf4c
+    id: 'entity:taxonomy_term'
+    weight: 0
+    settings:
+      result_description: ''
+      bundles: {  }
+      group_by_bundle: true

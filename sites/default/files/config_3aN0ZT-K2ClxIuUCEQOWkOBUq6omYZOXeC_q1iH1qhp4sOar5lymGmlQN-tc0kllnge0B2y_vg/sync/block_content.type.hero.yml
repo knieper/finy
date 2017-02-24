@@ -1,0 +1,8 @@
+uuid: ac6e8aba-71ef-4d12-b2d9-cacc1835dc88
+langcode: en
+status: true
+dependencies: {  }
+id: hero
+label: Hero
+revision: 0
+description: ''

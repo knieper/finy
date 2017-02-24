@@ -1,0 +1,14 @@
+uuid: 2b10e428-b877-430e-8f9b-ce37dfc75cad
+langcode: en
+status: true
+dependencies: {  }
+name: small_hero
+label: 'small hero (1000x563)'
+effects:
+  fd046702-d4e5-41a5-a526-dbbb7999ed1a:
+    uuid: fd046702-d4e5-41a5-a526-dbbb7999ed1a
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 1000
+      height: 563

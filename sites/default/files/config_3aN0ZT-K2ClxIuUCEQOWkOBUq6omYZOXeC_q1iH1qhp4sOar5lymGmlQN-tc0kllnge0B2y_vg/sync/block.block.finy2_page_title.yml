@@ -1,0 +1,27 @@
+uuid: 4bf1d91c-6a5e-4e15-b735-e0771c07d0b9
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - finy2
+_core:
+  default_config_hash: 8yptDf6WrXxeyevUz4nP5vfr7BtxQqCBMninhV2IJ1g
+id: finy2_page_title
+theme: finy2
+region: content
+weight: -8
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: true
+    context_mapping: {  }

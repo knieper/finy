@@ -1,0 +1,24 @@
+uuid: 4857c1ce-e5bf-4883-9c7a-b733ee17ce5a
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - finy2
+id: mainnavigation
+theme: finy2
+region: navbar_right
+weight: 0
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility: {  }

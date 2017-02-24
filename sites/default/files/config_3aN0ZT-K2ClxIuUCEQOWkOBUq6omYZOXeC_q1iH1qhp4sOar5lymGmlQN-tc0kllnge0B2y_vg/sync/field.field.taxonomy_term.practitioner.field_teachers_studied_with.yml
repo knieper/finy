@@ -1,0 +1,21 @@
+uuid: f5220f5c-886c-41a6-8e77-1be628f77a70
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_teachers_studied_with
+    - taxonomy.vocabulary.practitioner
+  module:
+    - text
+id: taxonomy_term.practitioner.field_teachers_studied_with
+field_name: field_teachers_studied_with
+entity_type: taxonomy_term
+bundle: practitioner
+label: 'Teachers studied with'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

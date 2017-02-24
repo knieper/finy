@@ -1,0 +1,35 @@
+uuid: 4943a59a-d2f9-4af1-85a3-3c6d96bf3de9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.a_view.field_a_view
+    - field.field.paragraph.a_view.field_classes
+    - paragraphs.paragraphs_type.a_view
+  module:
+    - viewsreference
+id: paragraph.a_view.default
+targetEntityType: paragraph
+bundle: a_view
+mode: default
+content:
+  field_a_view:
+    weight: 0
+    settings:
+      match_operator: CONTAINS
+      size: '60'
+      placeholder: ''
+    third_party_settings: {  }
+    type: viewsreference_autocomplete
+  field_classes:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+hidden:
+  created: true
+  status: true
+  uid: true

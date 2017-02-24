@@ -1,0 +1,20 @@
+uuid: 8ad9c9cb-2d35-4447-9a97-5bc3d1af15ba
+langcode: en
+status: false
+dependencies:
+  theme:
+    - finy2
+_core:
+  default_config_hash: PffmQ-ABSz5tFjWmVsR7NesunDnEivvopnJnBjl8KNE
+id: finy2_local_actions
+theme: finy2
+region: '-1'
+weight: -3
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

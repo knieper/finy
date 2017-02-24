@@ -1,0 +1,7 @@
+uuid: 17952b4e-01a1-48f4-af06-dafdd04d900d
+langcode: en
+status: true
+dependencies: {  }
+id: all_text_centered
+label: 'all text centered'
+classes: text-center

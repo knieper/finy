@@ -1,0 +1,11 @@
+uuid: cfc348cc-5172-45dc-8e9c-5b9dd6fd7123
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.practitioner
+id: taxonomy_term.practitioner
+target_entity_type_id: taxonomy_term
+target_bundle: practitioner
+default_langcode: site_default
+language_alterable: false

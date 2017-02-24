@@ -1,0 +1,23 @@
+uuid: a8b6566d-9e60-4528-b0fc-f8c0d17f7d80
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_year_certified
+    - taxonomy.vocabulary.practitioner
+id: taxonomy_term.practitioner.field_year_certified
+field_name: field_year_certified
+entity_type: taxonomy_term
+bundle: practitioner
+label: 'Year certified'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

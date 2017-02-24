@@ -1,0 +1,14 @@
+uuid: bc4af262-faed-4f06-97ee-f0ededce5537
+langcode: en
+status: true
+dependencies: {  }
+name: large_hero
+label: 'Large hero (2000 x 800)'
+effects:
+  8720959e-6427-4308-a15d-952f0b64a30e:
+    uuid: 8720959e-6427-4308-a15d-952f0b64a30e
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 2000
+      height: 1125

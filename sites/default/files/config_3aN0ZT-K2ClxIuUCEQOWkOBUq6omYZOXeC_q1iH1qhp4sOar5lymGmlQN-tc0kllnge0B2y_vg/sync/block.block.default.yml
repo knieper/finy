@@ -1,0 +1,31 @@
+uuid: f576479c-8edc-4b4f-9485-87d39128a29a
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:hero:a46c74cf-23eb-4ca7-95d2-1a43cddeb587'
+  module:
+    - block_content
+    - system
+  theme:
+    - finy2
+id: default
+theme: finy2
+region: top_content
+weight: 0
+provider: null
+plugin: 'block_content:a46c74cf-23eb-4ca7-95d2-1a43cddeb587'
+settings:
+  id: 'block_content:a46c74cf-23eb-4ca7-95d2-1a43cddeb587'
+  label: Default
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: "<front>\r\n/individual-sessions\r\n/rates-memberships-policies\r\n/about-method\r\n/about-finy\r\n/about-finy/staff/*\r\n/first-time\r\n/store"
+    negate: true
+    context_mapping: {  }

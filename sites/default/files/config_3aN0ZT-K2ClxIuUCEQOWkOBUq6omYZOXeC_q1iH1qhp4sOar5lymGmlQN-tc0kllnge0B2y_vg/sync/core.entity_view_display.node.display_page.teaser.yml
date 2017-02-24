@@ -1,0 +1,20 @@
+uuid: f85ebda3-d0ad-41b9-95c0-a215de726b8a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.display_page.field_chunk
+    - node.type.display_page
+  module:
+    - user
+id: node.display_page.teaser
+targetEntityType: node
+bundle: display_page
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_chunk: true
+  langcode: true

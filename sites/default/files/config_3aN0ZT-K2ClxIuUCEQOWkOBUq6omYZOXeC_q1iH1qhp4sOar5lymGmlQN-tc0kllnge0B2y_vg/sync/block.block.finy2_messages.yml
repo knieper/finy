@@ -1,0 +1,22 @@
+uuid: b4409d59-d62c-49f9-8c45-539c3998794c
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - finy2
+_core:
+  default_config_hash: 5MNdk3fpMKx_xxBTcz2T11DL4XEU1H5SgHl8BsYdFsA
+id: finy2_messages
+theme: finy2
+region: content
+weight: -6
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

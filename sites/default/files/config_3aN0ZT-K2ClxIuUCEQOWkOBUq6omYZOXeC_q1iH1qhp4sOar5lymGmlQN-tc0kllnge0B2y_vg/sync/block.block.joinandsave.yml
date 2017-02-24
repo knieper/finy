@@ -1,0 +1,31 @@
+uuid: bb5219d4-2070-4dd5-9909-8113389ac273
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:hero:145852ab-8ba5-4b8c-b824-4c9f26ed4e45'
+  module:
+    - block_content
+    - system
+  theme:
+    - finy2
+id: joinandsave
+theme: finy2
+region: top_content
+weight: 0
+provider: null
+plugin: 'block_content:145852ab-8ba5-4b8c-b824-4c9f26ed4e45'
+settings:
+  id: 'block_content:145852ab-8ba5-4b8c-b824-4c9f26ed4e45'
+  label: 'Join and save'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /rates-memberships-policies
+    negate: false
+    context_mapping: {  }

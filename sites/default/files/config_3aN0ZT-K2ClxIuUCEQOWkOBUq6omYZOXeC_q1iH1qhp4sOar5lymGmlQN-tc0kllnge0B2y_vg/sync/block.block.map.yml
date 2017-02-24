@@ -1,0 +1,25 @@
+uuid: 1b3f4061-0443-40c3-ad52-69a252cbe1e3
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:9447afd2-227c-4396-bb31-25a2db0c524d'
+  module:
+    - block_content
+  theme:
+    - finy2
+id: map
+theme: finy2
+region: footer
+weight: -8
+provider: null
+plugin: 'block_content:9447afd2-227c-4396-bb31-25a2db0c524d'
+settings:
+  id: 'block_content:9447afd2-227c-4396-bb31-25a2db0c524d'
+  label: map
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

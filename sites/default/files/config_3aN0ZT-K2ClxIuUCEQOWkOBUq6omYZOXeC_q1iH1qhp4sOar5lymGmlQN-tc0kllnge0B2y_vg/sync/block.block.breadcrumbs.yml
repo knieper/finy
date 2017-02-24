@@ -1,0 +1,20 @@
+uuid: 32c646dd-c7e0-4b85-bb99-af4c45af5b93
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - finy2
+id: breadcrumbs
+theme: finy2
+region: content
+weight: -9
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  provider: system
+  label_display: '0'
+visibility: {  }

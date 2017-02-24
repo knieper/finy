@@ -1,0 +1,21 @@
+uuid: 849383f4-1627-4722-a1a3-f1b08e070bcf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_for_more_information
+    - taxonomy.vocabulary.practitioner
+  module:
+    - text
+id: taxonomy_term.practitioner.field_for_more_information
+field_name: field_for_more_information
+entity_type: taxonomy_term
+bundle: practitioner
+label: 'For more information'
+description: 'Optional field that can replace the link to the appointment setter in MindBody.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

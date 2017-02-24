@@ -1,0 +1,25 @@
+uuid: 8eb64766-55a0-47a6-a757-582e39fc92de
+langcode: en
+status: true
+dependencies:
+  module:
+    - scheduler
+third_party_settings:
+  scheduler:
+    expand_fieldset: when_required
+    fields_display_mode: vertical_tab
+    publish_enable: true
+    publish_past_date: error
+    publish_required: true
+    publish_revision: true
+    publish_touch: false
+    unpublish_enable: true
+    unpublish_required: true
+    unpublish_revision: true
+name: 'Emergency Announcement'
+type: emergency_announcement
+description: 'Use for posting "business closed" announcements'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

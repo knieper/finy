@@ -1,0 +1,89 @@
+uuid: 8615b072-27c1-4167-8c2a-d90055b764a8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.practitioner.field_are
+    - field.field.taxonomy_term.practitioner.field_for_more_information
+    - field.field.taxonomy_term.practitioner.field_how_you_got_started_
+    - field.field.taxonomy_term.practitioner.field_image
+    - field.field.taxonomy_term.practitioner.field_link_to_appointment_widget
+    - field.field.taxonomy_term.practitioner.field_teachers_studied_with
+    - field.field.taxonomy_term.practitioner.field_type
+    - field.field.taxonomy_term.practitioner.field_year_certified
+    - taxonomy.vocabulary.practitioner
+  module:
+    - image
+    - link
+    - options
+    - text
+id: taxonomy_term.practitioner.default
+targetEntityType: taxonomy_term
+bundle: practitioner
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+  field_are:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_for_more_information:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_how_you_got_started_:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_image:
+    weight: 0
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_link_to_appointment_widget:
+    weight: 7
+    label: hidden
+    settings:
+      trim_length: 80
+      rel: nofollow
+      url_only: false
+      url_plain: false
+      target: '0'
+    third_party_settings: {  }
+    type: link
+  field_teachers_studied_with:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_type:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_year_certified:
+    weight: 5
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+hidden:
+  langcode: true

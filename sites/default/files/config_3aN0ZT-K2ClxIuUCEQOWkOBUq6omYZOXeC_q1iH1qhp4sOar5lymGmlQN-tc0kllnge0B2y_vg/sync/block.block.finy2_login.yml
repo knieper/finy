@@ -1,0 +1,22 @@
+uuid: b50564a5-5f41-48ba-8d5f-003ffae95378
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+  theme:
+    - finy2
+_core:
+  default_config_hash: 4QlSnWBcxxKMIFRM8sbu_MjSkcp3NjGgnVrc-lynQHI
+id: finy2_login
+theme: finy2
+region: footer
+weight: -7
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: 'User login'
+  provider: user
+  label_display: visible
+visibility: {  }

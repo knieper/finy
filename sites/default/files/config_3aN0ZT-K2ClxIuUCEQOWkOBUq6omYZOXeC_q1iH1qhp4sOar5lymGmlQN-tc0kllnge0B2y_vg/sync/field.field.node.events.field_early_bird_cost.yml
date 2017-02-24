@@ -1,0 +1,19 @@
+uuid: 182ac6a3-34c1-4ae5-8763-f310d713ae13
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_early_bird_cost
+    - node.type.events
+id: node.events.field_early_bird_cost
+field_name: field_early_bird_cost
+entity_type: node
+bundle: events
+label: 'Early bird cost'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

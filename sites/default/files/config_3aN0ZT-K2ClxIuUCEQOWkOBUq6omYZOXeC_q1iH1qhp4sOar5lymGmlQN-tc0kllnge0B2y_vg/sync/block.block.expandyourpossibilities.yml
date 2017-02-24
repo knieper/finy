@@ -1,0 +1,31 @@
+uuid: 43f36d76-b4ca-44f5-906a-7dde191fe91a
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:hero:283cfb00-50cd-4fa5-af52-7dc4d36eb063'
+  module:
+    - block_content
+    - system
+  theme:
+    - finy2
+id: expandyourpossibilities
+theme: finy2
+region: top_content
+weight: 0
+provider: null
+plugin: 'block_content:283cfb00-50cd-4fa5-af52-7dc4d36eb063'
+settings:
+  id: 'block_content:283cfb00-50cd-4fa5-af52-7dc4d36eb063'
+  label: 'Expand your possibilities'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /about-method
+    negate: false
+    context_mapping: {  }

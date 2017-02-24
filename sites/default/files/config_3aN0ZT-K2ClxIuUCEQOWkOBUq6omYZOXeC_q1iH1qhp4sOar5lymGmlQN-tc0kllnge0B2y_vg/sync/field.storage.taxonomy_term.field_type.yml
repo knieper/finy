@@ -1,0 +1,33 @@
+uuid: f00b4eef-d71b-4828-8886-f412b34777a3
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - taxonomy
+id: taxonomy_term.field_type
+field_name: field_type
+entity_type: taxonomy_term
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: Founder
+      label: Founder
+    -
+      value: 'Senior Practitioner'
+      label: 'Senior Practitioner'
+    -
+      value: 'Staff Practitioner'
+      label: 'Staff Practitioner'
+    -
+      value: 'Office Staff'
+      label: 'Office Staff'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 2
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

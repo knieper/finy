@@ -1,0 +1,23 @@
+uuid: e82f21b4-0dc5-4b6a-9413-8aa6406a6696
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_classes
+    - paragraphs.paragraphs_type.a_view
+id: paragraph.a_view.field_classes
+field_name: field_classes
+entity_type: paragraph
+bundle: a_view
+label: Classes
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:classy_paragraphs_style'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

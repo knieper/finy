@@ -1,0 +1,22 @@
+uuid: b81272a3-8729-491c-b7e2-099e112af1ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.store_item
+id: node.store_item.status
+field_name: status
+entity_type: node
+bundle: store_item
+label: 'Publishing status'
+description: 'A boolean indicating whether the node is published.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

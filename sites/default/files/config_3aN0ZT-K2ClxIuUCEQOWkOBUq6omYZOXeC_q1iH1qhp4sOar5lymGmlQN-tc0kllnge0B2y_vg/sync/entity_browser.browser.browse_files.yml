@@ -1,0 +1,52 @@
+uuid: d70a3f3a-30a6-42a9-ae83-0b4ef96c8f3a
+langcode: und
+status: true
+dependencies:
+  config:
+    - views.view.file_entity_browser
+  enforced:
+    module:
+      - file_browser
+  module:
+    - views
+_core:
+  default_config_hash: jaMakeP0tI7jOqIngi9hMPSl9idZDpbidHFAmPaaCP0
+name: browse_files
+label: 'Browser for files'
+display: iframe
+display_configuration:
+  width: 100%
+  height: '300'
+  link_text: 'Select files'
+  auto_open: true
+selection_display: multi_step_display
+selection_display_configuration:
+  entity_type: file
+  display: thumbnail
+  display_settings:
+    image_style: file_entity_browser_small
+  selection_hidden: true
+  select_text: 'Use selected'
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  a4ad947c-9669-497c-9988-24351955a02f:
+    settings:
+      view: file_entity_browser
+      view_display: entity_browser_1
+      submit_text: 'Select entities'
+      auto_select: false
+    uuid: a4ad947c-9669-497c-9988-24351955a02f
+    weight: -9
+    label: 'Files listing'
+    id: view
+  d2cf7ba0-3d32-4f70-ad71-07ec120ec6ef:
+    settings:
+      upload_location: 'public://hero-images/'
+      multiple: false
+      submit_text: 'Select files'
+      extensions: 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp'
+    uuid: d2cf7ba0-3d32-4f70-ad71-07ec120ec6ef
+    weight: -10
+    label: Upload
+    id: upload

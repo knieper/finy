@@ -1,0 +1,22 @@
+uuid: e5fbe4d7-d89b-4dc7-8c80-bcc7aa1926f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_chunk
+    - paragraphs.paragraphs_type.chunk
+  module:
+    - text
+id: paragraph.chunk.field_chunk
+field_name: field_chunk
+entity_type: paragraph
+bundle: chunk
+label: chunk
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

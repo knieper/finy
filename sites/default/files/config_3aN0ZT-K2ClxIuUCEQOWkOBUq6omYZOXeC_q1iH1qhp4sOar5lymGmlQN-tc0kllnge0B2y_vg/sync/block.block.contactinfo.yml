@@ -1,0 +1,25 @@
+uuid: 2362eae3-0dc3-403b-a7e2-b367393aba5d
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:b5e361c3-0afc-4f56-acf6-9abbbfd0c48d'
+  module:
+    - block_content
+  theme:
+    - finy2
+id: contactinfo
+theme: finy2
+region: footer
+weight: -9
+provider: null
+plugin: 'block_content:b5e361c3-0afc-4f56-acf6-9abbbfd0c48d'
+settings:
+  id: 'block_content:b5e361c3-0afc-4f56-acf6-9abbbfd0c48d'
+  label: 'Contact info'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

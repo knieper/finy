@@ -1,0 +1,65 @@
+uuid: f39b0708-9a41-4ee8-8c93-275ad1170204
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+  module:
+    - ckeditor
+format: basic_html
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Formatting
+          items:
+            - Bold
+            - Italic
+        -
+          name: Links
+          items:
+            - Linkit
+            - DrupalUnlink
+        -
+          name: Lists
+          items:
+            - BulletedList
+            - NumberedList
+            - Outdent
+            - Indent
+        -
+          name: Media
+          items:
+            - Blockquote
+            - DrupalImage
+        -
+          name: Tools
+          items:
+            - Source
+        -
+          name: format
+          items:
+            - HorizontalRule
+            - JustifyLeft
+            - JustifyCenter
+            - JustifyRight
+            - '-'
+            - Format
+            - Styles
+  plugins:
+    language:
+      language_list: un
+    stylescombo:
+      styles: "a.btn.btn-primary|Primary button.\r\np.btn.btn-hero-lg|Hero button.\r\np.text-center|Centered paragraph.\r\nh2.text-center|Centered header 2.\r\ndiv.highlight|Highlight."
+    linkit:
+      linkit_profile: basic
+image_upload:
+  status: true
+  scheme: public
+  directory: paragraph-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null

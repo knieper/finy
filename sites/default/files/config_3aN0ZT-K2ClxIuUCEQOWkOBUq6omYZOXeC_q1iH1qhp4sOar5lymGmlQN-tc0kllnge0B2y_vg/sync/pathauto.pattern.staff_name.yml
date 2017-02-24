@@ -1,0 +1,14 @@
+uuid: 6a60a3fa-aa58-46ed-8a6e-47e187bff0aa
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: staff_name
+label: 'Staff name'
+type: 'canonical_entities:taxonomy_term'
+pattern: '[term:name]'
+selection_criteria: {  }
+selection_logic: and
+weight: 0
+relationships: {  }

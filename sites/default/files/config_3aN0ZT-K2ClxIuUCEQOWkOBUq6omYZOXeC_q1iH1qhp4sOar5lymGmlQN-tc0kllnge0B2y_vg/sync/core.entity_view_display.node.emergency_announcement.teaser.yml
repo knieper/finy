@@ -1,0 +1,27 @@
+uuid: 3ce868b5-f821-4b54-87dd-893e9a5c5b68
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.emergency_announcement.body
+    - node.type.emergency_announcement
+  module:
+    - text
+    - user
+id: node.emergency_announcement.teaser
+targetEntityType: node
+bundle: emergency_announcement
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+  links:
+    weight: 100
+hidden:
+  langcode: true

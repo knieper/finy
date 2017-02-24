@@ -1,0 +1,25 @@
+uuid: 79717712-fefe-4da9-a16d-eb858b1066e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.emergency_announcement.body
+    - node.type.emergency_announcement
+  module:
+    - text
+    - user
+id: node.emergency_announcement.default
+targetEntityType: node
+bundle: emergency_announcement
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+  links:
+    weight: 100
+hidden:
+  langcode: true

@@ -1,0 +1,14 @@
+uuid: 8b75287c-752b-4eea-a0c2-1216024a8a02
+name: 'Feldenkrais Institute of New York'
+mail: sharonknieper@gmail.com
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /node/1
+admin_compact_mode: false
+weight_select_max: 100
+langcode: en
+default_langcode: en
+_core:
+  default_config_hash: AyT9s8OUcclfALRE_imByOMgtZ19eOlqdF6zI3p7yqo

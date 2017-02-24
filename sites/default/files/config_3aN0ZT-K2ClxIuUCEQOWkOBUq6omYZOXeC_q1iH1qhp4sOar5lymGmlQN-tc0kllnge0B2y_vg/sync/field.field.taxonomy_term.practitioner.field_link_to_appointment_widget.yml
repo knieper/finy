@@ -1,0 +1,23 @@
+uuid: e196155c-7d97-4623-94f5-99117acf13ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_link_to_appointment_widget
+    - taxonomy.vocabulary.practitioner
+  module:
+    - link
+id: taxonomy_term.practitioner.field_link_to_appointment_widget
+field_name: field_link_to_appointment_widget
+entity_type: taxonomy_term
+bundle: practitioner
+label: 'Link to appointment widget'
+description: "<p>If staff member accepts online appointments enter MindBody link that looks like: \r\nhttps://clients.mindbodyonline.com/classic/ws?studioid=16009&stype=-9&sView=day&sLoc=0&sTrn=100000071</p>\r\n\r\n<p>They can be found here: https://clients.mindbodyonline.com/linksandshortcuts</p>"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 1
+field_type: link

@@ -1,0 +1,19 @@
+uuid: 7bb77909-401a-4cbd-b108-1763bed9b4d5
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+    - text
+id: taxonomy_term.field_how_you_got_started_
+field_name: field_how_you_got_started_
+entity_type: taxonomy_term
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

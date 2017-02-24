@@ -1,0 +1,29 @@
+uuid: fac98d0e-babd-4a5a-b51d-f6ba9009a05e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.display_page.field_chunk
+    - node.type.display_page
+  module:
+    - entity_reference_revisions
+    - user
+id: node.display_page.default
+targetEntityType: node
+bundle: display_page
+mode: default
+content:
+  field_chunk:
+    type: entity_reference_revisions_entity_view
+    weight: 103
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true

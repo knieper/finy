@@ -1,0 +1,22 @@
+uuid: 71360ab1-9b69-4037-874c-da4e6d3ddb1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.emergency_announcement
+  module:
+    - text
+id: node.emergency_announcement.body
+field_name: body
+entity_type: node
+bundle: emergency_announcement
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

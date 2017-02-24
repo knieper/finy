@@ -1,0 +1,25 @@
+uuid: fc097531-b1fa-4e84-8578-06287a333319
+langcode: en
+status: true
+dependencies:
+  module:
+    - scheduler
+third_party_settings:
+  scheduler:
+    expand_fieldset: when_required
+    fields_display_mode: vertical_tab
+    publish_enable: true
+    publish_past_date: publish
+    publish_required: false
+    publish_revision: true
+    publish_touch: false
+    unpublish_enable: false
+    unpublish_required: false
+    unpublish_revision: false
+name: Product
+type: store_item
+description: 'Use for posting items to the FINY store'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

@@ -1,0 +1,25 @@
+uuid: e94f3af5-048f-4f41-8954-379e23628b5d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.chunk.field_chunk
+    - field.field.paragraph.chunk.field_classes
+    - paragraphs.paragraphs_type.chunk
+  module:
+    - text
+id: paragraph.chunk.default
+targetEntityType: paragraph
+bundle: chunk
+mode: default
+content:
+  field_chunk:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+hidden:
+  created: true
+  field_classes: true
+  uid: true

@@ -1,0 +1,108 @@
+uuid: 3938f112-a40d-4ba5-9426-971a79539fba
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.browse_files
+    - field.field.taxonomy_term.practitioner.field_are
+    - field.field.taxonomy_term.practitioner.field_for_more_information
+    - field.field.taxonomy_term.practitioner.field_how_you_got_started_
+    - field.field.taxonomy_term.practitioner.field_image
+    - field.field.taxonomy_term.practitioner.field_link_to_appointment_widget
+    - field.field.taxonomy_term.practitioner.field_teachers_studied_with
+    - field.field.taxonomy_term.practitioner.field_type
+    - field.field.taxonomy_term.practitioner.field_year_certified
+    - taxonomy.vocabulary.practitioner
+  module:
+    - entity_browser
+    - link
+    - path
+    - text
+id: taxonomy_term.practitioner.default
+targetEntityType: taxonomy_term
+bundle: practitioner
+mode: default
+content:
+  description:
+    type: text_textarea
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: '(about you)'
+    third_party_settings: {  }
+  field_are:
+    weight: 7
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_for_more_information:
+    weight: 9
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_how_you_got_started_:
+    weight: 4
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_image:
+    weight: 2
+    settings:
+      entity_browser: browse_files
+      field_widget_remove: true
+      selection_mode: selection_prepend
+      preview_image_style: file_entity_browser_small
+      field_widget_edit: true
+      open: false
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_browser_file
+  field_link_to_appointment_widget:
+    weight: 8
+    settings:
+      placeholder_url: ''
+      placeholder_title: 'Book an appointment with [staff name]'
+    third_party_settings: {  }
+    type: link_default
+  field_teachers_studied_with:
+    weight: 6
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_type:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_year_certified:
+    weight: 5
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  langcode:
+    type: language_select
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 11
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

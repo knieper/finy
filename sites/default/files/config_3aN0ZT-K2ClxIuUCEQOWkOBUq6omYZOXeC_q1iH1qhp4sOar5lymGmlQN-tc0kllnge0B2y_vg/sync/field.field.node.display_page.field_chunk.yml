@@ -1,0 +1,35 @@
+uuid: 73d98390-620b-408f-b98d-0f252616a78f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_chunk
+    - node.type.display_page
+    - paragraphs.paragraphs_type.a_view
+    - paragraphs.paragraphs_type.chunk
+  module:
+    - entity_reference_revisions
+id: node.display_page.field_chunk
+field_name: field_chunk
+entity_type: node
+bundle: display_page
+label: 'a chunk'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      chunk: chunk
+      a_view: a_view
+    target_bundles_drag_drop:
+      chunk:
+        enabled: true
+        weight: 2
+      a_view:
+        enabled: true
+        weight: 3
+field_type: entity_reference_revisions
