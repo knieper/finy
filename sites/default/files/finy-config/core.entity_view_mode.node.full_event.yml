@@ -1,0 +1,10 @@
+uuid: 4be8dc3d-48db-4153-aaa9-e7de2ab6983c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.full_event
+label: 'full event'
+targetEntityType: node
+cache: true

@@ -1,0 +1,10 @@
+uuid: 9e50fe39-4b76-4fdc-969d-ce08562aae13
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.brief_event
+label: 'brief event'
+targetEntityType: node
+cache: true

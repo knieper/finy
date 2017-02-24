@@ -1,0 +1,75 @@
+uuid: ddf1c088-c634-4d95-a0fb-e48865af970f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.brief_event
+    - field.field.node.events.body
+    - field.field.node.events.field_cost
+    - field.field.node.events.field_early_bird_cost
+    - field.field.node.events.field_event_end_date
+    - field.field.node.events.field_event_start_date
+    - field.field.node.events.field_image
+    - field.field.node.events.field_member_cost
+    - field.field.node.events.field_practitioner
+    - field.field.node.events.field_register_link
+    - field.field.node.events.field_subtitle
+    - node.type.events
+  module:
+    - datetime
+    - responsive_image
+    - user
+id: node.events.brief_event
+targetEntityType: node
+bundle: events
+mode: brief_event
+content:
+  field_event_end_date:
+    weight: 2
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: time_only
+    third_party_settings: {  }
+    type: datetime_default
+  field_event_start_date:
+    weight: 1
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: long
+    third_party_settings: {  }
+    type: datetime_default
+  field_image:
+    weight: 5
+    label: hidden
+    settings:
+      image_link: ''
+      responsive_image_style: ''
+    third_party_settings: {  }
+    type: responsive_image
+  field_practitioner:
+    weight: 3
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_subtitle:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  links:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  body: true
+  field_cost: true
+  field_early_bird_cost: true
+  field_member_cost: true
+  field_register_link: true
+  langcode: true
