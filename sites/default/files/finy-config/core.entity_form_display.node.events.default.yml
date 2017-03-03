@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.events.body
+    - field.field.node.events.field_color_coding
     - field.field.node.events.field_cost
     - field.field.node.events.field_early_bird_cost
     - field.field.node.events.field_event_end_date
@@ -40,6 +41,11 @@ content:
     weight: 13
     settings: {  }
     third_party_settings: {  }
+  field_color_coding:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
   field_cost:
     weight: 7
     settings:

@@ -1,0 +1,23 @@
+uuid: 8d33a4e5-8aba-4925-b8e8-d83aa8aa478d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_color_coding
+    - node.type.events
+  module:
+    - options
+id: node.events.field_color_coding
+field_name: field_color_coding
+entity_type: node
+bundle: events
+label: 'Color coding'
+description: "1: #527194; //steel blue\r\n2: #4D9680; //forest green\r\n3: #87C665; //limey green\r\n4: #C2D96F; //yellow green\r\n5: #E3DB74; //dirty mustard yellow\r\n6: #E3B674; // taupe\r\n7: #E39874; //rust\r\n8: #CF6A83; //pinky mauve\r\n9: #9D5194; //purple"
+required: true
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

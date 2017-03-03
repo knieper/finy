@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.events.body
+    - field.field.node.events.field_color_coding
     - field.field.node.events.field_cost
     - field.field.node.events.field_early_bird_cost
     - field.field.node.events.field_event_end_date
@@ -106,4 +107,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_color_coding: true
   langcode: true

@@ -50,7 +50,7 @@ content:
     type: responsive_image
   field_practitioner:
     weight: 3
-    label: inline
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }

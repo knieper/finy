@@ -1,0 +1,32 @@
+uuid: 22c4333d-cb4c-4ac8-967e-cac116c5112d
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.staff_bio_for_events
+  module:
+    - ctools
+    - views
+  theme:
+    - finy2
+id: views_block__staff_bio_for_events_block_1
+theme: finy2
+region: content
+weight: -6
+provider: null
+plugin: 'views_block:staff_bio_for_events-block_1'
+settings:
+  id: 'views_block:staff_bio_for_events-block_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      events: events
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
