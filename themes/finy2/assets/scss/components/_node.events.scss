@@ -1,0 +1,53 @@
+// Node: events
+// -----------------------------------------------------------------------------
+//color styling for the events list is set _view.events
+.events {
+  &.events--brief-event{
+  //  display: flex;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-bottom: 1em;
+    > div {
+      padding-right: 0px;
+      padding-left: 0px;
+      color: $gray-dark;
+    }
+    .event-titles{
+      h1, h2, h3, h4{
+        padding-left: ceil(($grid-gutter-width / 2));
+      }
+      h1, h2, h3, h4,
+      .events__field-subtitle{
+        line-height: 1.3em;
+        color: white;
+        //align-self: flex-end;
+      }
+      //display: flex;
+    //min-height:12em;
+    }
+    .event-logistics{
+      padding-top: .5em;
+      padding-bottom: .5em;
+      padding-left: ceil(($grid-gutter-width / 2));
+    }
+    .event-details{
+      text-align: center;
+    }
+
+    //display date/time inline
+    .events__field-event-start-date,
+    .events__field-event-end-date {
+      display: inline-block;
+    }
+    .events__field-practitioner {
+      &::before{
+        content: 'with ';
+      }
+      //font-size: $font-size-h4;
+      a{
+        color: white;
+      }
+    }
+  }
+
+}

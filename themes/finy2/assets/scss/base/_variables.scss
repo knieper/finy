@@ -18,8 +18,19 @@ $gray-lighter:           lighten(#000, 93.5%) !default; // #eee
 
 // Brand colors
 // -----------------------------------------------------------------------------
+//muted color scheme
+$a1: #527194; //steel blue
+$a2: #4D9680; //forest green
+$a3: #87C665; //limey green
+$a4: #C2D96F; //yellow green
+$a5: #E3DB74; //dirty mustard yellow
+$a6: #E3B674; // taupe
+$a7: #E39874; //dusty pink
+$a8: #CF6A83; //pinky mauve
+$a9: #9D5194; //purple
 
-$brand-primary:         #74B7C2 !default; //#428bca !default;
+
+$brand-primary:         $a1; //#74B7C2 !default;
 $brand-success:         #5cb85c !default;
 $brand-warning:         #f0ad4e !default;
 $brand-danger:          #d9534f !default;
@@ -27,6 +38,17 @@ $brand-info:            #5bc0de !default;
 
 $brand-secondary:       #DCE2C8 !default;
 
+// Event colors
+// ---------------------------------------------------------------------------------------------------
+$color1: $a1;
+$color2: $a2;
+$color3: $a3;
+$color4: $a4;
+$color5: $a5;
+$color6: $a6;
+$color7: $a7;
+$color8: $a8;
+$color9: $a9;
 
 // Scaffolding
 // -----------------------------------------------------------------------------
@@ -38,7 +60,7 @@ $text-color:            $gray; //$gray-dark !default;
 // -----------------------------------------------------------------------------
 
 $link-color:            $brand-primary !default;
-$link-hover-color:      darken($link-color, 15%) !default;
+$link-hover-color:      darken($link-color, 10%) !default;
 
 // Typography
 // -----------------------------------------------------------------------------

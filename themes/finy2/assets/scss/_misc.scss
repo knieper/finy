@@ -15,7 +15,6 @@
         font-size: $font-size-h2;
       }
       &:hover, &:focus {
-        //background-color: rgba(0,0,0, .8);
         background-color: rgba(255,255,255, .3);
         border-color: white;
       }
@@ -26,8 +25,53 @@
         }
       }
 }
+.btn-alt-light{
+  @extend .btn-primary;
+      background-color: transparent;
+      border: solid $border-radius-base white;
+      color: white;
+      border-width: 1px;
+      &:hover, &:focus {
+        background-color: rgba(255,255,255, .3);
+        border-color: white;
+      }
+      a{
+        color:white;
+        &:hover, &:focus{
+          text-decoration: none;
+        }
+      }
+}
+//grey outlined 'button' to use on color backgrounds or light images
+.btn-alt-dark{
+  @extend .btn-primary;
+      background-color: transparent;
+      border: solid $border-radius-base $gray;
+      border-width: 1px;
+      color: $gray-dark;
+      &:hover, &:focus {
+        background-color: rgba($gray, .3);
+        border-color: $gray;
+      }
+      a{
+        color: $gray;
+        &:hover, &:focus{
+          text-decoration: none;
+        }
+      }
+}
 //-----Horizontal rule-----////
 hr {
   border-top: 2px solid $brand-secondary;
   margin: 3em 0px;
+}
+
+//style views-reference as an h2. cannot edit simply with templates because it is a views reference field and it doesnot get exposed like a typical field in a template
+.viewsreference-title{
+  font-size: $font-size-h2;
+  font: $headings-font-family;
+  font-weight: $headings-font-weight;
+  line-height: $headings-line-height;
+  color: $headings-color;
+  margin-bottom: .5em;
 }

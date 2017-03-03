@@ -1,0 +1,187 @@
+// View: Frontpage
+// -----------------------------------------------------------------------------
+.view--events {
+//colors for events...may need to abstract out of the view css to the component css somehow.
+  .color-1{
+    .events--brief-event{
+      background: darken($color1, 20%);
+    }
+    .event-logistics{
+      background-color: $color1;
+    }
+    .event-details{
+      background: lighten($color1, 15%);
+    }
+    .btn-alt-dark{
+      margin: 1em 0px;
+      border-color: darken($color1, 5%);
+      &:hover, &:focus {
+        background-color: $color1;
+      }
+    }
+  }
+  .color-2{
+    .events--brief-event{
+      background: darken($color2, 20%);
+    }
+    .event-logistics{
+      background-color: $color2;
+    }
+    .event-details{
+      background: lighten($color2, 15%);
+    }
+    .btn-alt-dark{
+      margin: 1em 0px;
+      border-color: darken($color2, 5%);
+      &:hover, &:focus {
+        background-color: $color2;
+      }
+    }
+  }
+  .color-3{
+    .events--brief-event{
+      background: darken($color3, 20%);
+    }
+    .event-logistics{
+      background-color: $color3;
+    }
+    .event-details{
+      background: lighten($color3, 15%);
+    }
+    .btn-alt-dark{
+      margin: 1em 0px;
+      border-color: darken($color3, 5%);
+      &:hover, &:focus {
+        background-color: $color3;
+      }
+    }
+  }
+  .color-4{
+    .events--brief-event{
+      background: darken($color4, 20%);
+    }
+    .event-logistics{
+      background-color: $color4;
+    }
+    .event-details{
+      background: lighten($color4, 15%);
+    }
+    .btn-alt-dark{
+      margin: 1em 0px;
+      border-color: darken($color4, 5%);
+      &:hover, &:focus {
+        background-color: $color4;
+      }
+    }
+  }
+  .color-4{
+    .events--brief-event{
+      background: darken($color4, 20%);
+    }
+    .event-logistics{
+      background-color: $color4;
+    }
+    .event-details{
+      background: lighten($color4, 15%);
+    }
+    .btn-alt-dark{
+      margin: 1em 0px;
+      border-color: darken($color4, 5%);
+      &:hover, &:focus {
+        background-color: $color4;
+      }
+    }
+  }
+  .color-5{
+    .events--brief-event{
+      background: darken($color5, 20%);
+    }
+    .event-logistics{
+      background-color: $color5;
+    }
+    .event-details{
+      background: lighten($color5, 15%);
+    }
+    .btn-alt-dark{
+      margin: 1em 0px;
+      border-color: darken($color5, 5%);
+      &:hover, &:focus {
+        background-color: $color5;
+      }
+    }
+  }
+  .color-6{
+    .events--brief-event{
+      background: darken($color6, 20%);
+    }
+    .event-logistics{
+      background-color: $color6;
+    }
+    .event-details{
+      background: lighten($color6, 15%);
+    }
+    .btn-alt-dark{
+      margin: 1em 0px;
+      border-color: darken($color6, 5%);
+      &:hover, &:focus {
+        background-color: $color6;
+      }
+    }
+  }
+  .color-7{
+    .events--brief-event{
+      background: darken($color7, 20%);
+    }
+    .event-logistics{
+      background-color: $color7;
+    }
+    .event-details{
+      background: lighten($color7, 15%);
+    }
+    .btn-alt-dark{
+      margin: 1em 0px;
+      border-color: darken($color7, 5%);
+      &:hover, &:focus {
+        background-color: $color7;
+      }
+    }
+  }
+  .color-8{
+    .events--brief-event{
+      background: darken($color8, 20%);
+    }
+    .event-logistics{
+      background-color: $color8;
+    }
+    .event-details{
+      background: lighten($color8, 15%);
+    }
+    .btn-alt-dark{
+      margin: 1em 0px;
+      border-color: darken($color8, 5%);
+      &:hover, &:focus {
+        background-color: $color8;
+      }
+    }
+  }
+  .color-9{
+    .events--brief-event{
+      background: darken($color9, 20%);
+    }
+    .event-logistics{
+      background-color: $color9;
+    }
+    .event-details{
+      background: lighten($color9, 15%);
+    }
+    .btn-alt-dark{
+      margin: 1em 0px;
+      border-color: darken($color9, 5%);
+      &:hover, &:focus {
+        background-color: $color9;
+      }
+    }
+  }
+
+
+}

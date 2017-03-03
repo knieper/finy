@@ -12,7 +12,7 @@
     margin-bottom: 0px;
   }
   .navbar-toggle{
-    margin-top: 18.5px; 
+    margin-top: 18.5px;
   }
 }
 
@@ -75,9 +75,6 @@ ol.breadcrumb {
 .block--finy2-local-tasks{
   font-style: italic;
   ul{
-    &:before{
-      content: 'Administrative tasks: ';
-    }
     margin-top: 1em;
     li{
       display:inline;

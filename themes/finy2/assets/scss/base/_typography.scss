@@ -5,9 +5,11 @@
    margin-bottom: 2em;
 }
 
+/*
 .page--short h2{
   text-align: center;
 }
+*/
 
 .highlight{
   font-size: $font-size-h3;
@@ -19,13 +21,4 @@
     font-size: 64px;
     line-height: 64px*1.6;
   }
-}
-
-//style views-reference as an h2. cannot edit simply with templates because it is a views reference field and it doesnot get exposed like a typical field in a template
-.viewsreference-title{
-  font-size: $font-size-h2;
-  font: $headings-font-family;
-  font-weight: $headings-font-weight;
-  line-height: $headings-line-height;
-  color: $headings-color;
 }
