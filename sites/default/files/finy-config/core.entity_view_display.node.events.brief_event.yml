@@ -68,6 +68,7 @@ content:
     third_party_settings: {  }
 hidden:
   body: true
+  field_color_coding: true
   field_cost: true
   field_early_bird_cost: true
   field_member_cost: true
