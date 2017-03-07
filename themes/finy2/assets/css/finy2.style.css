@@ -8899,8 +8899,9 @@ hr {
   border-top: 2px solid #DCE2C8;
   margin: 3em 0px; }
 
-.col-md-6 hr {
-  border-top: transparent; }
+@media (min-width: 992px) {
+  .col-md-6 hr, .col-md-4 hr {
+    border-top: transparent; } }
 
 .viewsreference-title {
   font-size: 34px;

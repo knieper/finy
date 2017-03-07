@@ -66,9 +66,11 @@ hr {
   margin: 3em 0px;
 }
 //hide when two column
-.col-md-6 {
-  hr {
-    border-top: transparent;
+@media (min-width: $screen-md-min){
+  .col-md-6, .col-md-4 {
+    hr {
+      border-top: transparent;
+    }
   }
 }
 

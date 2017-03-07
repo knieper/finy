@@ -1,0 +1,7 @@
+uuid: 700a3767-78f1-4ad6-8b7c-4e42b19d27c6
+langcode: en
+status: true
+dependencies: {  }
+id: full_width_xs
+label: 'Full width xs'
+classes: col-xs-12

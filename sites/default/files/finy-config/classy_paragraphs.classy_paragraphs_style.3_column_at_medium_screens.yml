@@ -1,0 +1,7 @@
+uuid: a979f7a9-4fa6-4707-ba37-322a2704bc97
+langcode: en
+status: true
+dependencies: {  }
+id: 3_column_at_medium_screens
+label: '3 column at medium screens'
+classes: col-md-4
