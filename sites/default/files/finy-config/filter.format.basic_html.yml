@@ -58,23 +58,26 @@ filters:
   filter_imagestyle:
     id: filter_imagestyle
     provider: inline_responsive_images
-    status: false
+    status: true
     weight: 0
     settings:
       image_style_file_entity_browser_small: '0'
       image_style_file_entity_browser_thumbnail: '0'
-      image_style_large: '0'
+      image_style_large: '1'
       image_style_large_hero: '0'
+      image_style_largest_headshot: '0'
       image_style_linkit_result_thumbnail: '0'
       image_style_medium: '1'
       image_style_medium_hero: '0'
       image_style_small_hero: '0'
+      image_style_smallest_headshot: '0'
       image_style_thumbnail: '0'
       image_style_xsmall_hero: '0'
   filter_responsive_image_style:
     id: filter_responsive_image_style
     provider: inline_responsive_images
-    status: true
+    status: false
     weight: 0
     settings:
+      responsive_style_headshot: '1'
       responsive_style_hero: '1'

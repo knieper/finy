@@ -1,5 +1,13 @@
 @charset "UTF-8";
 @import url("//fonts.googleapis.com/css?family=Lato:300,300i,700,700i");
+/*
+$font-size-h1:            floor($font-size-base * 2.6) !default; // ~42px
+$font-size-h2:            floor($font-size-base * 2.15) !default; // ~34px
+$font-size-h3:            ceil($font-size-base * 1.7) !default; // ~27px
+$font-size-h4:            ceil($font-size-base * 1.25) !default; // ~20px
+$font-size-h5:            $font-size-base !default;
+$font-size-h6:            ceil($font-size-base * 0.85) !default; // ~14px
+*/
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;
@@ -1184,22 +1192,22 @@ h6, .h6 {
     font-size: 75%; }
 
 h1, .h1 {
-  font-size: 41px; }
+  font-size: 50px; }
 
 h2, .h2 {
-  font-size: 34px; }
+  font-size: 37px; }
 
 h3, .h3 {
   font-size: 28px; }
 
 h4, .h4 {
-  font-size: 20px; }
+  font-size: 21px; }
 
 h5, .h5 {
   font-size: 16px; }
 
 h6, .h6 {
-  font-size: 14px; }
+  font-size: 12px; }
 
 p {
   margin: 0 0 11.5px; }
@@ -8523,8 +8531,8 @@ ul.dropdown-menu li {
 }
 */
 .highlight {
-  font-size: 28px;
-  line-height: 44.8px;
+  font-size: 37px;
+  line-height: 59.2px;
   font-style: italic;
   text-align: center;
   color: white; }
@@ -8857,10 +8865,10 @@ ol.breadcrumb {
   border: solid 2px white;
   color: white;
   display: block;
-  font-size: 20px; }
+  font-size: 21px; }
   @media (min-width: 768px) {
     .btn-hero-lg {
-      font-size: 34px; } }
+      font-size: 37px; } }
   .btn-hero-lg:hover, .btn-hero-lg:focus {
     background-color: rgba(255, 255, 255, 0.3);
     border-color: white; }
@@ -8904,7 +8912,7 @@ hr {
     border-top: transparent; } }
 
 .viewsreference-title {
-  font-size: 34px;
+  font-size: 37px;
   font: "Lato", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
