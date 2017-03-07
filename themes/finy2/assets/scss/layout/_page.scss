@@ -2,14 +2,11 @@
 // -----------------------------------------------------------------------------
 //---layout for taglines/buttons in hero blocks--//
 .top-content .hero{
-  //  display: flex;
-    position: relative;
+  //  position: relative;
     .hero__field-tag{
       display: flex;
       align-items: center;
-      //flex-direction: column;
       justify-content: center;
-    //  margin-left: -100%;
       position: absolute;
       top: 0;
       width: 100%;
