@@ -8638,6 +8638,8 @@ ol.breadcrumb {
   .events.events--brief-event .event-titles .events__field-subtitle {
     line-height: 1.3em;
     color: white; }
+  .events.events--brief-event .event-titles a {
+    color: white; }
   .events.events--brief-event .event-logistics {
     padding-top: .5em;
     padding-bottom: .5em;
@@ -8827,22 +8829,25 @@ ol.breadcrumb {
 .view--staff .views-field-name {
   padding-top: 15px;
   padding-bottom: 15px;
-  text-align: center; }
-  @media (max-width: 480px) {
-    .view--staff .views-field-name {
-      width: 170px; } }
-  @media (min-width: 481px) and (max-width: 580px) {
-    .view--staff .views-field-name {
-      width: 210px; } }
-  @media (min-width: 581px) and (max-width: 670px) {
-    .view--staff .views-field-name {
-      width: 240px; } }
-  @media (min-width: 671px) and (max-width: 1200px) {
-    .view--staff .views-field-name {
-      width: 210px; } }
-  @media (min-width: 1200px) {
-    .view--staff .views-field-name {
-      width: 300px; } }
+  /*
+    text-align: center;
+    //max 480
+    @media (max-width: $screen-xs){
+        width: 170px;
+      }
+    @media (min-width: $screen-xs+1)and(max-width: 580px){
+        width: 210px;
+    }
+    @media (min-width: 581px)and(max-width: 670px){
+        width: 240px;
+    }
+    @media (min-width: 671px)and(max-width: 1200px){
+        width: 210px;
+    }
+    @media (min-width:1200px){
+      width: 300px;
+    }
+    */ }
 
 .btn-primary, body.maintenance-page .form-actions .btn:first-child, body.maintenance-page .form-actions .media-widget > a:first-child, .btn-hero-lg, .btn-alt-light, .btn-alt-dark {
   margin: 1.5em 0px; }
@@ -8894,12 +8899,16 @@ hr {
   border-top: 2px solid #DCE2C8;
   margin: 3em 0px; }
 
+.col-md-6 hr {
+  border-top: transparent; }
+
 .viewsreference-title {
   font-size: 34px;
   font: "Lato", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
-  margin-bottom: .5em; }
+  margin-bottom: .5em;
+  text-align: center; }
 
 /*# sourceMappingURL=finy2.style.css.map */

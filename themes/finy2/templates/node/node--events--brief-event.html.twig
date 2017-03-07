@@ -80,7 +80,7 @@ view_mode ? bundle ~ '--' ~ view_mode|clean_class,
     <div class="event-titles col-xs-12 col-sm-6 col-md-6">
     {{ title_prefix }}
  	  {% if not page %}
-    	<h3{{ title_attributes }} class="pull-left"> {{ label }} <small> {{ content.field_subtitle }}</small></h3>
+    	<h3{{ title_attributes }} class="pull-left"> <a href="{{ url }}" rel="bookmark">{{ label }}</a> <small> {{ content.field_subtitle }}</small></h3>
   	{% endif %}
   	{{ title_suffix }}
     </div>

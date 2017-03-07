@@ -65,6 +65,12 @@ hr {
   border-top: 2px solid $brand-secondary;
   margin: 3em 0px;
 }
+//hide when two column
+.col-md-6 {
+  hr {
+    border-top: transparent;
+  }
+}
 
 //style views-reference as an h2. cannot edit simply with templates because it is a views reference field and it doesnot get exposed like a typical field in a template
 .viewsreference-title{
@@ -74,4 +80,5 @@ hr {
   line-height: $headings-line-height;
   color: $headings-color;
   margin-bottom: .5em;
+  text-align: center;
 }

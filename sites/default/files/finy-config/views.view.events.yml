@@ -454,7 +454,7 @@ display:
           empty: true
           tokenize: false
           content:
-            value: '<p class="text-center"><a class="btn btn-primary" href="/classes-workshops/upcoming-events" role="button" title="More upcoming events" rel="nofollow">More upcoming events</a></p>'
+            value: "<p class=\"text-center\"><a class=\"btn btn-primary\" href=\"/classes-workshops/upcoming-events\" role=\"button\" title=\"More upcoming events\" rel=\"nofollow\">More upcoming events</a></p>\n<hr>"
             format: basic_html
           plugin_id: text
       empty:
