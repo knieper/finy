@@ -1,0 +1,31 @@
+uuid: b6e89771-82f2-44fa-a699-2c4f394bca82
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:hero:789bc922-5032-43f9-bce2-117e99eb2cba'
+  module:
+    - block_content
+    - system
+  theme:
+    - finy2
+id: rethinkwellness
+theme: finy2
+region: top_content
+weight: 0
+provider: null
+plugin: 'block_content:789bc922-5032-43f9-bce2-117e99eb2cba'
+settings:
+  id: 'block_content:789bc922-5032-43f9-bce2-117e99eb2cba'
+  label: 'Rethink wellness'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: "/classes-workshops\r\n/classes-workshops/*"
+    negate: false
+    context_mapping: {  }

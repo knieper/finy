@@ -451,7 +451,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          empty: false
+          empty: true
           tokenize: false
           content:
             value: '<p class="text-center"><a class="btn btn-primary" href="/classes-workshops/upcoming-events" role="button" title="More upcoming events" rel="nofollow">More upcoming events</a></p>'
@@ -547,7 +547,20 @@ display:
       display_extenders: {  }
       display_description: ''
       path: classes-workshops/upcoming-events
-      footer: {  }
+      footer:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: '<p class="text-center"><a class="btn btn-primary" href="/classes-workshops/past-events" role="button" title="Past events" rel="nofollow">Past events</a></p>'
+            format: basic_html
+          plugin_id: text
       defaults:
         footer: false
         filters: false

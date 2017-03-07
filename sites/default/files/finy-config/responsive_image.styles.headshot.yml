@@ -1,0 +1,21 @@
+uuid: da143cb1-cb85-4d86-8eed-52428cb09966
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.largest_headshot
+    - image.style.smallest_headshot
+id: headshot
+label: headshot
+image_style_mappings:
+  -
+    breakpoint_id: responsive_image.viewport_sizing
+    multiplier: 1x
+    image_mapping_type: sizes
+    image_mapping:
+      sizes: '(max-width: 480px) 170px,  (max-width: 580px) 210px, (max-width: 670px) 240px, (max-width: 1200px) 210px, 300px'
+      sizes_image_styles:
+        - largest_headshot
+        - smallest_headshot
+breakpoint_group: responsive_image
+fallback_image_style: smallest_headshot

@@ -1,0 +1,60 @@
+// View: Staff/Practitioner
+// -----------------------------------------------------------------------------
+.view--staff {
+  .col-xs-12{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .col-xs-6{
+    &:nth-of-type(2n+1){
+      padding-left:0px;
+    }
+    &:nth-of-type(-n+2){
+      padding-right: 0px;
+    }
+  }
+  .col-sm-4{
+    //re-adds padding
+    &:nth-of-type(2n+1){
+      padding-left:15px;
+    }
+    //now removes padding from next one
+    &:nth-of-type(3n+1){
+      padding-right:0px;
+    }
+    &:nth-of-type(-n+3){
+      padding-left: 0px;
+    }
+  }
+
+  .views-field-name,
+  .views-field-field-image{
+    .field-content{
+      //text-align: center;
+    }
+  }
+  img{
+    border: 1px solid darken($gray-lighter, 5%);
+  }
+  .views-field-name{
+    padding-top: ceil(($grid-gutter-width / 2));
+    padding-bottom: ceil(($grid-gutter-width / 2));
+    text-align: center;
+    //max 480
+    @media (max-width: $screen-xs){
+        width: 170px;
+      }
+    @media (min-width: $screen-xs+1)and(max-width: 580px){
+        width: 210px;
+    }
+    @media (min-width: 581px)and(max-width: 670px){
+        width: 240px;
+    }
+    @media (min-width: 671px)and(max-width: 1200px){
+        width: 210px;
+    }
+    @media (min-width:1200px){
+      width: 300px;
+    }
+  }
+} // close of view--staff

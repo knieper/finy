@@ -1,0 +1,22 @@
+uuid: 399315b2-64c7-43b6-b353-a901e370d530
+langcode: en
+status: true
+dependencies: {  }
+name: smallest_headshot
+label: 'smallest headshot'
+effects:
+  f73a89e6-f7dc-4879-973c-a464c5e42589:
+    uuid: f73a89e6-f7dc-4879-973c-a464c5e42589
+    id: image_scale
+    weight: 1
+    data:
+      width: 180
+      height: null
+      upscale: false
+  b25cc47f-eeb8-4a00-a30f-7f7cffc95b46:
+    uuid: b25cc47f-eeb8-4a00-a30f-7f7cffc95b46
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 180
+      height: 180

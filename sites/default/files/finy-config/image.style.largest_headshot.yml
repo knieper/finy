@@ -1,0 +1,22 @@
+uuid: 973f6ae6-9f6d-4e47-a0af-9cd3debd6354
+langcode: en
+status: true
+dependencies: {  }
+name: largest_headshot
+label: 'largest headshot'
+effects:
+  7db78dcb-b141-44ce-8d55-1a2897668d72:
+    uuid: 7db78dcb-b141-44ce-8d55-1a2897668d72
+    id: image_scale
+    weight: 1
+    data:
+      width: 300
+      height: null
+      upscale: false
+  c9eebc73-8c44-4d8f-9458-a60ba629e7ce:
+    uuid: c9eebc73-8c44-4d8f-9458-a60ba629e7ce
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 300
+      height: 300

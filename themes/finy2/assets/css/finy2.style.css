@@ -8802,6 +8802,48 @@ ol.breadcrumb {
   .view--events .color-9 .btn-alt-dark:hover, .view--events .color-9 .btn-alt-dark:focus {
     background-color: #9D5194; }
 
+.view--staff .col-xs-12 {
+  padding-left: 0px;
+  padding-right: 0px; }
+
+.view--staff .col-xs-6:nth-of-type(2n+1) {
+  padding-left: 0px; }
+
+.view--staff .col-xs-6:nth-of-type(-n+2) {
+  padding-right: 0px; }
+
+.view--staff .col-sm-4:nth-of-type(2n+1) {
+  padding-left: 15px; }
+
+.view--staff .col-sm-4:nth-of-type(3n+1) {
+  padding-right: 0px; }
+
+.view--staff .col-sm-4:nth-of-type(-n+3) {
+  padding-left: 0px; }
+
+.view--staff img {
+  border: 1px solid #e2e2e2; }
+
+.view--staff .views-field-name {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center; }
+  @media (max-width: 480px) {
+    .view--staff .views-field-name {
+      width: 170px; } }
+  @media (min-width: 481px) and (max-width: 580px) {
+    .view--staff .views-field-name {
+      width: 210px; } }
+  @media (min-width: 581px) and (max-width: 670px) {
+    .view--staff .views-field-name {
+      width: 240px; } }
+  @media (min-width: 671px) and (max-width: 1200px) {
+    .view--staff .views-field-name {
+      width: 210px; } }
+  @media (min-width: 1200px) {
+    .view--staff .views-field-name {
+      width: 300px; } }
+
 .btn-primary, body.maintenance-page .form-actions .btn:first-child, body.maintenance-page .form-actions .media-widget > a:first-child, .btn-hero-lg, .btn-alt-light, .btn-alt-dark {
   margin: 1.5em 0px; }
 
