@@ -8911,4 +8911,7 @@ hr {
   .col-md-6 hr, .col-md-4 hr {
     border-top: transparent; } }
 
+img[data-responsive-image-style="body"] {
+  max-width: 100%; }
+
 /*# sourceMappingURL=finy2.style.css.map */
