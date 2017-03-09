@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - system
     - user
   theme:
     - finy2
@@ -10,8 +11,8 @@ _core:
   default_config_hash: 4QlSnWBcxxKMIFRM8sbu_MjSkcp3NjGgnVrc-lynQHI
 id: finy2_login
 theme: finy2
-region: footer
-weight: -7
+region: content
+weight: -5
 provider: null
 plugin: user_login_block
 settings:
@@ -19,4 +20,9 @@ settings:
   label: 'User login'
   provider: user
   label_display: visible
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: user
+    negate: false
+    context_mapping: {  }

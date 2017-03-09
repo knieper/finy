@@ -26,6 +26,6 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: /about-method
+    pages: "/about-method\r\n/about-method/moshe-feldenkrais"
     negate: false
     context_mapping: {  }

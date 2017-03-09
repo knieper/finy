@@ -26,6 +26,6 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: /about-finy
+    pages: "/about-finy\r\n/about-finy/*"
     negate: false
     context_mapping: {  }

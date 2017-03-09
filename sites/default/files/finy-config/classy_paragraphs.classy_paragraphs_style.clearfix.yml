@@ -1,0 +1,7 @@
+uuid: 18e32210-4959-4ccf-aaa2-39f205c4bd5b
+langcode: en
+status: true
+dependencies: {  }
+id: clearfix
+label: Clearfix
+classes: local-clearfix

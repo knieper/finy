@@ -26,6 +26,6 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: /first-time
+    pages: /about-method/first-time
     negate: false
     context_mapping: {  }
