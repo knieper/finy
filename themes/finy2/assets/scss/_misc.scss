@@ -44,7 +44,7 @@ hr {
   border-top: 2px solid $brand-secondary;
   margin: 3em 0px;
 }
-//hide when two column
+//hide hr when two column
 @media (min-width: $screen-md-min){
   .col-md-6, .col-md-4 {
     hr {
@@ -52,6 +52,14 @@ hr {
     }
   }
 }
+
+//----Images-----
+//don't let the image overflow the container
 img[data-responsive-image-style="body"]{
   max-width: 100%;
+}
+
+///
+.local-clearfix{
+  clear:both;
 }

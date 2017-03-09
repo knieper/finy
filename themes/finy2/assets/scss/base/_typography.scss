@@ -25,6 +25,16 @@ article{
     padding-bottom: .25em;
   }
 }
+a{
+  &:hover, &:focus{
+    text-decoration: underline;
+  }
+}
+
+h1,h2,h3,h4,h5,h6 {
+  clear:both;
+}
+
 .h1, .h2, .h3 {
    margin-bottom: $line-height-computed;
    margin-bottom: 2em;
@@ -35,10 +45,4 @@ article{
   line-height: $font-size-h2*1.6;
   font-style: italic;
   text-align:center;
-}
-
-a{
-  &:hover, &:focus{
-    text-decoration: underline;
-  }
 }
