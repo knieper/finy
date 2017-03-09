@@ -81,11 +81,9 @@ ol.breadcrumb {
     li{
       display:inline;
       a {
-        padding: 0px 1em 0px 0px;
+        padding: .5em;
+        line-height: 1rem;
         }
-      &:first-of-type{
-        padding-left: 1em;
-      }
     }
   }
 }

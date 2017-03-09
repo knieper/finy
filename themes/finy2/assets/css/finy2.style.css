@@ -8535,6 +8535,10 @@ h1, h2, h3, h4, h5, h6 {
   font-style: italic;
   text-align: center; }
 
+.green {
+  color: green;
+  font-weight: bolder; }
+
 main {
   margin-top: 3em; }
 
@@ -8649,9 +8653,8 @@ ol.breadcrumb {
     .block--finy2-local-tasks ul li {
       display: inline; }
       .block--finy2-local-tasks ul li a {
-        padding: 0px 1em 0px 0px; }
-      .block--finy2-local-tasks ul li:first-of-type {
-        padding-left: 1em; }
+        padding: .5em;
+        line-height: 1rem; }
 
 .events.events--brief-event {
   padding-right: 0px;
