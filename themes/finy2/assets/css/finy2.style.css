@@ -8591,7 +8591,9 @@ footer {
       margin: auto; }
 
 .navbar-brand {
-  height: 80px; }
+  height: 80px;
+  padding-left: 15px;
+  padding-right: 15px; }
 
 .navbar {
   margin-bottom: 0px; }
