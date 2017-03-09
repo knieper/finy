@@ -59,7 +59,7 @@ filters:
   filter_imagestyle:
     id: filter_imagestyle
     provider: inline_responsive_images
-    status: true
+    status: false
     weight: 0
     settings:
       image_style_file_entity_browser_small: '0'
@@ -77,9 +77,10 @@ filters:
   filter_responsive_image_style:
     id: filter_responsive_image_style
     provider: inline_responsive_images
-    status: false
+    status: true
     weight: 0
     settings:
+      responsive_style_body: '1'
       responsive_style_headshot: '1'
       responsive_style_hero: '1'
   entity_embed:

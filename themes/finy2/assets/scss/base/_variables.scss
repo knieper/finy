@@ -85,8 +85,8 @@ $font-size-h5:            $font-size-base !default;
 $font-size-h6:            ceil($font-size-base * 0.75) !default; //
 
 
-$line-height-base:        1.5 !default; //made it 24 because 23 just looked too tight //1.4375 !default; // 23/16  original -1.428571429 !default;  20/14 this is good for when at small screens
-$line-height-computed:    floor($font-size-base * $line-height-base) !default; // ~23px
+$line-height-base:        1.875 !default; // made it 30 based on 16px //1.4375 !default; // 23/16  original -1.428571429 !default;  20/14 this is good for when at small screens
+$line-height-computed:    floor($font-size-base * $line-height-base) !default;
 
 $headings-font-family:    $font-family-base !default;
 $headings-font-weight:    500 !default;
@@ -276,7 +276,7 @@ $screen-md-max:              ($screen-lg-min - 1) !default;
 // Number of columns in the grid system
 $grid-columns:              12 !default;
 // Padding, to be divided by two and applied to the left and right of all columns
-$grid-gutter-width:         30px !default;
+$grid-gutter-width:         60px !default; //30px !default;
 
 // Navbar collapse
 
@@ -661,13 +661,13 @@ $component-offset-horizontal: 180px !default;
 // ------------------------------------------------------------------------------------------------------
 
 // Small screen / tablet
-$container-tablet:             ((720px + $grid-gutter-width)) !default;
+$container-tablet:             ((680px + $grid-gutter-width)) !default; //((720px + $grid-gutter-width)) !default;
 $container-sm:                 $container-tablet !default;
 
 // Medium screen / desktop
-$container-desktop:            ((940px + $grid-gutter-width)) !default;
+$container-desktop:            ((900px + $grid-gutter-width)) !default; //((940px + $grid-gutter-width)) !default;
 $container-md:                 $container-desktop !default;
 
 // Large screen / wide desktop
-$container-large-desktop:      ((1140px + $grid-gutter-width)) !default;
+$container-large-desktop:      ((1080px + $grid-gutter-width)) !default; //((1140px + $grid-gutter-width)) !default;
 $container-lg:                 $container-large-desktop !default;

@@ -3,7 +3,6 @@
 //color styling for the events list is set _view.events
 .events {
   &.events--brief-event{
-  //  display: flex;
     padding-right: 0px;
     padding-left: 0px;
     margin-bottom: 1em;
@@ -15,6 +14,7 @@
     .event-titles{
       h1, h2, h3, h4{
         padding-left: ceil(($grid-gutter-width / 2));
+        padding-right: ceil(($grid-gutter-width / 2));
       }
       h1, h2, h3, h4,
       .events__field-subtitle{
@@ -22,7 +22,7 @@
         color: white;
       }
       a{
-        color:white;
+        color:white;;
       }
     }
     .event-logistics{
@@ -43,7 +43,6 @@
       &::before{
         content: 'with ';
       }
-      //font-size: $font-size-h4;
       a{
         color: white;
       }

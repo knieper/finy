@@ -1,0 +1,11 @@
+uuid: 8d60a8f9-e58b-4fbb-9d68-7b3168b617f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.medium
+id: body
+label: body
+image_style_mappings: {  }
+breakpoint_group: responsive_image
+fallback_image_style: medium
