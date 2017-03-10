@@ -6,6 +6,6 @@ parameters:
   #http.response.debug_cacheability_headers: true
 
 services:
-  config.storage.sync:
-    class: Drupal\config_split\Config\StorageWrapper
-    factory: config_split.manager:getDefaultStorageWrapper
+ # config.storage.sync:
+  #  class: Drupal\config_split\Config\StorageWrapper
+   # factory: config_split.manager:getDefaultStorageWrapper
