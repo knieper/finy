@@ -1,23 +1,23 @@
-uuid: fc6948fe-b7d2-4054-9246-56f9a96305d1
+uuid: ce591050-8aba-46fe-9de7-64a90a7894e7
 langcode: en
 status: true
 dependencies:
   content:
-    - 'block_content:hero:22f42324-f600-48a1-bd56-6bd12dd772e6'
+    - 'block_content:hero:db6afa38-b259-467a-8319-b1951a4411c0'
   module:
     - block_content
     - system
   theme:
     - finy2
-id: newyorknewyork
+id: becomeapractitioner
 theme: finy2
 region: top_content
 weight: 0
 provider: null
-plugin: 'block_content:22f42324-f600-48a1-bd56-6bd12dd772e6'
+plugin: 'block_content:db6afa38-b259-467a-8319-b1951a4411c0'
 settings:
-  id: 'block_content:22f42324-f600-48a1-bd56-6bd12dd772e6'
-  label: 'New York, New York'
+  id: 'block_content:db6afa38-b259-467a-8319-b1951a4411c0'
+  label: 'Become a practitioner '
   provider: block_content
   label_display: '0'
   status: true
@@ -26,6 +26,6 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: "/about-finy\r\n/about-finy/staff\r\n/about-finy/plan-visit"
+    pages: /about-finy/feldenkrais-professional-training-program
     negate: false
     context_mapping: {  }

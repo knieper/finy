@@ -1,0 +1,19 @@
+uuid: 468539c5-6358-4b0e-aa65-f97e4f8c2f97
+langcode: en
+status: true
+dependencies:
+  module:
+    - link
+    - node
+id: node.field_purchase_link
+field_name: field_purchase_link
+entity_type: node
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

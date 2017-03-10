@@ -1,0 +1,174 @@
+uuid: 2b4995e7-1280-4358-965a-eeb90b708568
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.server.local
+  module:
+    - search_api
+    - node
+id: products
+name: Products
+description: 'Product index for the store'
+read_only: false
+field_settings:
+  rendered_item:
+    label: 'Rendered HTML output'
+    property_path: rendered_item
+    type: text
+    configuration:
+      roles:
+        anonymous: anonymous
+      view_mode:
+        'entity:node':
+          store_item: default
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: string
+  status:
+    label: null
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+    indexed_locked: true
+    type_locked: true
+  uid:
+    label: null
+    datasource_id: 'entity:node'
+    property_path: uid
+    type: integer
+    indexed_locked: true
+    type_locked: true
+  node_grants:
+    label: 'Node access information'
+    property_path: search_api_node_grants
+    type: string
+    indexed_locked: true
+    type_locked: true
+    hidden: true
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - store_item
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  rendered_item: {  }
+  content_access:
+    weights:
+      preprocess_query: -10
+  highlight:
+    highlight: always
+    highlight_partial: true
+    excerpt: true
+    excerpt_length: 256
+    exclude_fields: {  }
+    prefix: '<strong>'
+    suffix: '</strong>'
+    weights:
+      postprocess_query: 0
+  html_filter:
+    fields:
+      - rendered_item
+      - title
+    title: true
+    alt: true
+    tags:
+      h1: 5
+      h2: 3
+      h3: 2
+      strong: 2
+      b: 2
+      em: 1
+      u: 1
+    weights:
+      preprocess_index: -10
+      preprocess_query: -10
+  ignorecase:
+    fields:
+      - rendered_item
+      - title
+    weights:
+      preprocess_index: -10
+      preprocess_query: -10
+  node_status: {  }
+  stemmer:
+    fields:
+      - rendered_item
+    exceptions:
+      texan: texa
+      mexican: mexic
+    weights:
+      preprocess_index: 0
+      preprocess_query: 0
+  stopwords:
+    fields:
+      - rendered_item
+    stopwords:
+      - a
+      - an
+      - and
+      - are
+      - as
+      - at
+      - be
+      - but
+      - by
+      - for
+      - if
+      - in
+      - into
+      - is
+      - it
+      - 'no'
+      - not
+      - of
+      - 'on'
+      - or
+      - s
+      - such
+      - t
+      - that
+      - the
+      - their
+      - then
+      - there
+      - these
+      - they
+      - this
+      - to
+      - was
+      - will
+      - with
+    weights:
+      preprocess_index: -5
+      preprocess_query: -2
+  tokenizer:
+    fields:
+      - rendered_item
+    spaces: ''
+    overlap_cjk: 1
+    minimum_word_size: '3'
+    weights:
+      preprocess_index: -6
+      preprocess_query: -6
+  transliteration:
+    fields:
+      - rendered_item
+      - title
+    weights:
+      preprocess_index: -10
+      preprocess_query: -10
+tracker_settings:
+  default: {  }
+options:
+  index_directly: true
+  cron_limit: 50
+server: local

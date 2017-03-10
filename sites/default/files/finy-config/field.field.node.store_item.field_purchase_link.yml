@@ -1,0 +1,23 @@
+uuid: 52ddf083-73a4-41a4-9cbd-5bcaa307e36c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_purchase_link
+    - node.type.store_item
+  module:
+    - link
+id: node.store_item.field_purchase_link
+field_name: field_purchase_link
+entity_type: node
+bundle: store_item
+label: 'Purchase link'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link

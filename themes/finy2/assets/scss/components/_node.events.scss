@@ -1,7 +1,8 @@
 // Node: events
 // -----------------------------------------------------------------------------
-//color styling for the events list is set _view.events
+//--color styling for the events list is set _view.events
 .events {
+  //--view-mode brief event
   &.events--brief-event{
     padding-right: 0px;
     padding-left: 0px;

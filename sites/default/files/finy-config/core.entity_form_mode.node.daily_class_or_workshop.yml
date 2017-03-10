@@ -1,0 +1,10 @@
+uuid: cb55478d-9110-4587-8d2b-93b373d34626
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.daily_class_or_workshop
+label: 'Daily Class or Workshop'
+targetEntityType: node
+cache: true

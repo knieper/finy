@@ -1,8 +1,9 @@
-uuid: 2ceeba1f-0095-423b-a649-eb92e328defe
+uuid: f32c0b8d-d489-493b-9011-239ae1880ae7
 langcode: en
-status: true
+status: false
 dependencies:
   config:
+    - core.entity_view_mode.node.search_result
     - field.field.node.store_item.body
     - field.field.node.store_item.field_audience
     - field.field.node.store_item.field_author_practitioner
@@ -24,10 +25,10 @@ dependencies:
     - options
     - text
     - user
-id: node.store_item.default
+id: node.store_item.search_result
 targetEntityType: node
 bundle: store_item
-mode: default
+mode: search_result
 content:
   body:
     label: hidden
@@ -128,9 +129,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  links:
-    weight: 100
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   langcode: true
+  links: true

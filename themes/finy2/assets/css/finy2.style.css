@@ -8837,6 +8837,9 @@ ol.breadcrumb {
   .view--events .color-9 .btn-alt-dark:hover, .view--events .color-9 .btn-alt-dark:focus {
     background-color: #9D5194; }
 
+.view--audio-program-video img {
+  max-width: 100%; }
+
 .view--staff .col-xs-12 {
   padding-left: 0px;
   padding-right: 0px; }

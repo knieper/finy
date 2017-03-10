@@ -1,0 +1,18 @@
+uuid: 04acf101-4d98-494c-a6b6-828661af093c
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.index.products
+id: store
+label: Store
+path: /finy/store
+clean_url: true
+show_all_when_no_keys: true
+index: products
+limit: 10
+searched_fields:
+  rendered_item: rendered_item
+style: search_results
+view_mode_configuration: {  }
+show_search_form: true

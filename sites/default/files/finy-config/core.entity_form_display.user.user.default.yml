@@ -1,0 +1,32 @@
+uuid: f98ef16e-bca2-46e9-8ab3-b8ce744e9f6c
+langcode: en
+status: true
+dependencies:
+  module:
+    - path
+    - user
+id: user.user.default
+targetEntityType: user
+bundle: user
+mode: default
+content:
+  account:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+  google_analytics:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+  timezone:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  language: true

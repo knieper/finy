@@ -1,0 +1,21 @@
+uuid: c06de002-6c5f-4170-bdf1-3d27938eabc7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_day_of_the_week
+    - node.type.store_item
+  module:
+    - options
+id: node.store_item.field_day_of_the_week
+field_name: field_day_of_the_week
+entity_type: node
+bundle: store_item
+label: 'Day of the week'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

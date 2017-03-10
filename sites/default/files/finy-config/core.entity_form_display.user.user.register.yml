@@ -1,0 +1,41 @@
+uuid: b15180c4-d6ae-4d3a-89b5-075a41ec877f
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_form_mode.user.register
+  module:
+    - path
+    - user
+id: user.user.register
+targetEntityType: user
+bundle: user
+mode: register
+content:
+  account:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+  google_analytics:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+  language:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+  timezone:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

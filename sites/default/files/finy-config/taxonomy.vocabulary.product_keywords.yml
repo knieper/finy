@@ -1,0 +1,9 @@
+uuid: 3a4c2910-ff6e-4e7a-95c5-bb4c9e68504b
+langcode: en
+status: true
+dependencies: {  }
+name: 'Product keywords'
+vid: product_keywords
+description: ''
+hierarchy: 0
+weight: 0

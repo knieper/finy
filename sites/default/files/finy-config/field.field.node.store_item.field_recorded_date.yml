@@ -1,0 +1,21 @@
+uuid: 7c878a2d-dffa-4dc3-96ec-84a5ef6a6844
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_recorded_date
+    - node.type.store_item
+  module:
+    - datetime
+id: node.store_item.field_recorded_date
+field_name: field_recorded_date
+entity_type: node
+bundle: store_item
+label: 'Recorded date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,23 +1,23 @@
-uuid: fc6948fe-b7d2-4054-9246-56f9a96305d1
+uuid: 8caafa53-d180-4b84-b633-41372e02ad35
 langcode: en
 status: true
 dependencies:
   content:
-    - 'block_content:hero:22f42324-f600-48a1-bd56-6bd12dd772e6'
+    - 'block_content:hero:0024d443-5957-4120-af85-c2057485a4a9'
   module:
     - block_content
     - system
   theme:
     - finy2
-id: newyorknewyork
+id: practiceanytimeanywhere
 theme: finy2
 region: top_content
 weight: 0
 provider: null
-plugin: 'block_content:22f42324-f600-48a1-bd56-6bd12dd772e6'
+plugin: 'block_content:0024d443-5957-4120-af85-c2057485a4a9'
 settings:
-  id: 'block_content:22f42324-f600-48a1-bd56-6bd12dd772e6'
-  label: 'New York, New York'
+  id: 'block_content:0024d443-5957-4120-af85-c2057485a4a9'
+  label: 'Practice anytime anywhere'
   provider: block_content
   label_display: '0'
   status: true
@@ -26,6 +26,6 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: "/about-finy\r\n/about-finy/staff\r\n/about-finy/plan-visit"
+    pages: /feldenkrais-home
     negate: false
     context_mapping: {  }

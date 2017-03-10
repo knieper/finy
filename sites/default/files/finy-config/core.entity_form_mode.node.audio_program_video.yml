@@ -1,0 +1,10 @@
+uuid: 6f1dcda6-c93e-426d-906e-48240d728e51
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.audio_program_video
+label: 'Audio Program or Video'
+targetEntityType: node
+cache: true

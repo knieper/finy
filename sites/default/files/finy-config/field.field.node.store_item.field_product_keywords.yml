@@ -1,0 +1,28 @@
+uuid: 8fb2ea5e-087b-423f-a456-1cd93e563cad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_product_keywords
+    - node.type.store_item
+    - taxonomy.vocabulary.product_keywords
+id: node.store_item.field_product_keywords
+field_name: field_product_keywords
+entity_type: node
+bundle: store_item
+label: 'Product Keywords'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      product_keywords: product_keywords
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference
