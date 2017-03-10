@@ -1,17 +1,19 @@
 <?php
 
-namespace Drupal\config_split\Config;
+namespace Drupal\config_filter\Config;
+
+use Drupal\Core\Config\StorageInterface;
 
 /**
- * Class StorageWrapper.
+ * Class FilteredStorage.
  *
  * This class wraps another storage.
  * It filters the arguments before passing them on to the storage for write
  * operations and filters the result of read operations before returning them.
  *
- * @package Drupal\config_split\Config
+ * @package Drupal\config_filter\Config
  */
-class StorageWrapper implements ConfigSplitStorageInterface {
+class FilteredStorage implements FilteredStorageInterface {
 
   /**
    * The storage container that we are wrapping.
@@ -23,21 +25,26 @@ class StorageWrapper implements ConfigSplitStorageInterface {
   /**
    * The storage filters.
    *
-   * @var \Drupal\config_split\Config\StorageFilterInterface[]
+   * @var \Drupal\config_filter\Config\StorageFilterInterface[]
    */
   protected $filters;
 
   /**
-   * Create a StorageWrapper with some storage and a filter.
+   * Create a FilteredStorage with some storage and a filter.
+   *
+   * @param \Drupal\Core\Config\StorageInterface $storage
+   *   The decorated storage.
+   * @param \Drupal\config_filter\Config\StorageFilterInterface[] $filters
+   *   The filters to apply in the given order.
    */
-  public function __construct($storage, $filterOrFilters) {
+  public function __construct(StorageInterface $storage, array $filters) {
     $this->storage = $storage;
-    $this->filters = is_array($filterOrFilters) ? $filterOrFilters : [$filterOrFilters];
+    $this->filters = $filters;
 
     // Set the storage to all the filters.
     foreach ($this->filters as $filter) {
-      $filter->setSourceStorage($storage);
-      $filter->setWrappedStorage($this);
+      $filter->setSourceStorage(new ReadOnlyStorage($storage));
+      $filter->setFilteredStorage($this);
     }
   }
 
@@ -91,6 +98,7 @@ class StorageWrapper implements ConfigSplitStorageInterface {
       return $this->storage->write($name, $data);
     }
 
+    // The data has been unset, check if it should be deleted.
     if ($this->storage->exists($name)) {
       foreach ($this->filters as $filter) {
         if ($filter->filterWriteEmptyIsDelete($name)) {
@@ -171,10 +179,18 @@ class StorageWrapper implements ConfigSplitStorageInterface {
     }
 
     if ($delete) {
-      $delete = $this->storage->deleteAll($prefix);
+      return $this->storage->deleteAll($prefix);
     }
 
-    return $delete;
+    // The filters returned FALSE for $delete, so we delete the names
+    // individually and allow filters to prevent deleting the config.
+    foreach ($this->storage->listAll($prefix) as $name) {
+      $this->delete($name);
+    }
+
+    // The filters wanted to prevent deleting all and were called to delete the
+    // individual config name, is this a success? Let us say it is.
+    return TRUE;
   }
 
   /**

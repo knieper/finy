@@ -100,3 +100,12 @@ content:
     third_party_settings: {  }
 hidden:
   field_day_of_the_week: true
+  field_format: true
+  field_image: true
+  field_price: true
+  field_product_keywords: true
+  field_published_year: true
+  field_purchase_link: true
+  field_recorded_date: true
+  field_related_products: true
+  field_run_time: true

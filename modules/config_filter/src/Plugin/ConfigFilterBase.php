@@ -1,18 +1,17 @@
 <?php
 
-namespace Drupal\config_split\Config;
+namespace Drupal\config_filter\Plugin;
 
+use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Config\StorageInterface;
 
 /**
- * Class StorageFilterBase.
- *
- * Pass everything along as it came in. This is a transparent filter.
+ * Base class for Config filter plugin plugins.
  */
-class StorageFilterBase implements StorageFilterInterface {
+abstract class ConfigFilterBase extends PluginBase implements ConfigFilterInterface {
 
   /**
-   * The source storage on which the filter operations are performed.
+   * The read-only source storage on which the filter operations are performed.
    *
    * @var \Drupal\Core\Config\StorageInterface
    */
@@ -23,7 +22,7 @@ class StorageFilterBase implements StorageFilterInterface {
    *
    * @var \Drupal\Core\Config\StorageInterface
    */
-  protected $wrapped;
+  protected $filtered;
 
   /**
    * {@inheritdoc}
@@ -35,8 +34,28 @@ class StorageFilterBase implements StorageFilterInterface {
   /**
    * {@inheritdoc}
    */
-  public function setWrappedStorage(StorageInterface $storage) {
-    $this->wrapped = $storage;
+  public function setFilteredStorage(StorageInterface $storage) {
+    $this->filtered = $storage;
+  }
+
+  /**
+   * Get the read-only source Storage.
+   *
+   * @return \Drupal\Core\Config\StorageInterface
+   *   The source storage.
+   */
+  protected function getSourceStorage() {
+    return $this->source;
+  }
+
+  /**
+   * Get the decorator storage which applies the filters.
+   *
+   * @return \Drupal\Core\Config\StorageInterface
+   *   The filtered decorator storage.
+   */
+  protected function getFilteredStorage() {
+    return $this->filtered;
   }
 
   /**
@@ -57,7 +76,7 @@ class StorageFilterBase implements StorageFilterInterface {
    * {@inheritdoc}
    */
   public function filterWriteEmptyIsDelete($name) {
-    return FALSE;
+    return NULL;
   }
 
   /**
@@ -112,7 +131,7 @@ class StorageFilterBase implements StorageFilterInterface {
   /**
    * {@inheritdoc}
    */
-  public function filterGetAllCollectionNames($collections) {
+  public function filterGetAllCollectionNames(array $collections) {
     return $collections;
   }
 

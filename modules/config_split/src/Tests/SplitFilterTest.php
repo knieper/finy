@@ -2,10 +2,13 @@
 
 namespace Drupal\config_split\Tests;
 
-use Drupal\config_split\Config\SplitFilter;
+use Drupal\config_split\Plugin\ConfigFilter\SplitFilter;
+use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Config\NullStorage;
 use Drupal\Core\Config\StorageInterface;
 use \Drupal\Tests\UnitTestCase;
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamFile;
 use Prophecy\Argument;
 
 /**
@@ -26,60 +29,65 @@ class SplitFilterTest extends UnitTestCase {
    * Test that the blacklist is correctly calculated.
    */
   public function testBlacklist() {
-    $config = $this->prophesize('Drupal\Core\Config\ImmutableConfig');
-    $config->get('blacklist')->willReturn(['a', 'b']);
-    $config->get('graylist')->willReturn([]);
-    $config->get('module')->willReturn(['module1' => 0, 'module2' => 0]);
-    $config->get('theme')->willReturn(['theme1' => 0]);
-    $config->get('graylist_dependents')->willReturn(FALSE);
+    $configuration = [];
+    $configuration['blacklist'] = ['a', 'b'];
+    $configuration['graylist'] = [];
+    $configuration['module'] = ['module1' => 0, 'module2' => 0];
+    $configuration['theme'] = ['theme1' => 0];
+    $configuration['graylist_dependents'] = FALSE;
 
     // The config manager returns dependent entities for modules and themes.
     $manager = $this->prophesize('Drupal\Core\Config\ConfigManagerInterface');
-    $manager->findConfigEntityDependents(Argument::exact('module'), Argument::exact(['module1', 'module2']))->willReturn(['c' => 0, 'd' => 0, 'a' => 0]);
-    $manager->findConfigEntityDependents(Argument::exact('theme'), Argument::exact(['theme1']))->willReturn(['e' => 0, 'f' => 0, 'c' => 0]);
+    $manager->findConfigEntityDependents(Argument::exact('module'), Argument::exact(['module1', 'module2']))
+      ->willReturn(['c' => 0, 'd' => 0, 'a' => 0]);
+    $manager->findConfigEntityDependents(Argument::exact('theme'), Argument::exact(['theme1']))
+      ->willReturn(['e' => 0, 'f' => 0, 'c' => 0]);
     // Add a config storage returning some settings for the filtered modules.
-    $all_config = array_merge(array_fill_keys(range("a","z"), []), ['module1.settings' => [], 'module3.settings' => []]);
+    $all_config = array_merge(array_fill_keys(range("a", "z"), []), ['module1.settings' => [], 'module3.settings' => []]);
     $manager->getConfigFactory()->willReturn($this->getConfigStorageStub($all_config));
     // Add more config dependencies, independently of what is asked for.
-    $manager->findConfigEntityDependents(Argument::exact('config'), Argument::cetera())->willReturn(['f' => 0, 'g' => 0, 'b' => 0]);
+    $manager->findConfigEntityDependents(Argument::exact('config'), Argument::cetera())
+      ->willReturn(['f' => 0, 'g' => 0, 'b' => 0]);
 
-    $filter = new SplitFilter($config->reveal(), $manager->reveal());
+    $filter = new SplitFilter($configuration, 'config_split', [], $manager->reveal());
 
     // Get the protected blacklist property.
-    $blacklist = new \ReflectionProperty('Drupal\config_split\Config\SplitFilter', 'blacklist');
+    $blacklist = new \ReflectionProperty('Drupal\config_split\Plugin\ConfigFilter\SplitFilter', 'blacklist');
     $blacklist->setAccessible(TRUE);
     $actual = $blacklist->getValue($filter);
     // The order of values and keys are not important.
     sort($actual);
-    $this->assertArrayEquals(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'module1.settings'], $actual);
+    $expected = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'module1.settings'];
+    $this->assertArrayEquals($expected, $actual);
   }
 
   /**
    * Test that the graylist is correctly calculated.
    */
   public function testGraylist() {
-    $config = $this->prophesize('Drupal\Core\Config\ImmutableConfig');
-    $config->get('blacklist')->willReturn([]);
-    $config->get('graylist')->willReturn(['a', 'b']);
-    $config->get('module')->willReturn([]);
-    $config->get('theme')->willReturn([]);
-    $config->get('graylist_dependents')->willReturn(TRUE);
+    $configuration = [];
+    $configuration['blacklist'] = [];
+    $configuration['graylist'] = ['a', 'b'];
+    $configuration['module'] = [];
+    $configuration['theme'] = [];
+    $configuration['graylist_dependents'] = TRUE;
 
     // The config manager returns dependent entities for modules and themes.
     $manager = $this->prophesize('Drupal\Core\Config\ConfigManagerInterface');
     $manager->findConfigEntityDependents(Argument::exact('module'), Argument::cetera())->willReturn([]);
     $manager->findConfigEntityDependents(Argument::exact('theme'), Argument::cetera())->willReturn([]);
     // Add a config storage returning some settings for the filtered modules.
-    $all_config = array_merge(array_fill_keys(range("a","z"), []), ['module1.settings' => [], 'module3.settings' => []]);
+    $all_config = array_merge(array_fill_keys(range("a", "z"), []), ['module1.settings' => [], 'module3.settings' => []]);
     $manager->getConfigFactory()->willReturn($this->getConfigStorageStub($all_config));
     // Add more config dependencies, independently of what is asked for.
     $manager->findConfigEntityDependents(Argument::exact('config'), Argument::exact([]))->willReturn([]);
-    $manager->findConfigEntityDependents(Argument::exact('config'), Argument::exact(['a', 'b']))->willReturn(['f' => 0, 'g' => 0, 'b' => 0]);
+    $manager->findConfigEntityDependents(Argument::exact('config'), Argument::exact(['a', 'b']))
+      ->willReturn(['f' => 0, 'g' => 0, 'b' => 0]);
 
-    $filter = new SplitFilter($config->reveal(), $manager->reveal());
+    $filter = new SplitFilter($configuration, 'config_split', [], $manager->reveal());
 
     // Get the protected blacklist property.
-    $graylist = new \ReflectionProperty('Drupal\config_split\Config\SplitFilter', 'graylist');
+    $graylist = new \ReflectionProperty('Drupal\config_split\Plugin\ConfigFilter\SplitFilter', 'graylist');
     $graylist->setAccessible(TRUE);
     $actual = $graylist->getValue($filter);
     // The order of values and keys are not important.
@@ -94,19 +102,19 @@ class SplitFilterTest extends UnitTestCase {
 
     $list = ['a', 'b', 'contact*', '*.d', 'e*i', 'f*de*', 'x'];
 
-    $config = $this->prophesize('Drupal\Core\Config\ImmutableConfig');
-    $config->get('blacklist')->willReturn($list);
-    $config->get('graylist')->willReturn($list);
-    $config->get('module')->willReturn([]);
-    $config->get('theme')->willReturn([]);
-    $config->get('graylist_dependents')->willReturn(TRUE);
+    $configuration = [];
+    $configuration['blacklist'] = $list;
+    $configuration['graylist'] = $list;
+    $configuration['module'] = [];
+    $configuration['theme'] = [];
+    $configuration['graylist_dependents'] = TRUE;
 
     // The config manager returns dependent entities for modules and themes.
     $manager = $this->prophesize('Drupal\Core\Config\ConfigManagerInterface');
     $manager->findConfigEntityDependents(Argument::exact('module'), Argument::cetera())->willReturn([]);
     $manager->findConfigEntityDependents(Argument::exact('theme'), Argument::cetera())->willReturn([]);
     // Add a config storage returning some settings for the filtered modules.
-    $all_config = array_merge(array_fill_keys(range("a","z"), []), [
+    $all_config = array_merge(array_fill_keys(range("a", "z"), []), [
       'contact' => [],
       'contacts' => [],
       'contact.form' => [],
@@ -138,13 +146,13 @@ class SplitFilterTest extends UnitTestCase {
 
     $manager->findConfigEntityDependents(Argument::exact('config'), Argument::exact($expected))->willReturn([]);
 
-    $filter = new SplitFilter($config->reveal(), $manager->reveal());
+    $filter = new SplitFilter($configuration, 'config_split', [], $manager->reveal());
 
     // Get the protected blacklist property.
-    $blacklist = new \ReflectionProperty('Drupal\config_split\Config\SplitFilter', 'blacklist');
+    $blacklist = new \ReflectionProperty('Drupal\config_split\Plugin\ConfigFilter\SplitFilter', 'blacklist');
     $blacklist->setAccessible(TRUE);
     $black = $blacklist->getValue($filter);
-    $graylist = new \ReflectionProperty('Drupal\config_split\Config\SplitFilter', 'graylist');
+    $graylist = new \ReflectionProperty('Drupal\config_split\Plugin\ConfigFilter\SplitFilter', 'graylist');
     $graylist->setAccessible(TRUE);
     $gray = $graylist->getValue($filter);
 
@@ -211,7 +219,7 @@ class SplitFilterTest extends UnitTestCase {
     $filter = $this->getFilter(NULL, [], ['none' => 0], ['none' => 0], [], $name);
     $storage = $this->prophesize('Drupal\Core\Config\StorageInterface');
     $storage->read($name)->willReturn(['module' => $modules, 'theme' => $themes]);
-    $filter->setWrappedStorage($storage->reveal());
+    $filter->setFilteredStorage($storage->reveal());
     $this->assertEquals($extensions_extra, $filter->filterRead('core.extension', $extensions));
     $this->assertEquals($extensions_extra, $filter->filterRead('core.extension', $extensions_extra));
   }
@@ -254,7 +262,7 @@ class SplitFilterTest extends UnitTestCase {
     $this->assertNull($filter->filterWrite($name2, $data));
     $this->assertEquals($data3, $filter->filterWrite($name3, $data));
 
-    // Filter with graylist and skipping equal data
+    // Filter with graylist and skipping equal data.
     $primary = $this->prophesize('Drupal\Core\Config\StorageInterface');
     $primary->read($name3)->willReturn($data3);
     $primary = $primary->reveal();
@@ -335,6 +343,7 @@ class SplitFilterTest extends UnitTestCase {
    */
   public function testFilterDelete() {
     $storage = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $storage->exists('Yes')->willReturn(TRUE);
     $storage->delete('Yes')->willReturn(TRUE);
 
     $transparent = $this->getFilter(NULL);
@@ -399,6 +408,13 @@ class SplitFilterTest extends UnitTestCase {
 
     $this->assertTrue($filter->filterDeleteAll('Yes', TRUE));
     $this->assertFalse($filter->filterDeleteAll('No', FALSE));
+
+    // Test that the storage can throw an exception without affecting execution.
+    $failing = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $failing->deleteAll('Yes')->willThrow('\UnexpectedValueException');
+
+    $filter = $this->getFilter($failing->reveal());
+    $this->assertTrue($filter->filterDeleteAll('Yes', TRUE));
   }
 
   /**
@@ -417,7 +433,7 @@ class SplitFilterTest extends UnitTestCase {
     $new_filter = $filter->filterCreateCollection($collection);
 
     // Get the protected storage property.
-    $internal = new \ReflectionProperty('Drupal\config_split\Config\SplitFilter', 'secondaryStorage');
+    $internal = new \ReflectionProperty('Drupal\config_split\Plugin\ConfigFilter\SplitFilter', 'secondaryStorage');
     $internal->setAccessible(TRUE);
     $actual = $internal->getValue($new_filter);
     $this->assertEquals($collection_storage, $actual);
@@ -440,6 +456,36 @@ class SplitFilterTest extends UnitTestCase {
   }
 
   /**
+   * Test that the static create method works and folders contain the htacces.
+   */
+  public function testSplitFilterCreate() {
+    $name = 'config_split.' . $this->getRandomGenerator()->name();
+    // Set the split stream up.
+    $folder = vfsStream::setup($name);
+    $container = $this->prophesize('Symfony\Component\DependencyInjection\ContainerInterface');
+    $container->get('config.manager')->willReturn($this->getConfigManagerMock());
+    $container->get('config.factory')->willReturn($this->getConfigFactoryStub([
+      $name => [
+        'folder' => $folder->url(),
+        'module' => [],
+        'theme' => [],
+        'blacklist' => [],
+        'graylist' => [],
+      ],
+    ]));
+
+    $configuration = [
+      'config_name' => $name,
+    ];
+
+    $filter = SplitFilter::create($container->reveal(), $configuration, $this->getRandomGenerator()->name(), []);
+    $this->assertTrue($folder->hasChild('.htaccess'), 'htaccess written to split folder.');
+
+    $folder->addChild(new vfsStreamFile($name . '.' . FileStorage::getFileExtension()));
+    $this->assertTrue($filter->filterExists($name, FALSE), 'Assert filename');
+  }
+
+  /**
    * Returns a SplitFilter that can be used to test its behaviour.
    *
    * @param \Drupal\Core\Config\StorageInterface|null $storage
@@ -453,22 +499,41 @@ class SplitFilterTest extends UnitTestCase {
    * @param string[] $graylist
    *   The graylisted configuration that is filtered out.
    * @param string $name
-   *   The name of the prophesied config object
+   *   The name of the prophesied config object.
    *
-   * @return \Drupal\config_split\Config\SplitFilter
+   * @return \Drupal\config_split\Plugin\ConfigFilter\SplitFilter
    *   The filter to test.
    */
   protected function getFilter(StorageInterface $storage = NULL, array $blacklist = [], array $modules = [], array $themes = [], array $graylist = [], $name = 'config_split.config_split.test', $skip_equal = FALSE) {
-    // Set up a Config object that returns the blacklist and modules.
-    $config = $this->prophesize('Drupal\Core\Config\ImmutableConfig');
-    $config->get('blacklist')->willReturn($blacklist);
-    $config->get('graylist')->willReturn($graylist);
-    $config->get('graylist_dependents')->willReturn(TRUE);
-    $config->get('graylist_skip_equal')->willReturn($skip_equal);
-    $config->get('module')->willReturn($modules);
-    $config->get('theme')->willReturn($themes);
-    $config->getName()->willReturn($name);
+    $configuration = [];
+    $configuration['blacklist'] = $blacklist;
+    $configuration['graylist'] = $graylist;
+    $configuration['graylist_dependents'] = TRUE;
+    $configuration['graylist_skip_equal'] = $skip_equal;
+    $configuration['module'] = $modules;
+    $configuration['theme'] = $themes;
+    $configuration['config_name'] = $name;
 
+    // Return a new filter that behaves as intended.
+    return new SplitFilter($configuration, 'config_split', [], $this->getConfigManagerMock($blacklist, $graylist, $modules, $themes), $storage);
+  }
+
+  /**
+   * Gets a mocked version of the config manager.
+   *
+   * @param array $blacklist
+   *   The config names to blacklist.
+   * @param array $graylist
+   *   The config names to graylist.
+   * @param array $modules
+   *   The array of modules.
+   * @param array $themes
+   *   The array of themes.
+   *
+   * @return \Drupal\Core\Config\ConfigManagerInterface
+   *   The mocked config manager.
+   */
+  protected function getConfigManagerMock(array $blacklist = [], array $graylist = [], array $modules = [], array $themes = []) {
     // The manager returns nothing but allows the filter to set up correctly.
     // This means that the blacklist is not enhanced but only the one passed
     // as an argument is used.
@@ -478,9 +543,7 @@ class SplitFilterTest extends UnitTestCase {
     // blacklisted and gray listed configuration.
     $all_config = array_fill_keys(array_merge($blacklist, $graylist, array_keys($modules), array_keys($themes)), []);
     $manager->getConfigFactory()->willReturn($this->getConfigStorageStub($all_config));
-
-    // Return a new filter that behaves as intended.
-    return new SplitFilter($config->reveal(), $manager->reveal(), $storage);
+    return $manager->reveal();
   }
 
 }

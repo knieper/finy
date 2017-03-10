@@ -1,11 +1,17 @@
 <?php
 
-namespace Drupal\config_split\Config;
+namespace Drupal\config_filter\Config;
 
 use Drupal\Core\Config\StorageInterface;
 
 /**
  * Interface StorageFilterInterface.
+ *
+ * This interface defines a config storage filter as the FilteredStorage expects
+ * to use when filtering the operations on the storage. The ConfigFilter plugin
+ * interface extends this interface, together with plugin related interfaces.
+ *
+ * A well-behaved filter does not perform any write operation in a read method.
  *
  * @package Drupal\config_split\Config
  */
@@ -16,7 +22,8 @@ interface StorageFilterInterface {
    *
    * The storage is given to the filter when the storage wrapper is set up,
    * to avoid passing the storage to each of the filters so that they can read
-   * from it before writing filtered config.
+   * from it before writing filtered config. The storage is read-only, use the
+   * decorated storage to allow all filters to work for write operations.
    *
    * @param \Drupal\Core\Config\StorageInterface $storage
    *   The storage on which the operation is performed.
@@ -33,41 +40,44 @@ interface StorageFilterInterface {
    * @param \Drupal\Core\Config\StorageInterface $storage
    *   The storage which has the filters applied.
    */
-  public function setWrappedStorage(StorageInterface $storage);
+  public function setFilteredStorage(StorageInterface $storage);
 
   /**
-   * Filters configuration data after it is read from storage.
+   * Filters configuration data after it is read from the storage.
    *
    * @param string $name
    *   The name of a configuration object to load.
-   * @param array $data
+   * @param array|bool $data
    *   The configuration data to filter.
    *
-   * @return array $data
+   * @return array
    *   The filtered data.
    */
   public function filterRead($name, $data);
 
   /**
-   * Filter configuration data before it is written to storage.
+   * Filter configuration data before it is written to the storage.
    *
    * @param string $name
    *   The name of a configuration object to save.
    * @param array $data
    *   The configuration data to filter.
    *
-   * @return array $data
+   * @return array
    *   The filtered data.
    */
   public function filterWrite($name, array $data);
 
   /**
-   * Let the filter decide whether writing not writing data should mean delete.
+   * Let the filter decide whether not-writing data should mean delete.
+   *
+   * Filters can return NULL for `filterWrite($name, $data)` which means to
+   * not write the data to the source storage, but it can also mean deleting it.
    *
    * @param string $name
    *   The name of a configuration object to save.
    *
-   * @return bool
+   * @return bool|null
    *   True to delete at the end of a filtered write action.
    */
   public function filterWriteEmptyIsDelete($name);
@@ -159,7 +169,7 @@ interface StorageFilterInterface {
    *   Whether to delete all or not.
    *
    * @return bool
-   *   TRUE to allow deleting all, FALSE otherwise.
+   *   TRUE to allow deleting all, FALSE to trigger individual deletion.
    */
   public function filterDeleteAll($prefix, $delete);
 
@@ -173,13 +183,13 @@ interface StorageFilterInterface {
    * @param string $collection
    *   The collection name. Valid collection names conform to the following
    *   regex [a-zA-Z_.]. A storage does not need to have a collection set.
-   *   However, if a collection is set, then storage should use it to store
+   *   However, if a collection is set, then the storage should use it to store
    *   configuration in a way that allows retrieval of configuration for a
    *   particular collection.
    *
-   * @return \Drupal\config_split\Config\StorageFilterInterface|null
-   *   Return a filter that should participate in the collection. This is
-   *   allows filters to act on different collections.
+   * @return \Drupal\config_filter\Config\StorageFilterInterface|null
+   *   Return a filter that should participate in the collection. This allows
+   *   filters to act on different collections.
    */
   public function filterCreateCollection($collection);
 
@@ -196,7 +206,7 @@ interface StorageFilterInterface {
    * @return array
    *   An array of existing collection names.
    */
-  public function filterGetAllCollectionNames($collections);
+  public function filterGetAllCollectionNames(array $collections);
 
   /**
    * Filter the name of the current collection the storage is using.
