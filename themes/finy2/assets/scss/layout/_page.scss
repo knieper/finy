@@ -1,7 +1,10 @@
 // Page Layout
 // -----------------------------------------------------------------------------
 main{
-  margin-top: 3em;
+  margin-top: floor($grid-gutter-width/4);
+  @include breakpoint(sm){
+      margin-top: floor($grid-gutter-width/2);
+  }
 }
 
 footer{
