@@ -8669,20 +8669,20 @@ ol.breadcrumb {
   .events.events--brief-event > div {
     padding-right: 0px;
     padding-left: 0px;
-    color: #333333; }
-  .events.events--brief-event .event-titles h1, .events.events--brief-event .event-titles h2, .events.events--brief-event .event-titles h3, .events.events--brief-event .event-titles h4 {
-    padding-left: 30px;
-    padding-right: 30px; }
-  .events.events--brief-event .event-titles h1, .events.events--brief-event .event-titles h2, .events.events--brief-event .event-titles h3, .events.events--brief-event .event-titles h4,
-  .events.events--brief-event .event-titles .events__field-subtitle {
-    line-height: 1.3em;
-    color: white; }
-  .events.events--brief-event .event-titles a {
-    color: white; }
+    color: #222222; }
+  .events.events--brief-event .event-titles {
+    padding-bottom: 2em; }
+    .events.events--brief-event .event-titles h1, .events.events--brief-event .event-titles h2, .events.events--brief-event .event-titles h3, .events.events--brief-event .event-titles h4 {
+      padding-left: 30px;
+      padding-right: 30px; }
+    .events.events--brief-event .event-titles h1, .events.events--brief-event .event-titles h2, .events.events--brief-event .event-titles h3, .events.events--brief-event .event-titles h4,
+    .events.events--brief-event .event-titles .events__field-subtitle {
+      line-height: 1.3em;
+      color: white; }
+    .events.events--brief-event .event-titles a {
+      color: white; }
   .events.events--brief-event .event-logistics {
-    padding-top: .5em;
-    padding-bottom: .5em;
-    padding-left: 30px; }
+    padding: 15px 30px; }
   .events.events--brief-event .event-details {
     text-align: center; }
   .events.events--brief-event .events__field-event-start-date,
@@ -8697,7 +8697,7 @@ ol.breadcrumb {
   background: #2e3f52; }
 
 .view--events .color-1 .event-logistics {
-  background-color: #527194; }
+  background-color: #5b7ea4; }
 
 .view--events .color-1 .event-details {
   background: #7c97b6; }
@@ -8878,7 +8878,7 @@ ol.breadcrumb {
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
-  margin-bottom: .5em;
+  margin-bottom: 1em;
   text-align: center; }
 
 .btn-primary, body.maintenance-page .form-actions .btn:first-child, body.maintenance-page .form-actions .media-widget > a:first-child, .btn-hero-lg, .btn-alt-light, .btn-alt-dark {
@@ -8901,7 +8901,7 @@ ol.breadcrumb {
   background-color: transparent;
   border: solid 2px #555555;
   border-width: 1px;
-  color: #333333; }
+  color: #222222; }
   .btn-alt-dark:hover, .btn-alt-dark:focus {
     background-color: rgba(85, 85, 85, 0.3);
     border-color: #555555; }

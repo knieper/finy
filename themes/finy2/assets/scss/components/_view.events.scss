@@ -7,7 +7,7 @@
       background: darken($color1, 20%);
     }
     .event-logistics{
-      background-color: $color1;
+      background-color: lighten($color1, 5%);
     }
     .event-details{
       background: lighten($color1, 15%);

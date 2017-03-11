@@ -27,7 +27,7 @@
       background-color: transparent;
       border: solid $border-radius-base $gray;
       border-width: 1px;
-      color: $gray-dark;
+      color: $gray-darker;
       &:hover, &:focus {
         background-color: rgba($gray, .3);
         border-color: $gray;

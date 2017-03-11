@@ -10,7 +10,7 @@
     > div {
       padding-right: 0px;
       padding-left: 0px;
-      color: $gray-dark;
+      color: $gray-darker;
     }
     .event-titles{
       h1, h2, h3, h4{
@@ -25,11 +25,10 @@
       a{
         color:white;;
       }
+      padding-bottom: 2em;
     }
     .event-logistics{
-      padding-top: .5em;
-      padding-bottom: .5em;
-      padding-left: ceil(($grid-gutter-width / 2));
+      padding: ceil(($grid-gutter-width / 4)) ceil(($grid-gutter-width / 2));;
     }
     .event-details{
       text-align: center;
