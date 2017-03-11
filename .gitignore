@@ -41,3 +41,10 @@ sites/simpletest
 # Ignore core phpcs.xml and phpunit.xml.
 core/phpcs.xml
 core/phpunit.xml
+
+#ignore dev-settings content
+sites/default/files/dev-settings/*
+
+#ignored stores
+.DS_Store
+*/.DS_Store
