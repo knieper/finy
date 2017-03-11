@@ -8853,19 +8853,20 @@ ol.breadcrumb {
   max-width: 100%; }
 
 .view--staff .col-xs-6 {
-  padding-left: 15px;
-  padding-right: 15px; }
+  padding-left: 8px;
+  padding-right: 8px; }
 
-.view--staff .col-sm-4 {
-  padding-left: 15px;
-  padding-right: 15px; }
+@media (min-width: 768px) {
+  .view--staff .col-sm-4 {
+    padding-left: 15px;
+    padding-right: 15px; } }
 
 .view--staff img {
   border: 1px solid #e2e2e2; }
 
 .view--staff .views-field-name {
-  padding-top: 15px;
-  padding-bottom: 30px; }
+  padding-top: 8px;
+  padding-bottom: 15px; }
 
 .viewsreference-title {
   font-size: 37px;
