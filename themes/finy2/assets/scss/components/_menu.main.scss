@@ -17,7 +17,7 @@
     margin-bottom: 0px;
   }
   .navbar-toggle{
-    margin-right: floor($grid-gutter-width / 4);
+    margin-right: floor($grid-gutter-width / 8);
     @include breakpoint(sm){
       margin-top: floor($grid-gutter-width / 4);
     }
