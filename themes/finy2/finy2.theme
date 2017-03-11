@@ -9,21 +9,3 @@ $includes_path = dirname(__FILE__) . '/includes/*.inc';
 foreach (glob($includes_path) as $filename) {
   require_once dirname(__FILE__) . '/includes/' . basename($filename);
 }
-
-//adds a number to each row in the view so that each theme can be themed differently
-function finy2_preprocess_views_view_unformatted(&$variables) {
-    $view = $variables['view'];
-    if($view->id() == 'events'){
-      $rows = $variables['rows'];
-  	   foreach ($rows as $id => $row) {
-          $row_number = $id +1;
-          $variables['rows'][$id]['attributes']->addClass('row-'.$row_number);
-          if ($row_number % 2 == 0) {
-            $variables['rows'][$id]['attributes']->addClass('even');
-          }
-          else {
-            $variables['rows'][$id]['attributes']->addClass('odd');
-            }
-        }
-      }
-}

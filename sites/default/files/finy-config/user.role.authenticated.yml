@@ -70,3 +70,4 @@ permissions:
   - 'access toolbar'
   - 'change own username'
   - 'dropzone upload files'
+  - 'view search api pages'

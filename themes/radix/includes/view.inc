@@ -32,9 +32,10 @@ function radix_theme_suggestions_views_view_unformatted_alter(array &$suggestion
  */
 function radix_preprocess_views_view_table(&$variables) {
   // Add Bootstrap table classes.
+  /* due to error message either need to set array first or comment this out...classes are also set in template so....srk 3-10-17
   $variables['classes_array'] = array_merge($variables['classes_array'], array(
     'table',
     'table-striped',
     'table-bordered',
-  ));
+  ));*/
 }

@@ -8590,9 +8590,12 @@ footer {
       margin: auto; }
 
 .navbar-brand {
-  height: 80px;
+  height: 65px;
   padding-left: 15px;
   padding-right: 15px; }
+  @media (min-width: 768px) {
+    .navbar-brand {
+      height: 80px; } }
 
 .navbar {
   margin-bottom: 0px; }
@@ -8600,7 +8603,10 @@ footer {
     margin-top: 0px;
     margin-bottom: 0px; }
   .navbar .navbar-toggle {
-    margin-top: 18.5px; }
+    margin-right: 15px; }
+    @media (min-width: 768px) {
+      .navbar .navbar-toggle {
+        margin-top: 15px; } }
 
 @media (min-width: 992px) {
   .navbar-collapse .navbar-right nav {

@@ -2,9 +2,12 @@
 // -----------------------------------------------------------------------------
 //----main site navigation -----//
 .navbar-brand{
-  height: 80px;
+  height: 65px;
   padding-left: floor($grid-gutter-width / 4);
   padding-right: floor($grid-gutter-width / 4);
+  @include breakpoint(sm){
+    height: 80px;
+  }
 }
 
 .navbar {
@@ -14,7 +17,10 @@
     margin-bottom: 0px;
   }
   .navbar-toggle{
-    margin-top: 18.5px;
+    margin-right: floor($grid-gutter-width / 4);
+    @include breakpoint(sm){
+      margin-top: floor($grid-gutter-width / 4);
+    }
   }
 }
 
