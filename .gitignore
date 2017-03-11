@@ -47,4 +47,4 @@ sites/default/files/dev-settings/*
 
 #ignored stores
 .DS_Store
-*/.DS_Store
+sites/default/files/finy-config/.DS_Store
