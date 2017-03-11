@@ -8608,6 +8608,9 @@ footer {
     .top-content .hero .hero__field-tag .highlight {
       margin: auto; }
 
+ul ul, ol ul {
+  list-style-type: disc; }
+
 .navbar-brand {
   height: 65px;
   padding-left: 15px;

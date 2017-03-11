@@ -1,5 +1,11 @@
 // Styles for Menus and Navs
 // -----------------------------------------------------------------------------
+// --- default list style type ----//
+ul ul, ol ul{
+  list-style-type: disc;
+}
+
+
 //----main site navigation -----//
 .navbar-brand{
   height: 65px;
