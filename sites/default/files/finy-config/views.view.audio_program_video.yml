@@ -85,7 +85,7 @@ display:
         type: default
         options:
           grouping: {  }
-          row_class: 'col-xs-6 col-md-4 color-{{ field_color_coding }} '
+          row_class: 'col-xs-6 col-md-3 color-{{ field_color_coding }} '
           default_row_class: true
       row:
         type: fields
