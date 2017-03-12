@@ -182,7 +182,10 @@
     }
     .product-details{
       height: 100%;
-      min-height: 12em;
+      min-height: 14em;
+      @include breakpoint(sm){
+        min-height: 12em;
+      }
       padding: 10%;
       margin-bottom: floor($grid-gutter-width/4);
       h4{
