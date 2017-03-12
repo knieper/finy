@@ -14,8 +14,8 @@
     .event-titles{
       padding-bottom: 2em;
       h1, h2, h3, h4{
-        padding-left: ceil(($grid-gutter-width / 2));
-        padding-right: ceil(($grid-gutter-width / 2));
+        padding-left: floor(($grid-gutter-width));
+        padding-right: floor(($grid-gutter-width));
       }
       h1, h2, h3, h4,
       .events__field-subtitle{
@@ -27,7 +27,7 @@
       }
     }
     .event-logistics{
-      padding: ceil(($grid-gutter-width / 4)) ceil(($grid-gutter-width / 2));;
+      padding: floor(($grid-gutter-width / 2)) floor(($grid-gutter-width));;
     }
     .event-details{
       text-align: center;
