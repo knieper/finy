@@ -1,0 +1,19 @@
+uuid: 03d5206c-ce40-45f8-9998-c0f271e3b20a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_subtitle
+    - node.type.store_item
+id: node.store_item.field_subtitle
+field_name: field_subtitle
+entity_type: node
+bundle: store_item
+label: Subtitle
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

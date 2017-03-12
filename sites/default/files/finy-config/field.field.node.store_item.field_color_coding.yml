@@ -1,0 +1,21 @@
+uuid: 4c77221e-a7ef-4e83-ba64-b66e9874b6fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_color_coding
+    - node.type.store_item
+  module:
+    - options
+id: node.store_item.field_color_coding
+field_name: field_color_coding
+entity_type: node
+bundle: store_item
+label: 'Color coding'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

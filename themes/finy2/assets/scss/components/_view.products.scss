@@ -1,6 +1,190 @@
 ///--all product related views
 .view--audio-program-video{
-  img{
-    max-width: 100%;
+  .view__content{
+    overflow-y: hidden;
+    > .view__row{
+      a{
+        color: $gray-darker;
+      }
+      margin-bottom: floor($grid-gutter-width/2);
+    }
+    .product-image{
+      img{
+        max-width: 100%;
+        padding: 10%;
+      }
+    }
+    .product-details{
+      height: 100%;
+      min-height: 9em;
+      padding: 10%;
+      h4{
+        margin-top:0px;
+        margin-bottom:0px;
+      }
+    }
+  }
+}
+
+//--product color coding
+//@todo: redo using mixins
+.view--audio-program-video,
+.view--daily-classes-and-workshops{
+    .color-1{
+        .product-image{
+          background: darken($color1, 20%);
+        }
+        .product-details{
+          background: lighten($color1, 20%); //darken to improve contrast
+          &:hover, &:focus{
+            background: darken($color1, 5%); //darken to improve contrast
+            color:white;
+            a{
+              color:white;
+            }
+          }
+        }
+    }
+    .color-2{
+        .product-image{
+          background: darken($color2, 20%);
+        }
+        .product-details{
+          background: lighten($color2, 15%);
+          &:hover, &:focus{
+            background: darken($color2, 5%); //darken to improve contrast
+            color:white;
+            a{
+              color:white;
+            }
+          }
+        }
+    }
+    .color-3{
+        .product-image{
+          background: darken($color3, 20%);
+        }
+        .product-details{
+          background: lighten($color3, 15%);
+          &:hover, &:focus{
+            background: darken($color3, 5%); //darken to improve contrast
+            color:white;
+            a{
+              color:white;
+            }
+          }
+        }
+    }
+    .color-4{
+        .product-image{
+          background: darken($color4, 20%);
+        }
+        .product-details{
+          background: lighten($color4, 15%);
+          &:hover, &:focus{
+            background: darken($color4, 10%); //darken to improve contrast
+            color:white;
+            a{
+              color:white;
+            }
+          }
+        }
+    }
+    .color-5{
+        .product-image{
+          background: darken($color5, 20%);
+        }
+        .product-details{
+          background: lighten($color5, 15%);
+          &:hover, &:focus{
+            background: darken($color5, 10%); //darken to improve contrast
+            color:white;
+            a{
+              color:white;
+            }
+          }
+        }
+    }
+    .color-6{
+        .product-image{
+          background: darken($color6, 20%);
+        }
+        .product-details{
+          background: lighten($color6, 15%);
+          &:hover, &:focus{
+            background: darken($color6, 5%); //darken to improve contrast
+            color:white;
+            a{
+              color:white;
+            }
+          }
+        }
+    }
+    .color-7{
+        .product-image{
+          background: darken($color7, 20%);
+        }
+        .product-details{
+          background: lighten($color7, 15%);
+          &:hover, &:focus{
+            background: darken($color7, 5%); //darken to improve contrast
+            color:white;
+            a{
+              color:white;
+            }
+          }
+        }
+    }
+    .color-8{
+        .product-image{
+          background: darken($color8, 20%);
+        }
+        .product-details{
+          background: lighten($color8, 15%);
+          &:hover, &:focus{
+            background: darken($color8, 5%); //darken to improve contrast
+            color:white;
+            a{
+              color:white;
+            }
+          }
+        }
+    }
+    .color-9{
+        .product-image{
+          background: darken($color9, 20%);
+        }
+        .product-details{
+          background: lighten($color9, 15%);
+          &:hover, &:focus{
+            background: darken($color9, 5%); //darken to improve contrast
+            color:white;
+            a{
+              color:white;
+            }
+          }
+        }
+    }
+}
+
+.view--daily-classes-and-workshops{
+  .view__content{
+    overflow-y: hidden;
+    a{
+      color: $gray-darker;
+    }
+    .product-details{
+      height: 100%;
+      min-height: 12em;
+      padding: 10%;
+      margin-bottom: floor($grid-gutter-width/2);
+      h4{
+        margin-top:0px;
+        margin-bottom:0px;
+      }
+      .practitioner-name{
+        white-space: nowrap;
+      }
+    }
   }
 }

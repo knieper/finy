@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.store_item.body
     - field.field.node.store_item.field_audience
     - field.field.node.store_item.field_author_practitioner
+    - field.field.node.store_item.field_color_coding
     - field.field.node.store_item.field_day_of_the_week
     - field.field.node.store_item.field_format
     - field.field.node.store_item.field_image
@@ -17,6 +18,7 @@ dependencies:
     - field.field.node.store_item.field_recorded_date
     - field.field.node.store_item.field_related_products
     - field.field.node.store_item.field_run_time
+    - field.field.node.store_item.field_subtitle
     - node.type.store_item
   module:
     - datetime
@@ -56,6 +58,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+  field_color_coding:
+    weight: 44
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
   field_day_of_the_week:
     weight: 34
     settings: {  }
@@ -120,6 +127,13 @@ content:
     type: entity_reference_autocomplete
   field_run_time:
     weight: 41
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_subtitle:
+    weight: 45
     settings:
       size: 60
       placeholder: ''

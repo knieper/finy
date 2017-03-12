@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.store_item.body
     - field.field.node.store_item.field_audience
     - field.field.node.store_item.field_author_practitioner
+    - field.field.node.store_item.field_color_coding
     - field.field.node.store_item.field_day_of_the_week
     - field.field.node.store_item.field_format
     - field.field.node.store_item.field_image
@@ -16,6 +17,7 @@ dependencies:
     - field.field.node.store_item.field_recorded_date
     - field.field.node.store_item.field_related_products
     - field.field.node.store_item.field_run_time
+    - field.field.node.store_item.field_subtitle
     - node.type.store_item
   module:
     - datetime
@@ -49,6 +51,12 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_color_coding:
+    weight: 114
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
   field_day_of_the_week:
     weight: 104
     label: above
@@ -123,6 +131,13 @@ content:
     type: entity_reference_label
   field_run_time:
     weight: 111
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_subtitle:
+    weight: 115
     label: above
     settings:
       link_to_entity: false

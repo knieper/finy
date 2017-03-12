@@ -1,11 +1,10 @@
 // Node: events
 // -----------------------------------------------------------------------------
 //--color styling for the events list is set _view.events
+//--overriding padding on column classes is in _views
 .events {
   //--view-mode brief event
   &.events--brief-event{
-    padding-right: 0px;
-    padding-left: 0px;
     margin-bottom: 1em;
     > div {
       padding-right: 0px;
@@ -13,6 +12,7 @@
       color: $gray-darker;
     }
     .event-titles{
+      padding-bottom: 2em;
       h1, h2, h3, h4{
         padding-left: ceil(($grid-gutter-width / 2));
         padding-right: ceil(($grid-gutter-width / 2));
@@ -25,7 +25,6 @@
       a{
         color:white;;
       }
-      padding-bottom: 2em;
     }
     .event-logistics{
       padding: ceil(($grid-gutter-width / 4)) ceil(($grid-gutter-width / 2));;
@@ -33,7 +32,6 @@
     .event-details{
       text-align: center;
     }
-
     //display date/time inline
     .events__field-event-start-date,
     .events__field-event-end-date {

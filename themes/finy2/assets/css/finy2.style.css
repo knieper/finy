@@ -8568,6 +8568,19 @@ footer {
   padding-left: 0px;
   padding-right: 30px; }
 
+#search-api-page-block-form {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  -ms-flex-pack: center;
+      justify-content: center; }
+  #search-api-page-block-form .form-item-keys {
+    -ms-flex-positive: 2;
+        flex-grow: 2; }
+  #search-api-page-block-form #edit-submit {
+    margin-left: 15px; }
+
 .btn-hero-lg {
   background-color: transparent;
   border: solid 2px white;
@@ -8685,8 +8698,6 @@ ol.breadcrumb {
         line-height: 1rem; }
 
 .events.events--brief-event {
-  padding-right: 0px;
-  padding-left: 0px;
   margin-bottom: 1em; }
   .events.events--brief-event > div {
     padding-right: 0px;
@@ -8722,7 +8733,7 @@ ol.breadcrumb {
   background-color: #5b7ea4; }
 
 .view--events .color-1 .event-details {
-  background: #7c97b6; }
+  background: #8ca4c0; }
 
 .view--events .color-1 .btn-alt-dark {
   margin: 1em 0px;
@@ -8865,8 +8876,190 @@ ol.breadcrumb {
   .view--events .color-9 .btn-alt-dark:hover, .view--events .color-9 .btn-alt-dark:focus {
     background-color: #9D5194; }
 
-.view--audio-program-video img {
-  max-width: 100%; }
+.view--audio-program-video .view__content {
+  overflow-y: hidden; }
+  .view--audio-program-video .view__content > .view__row {
+    margin-bottom: 30px; }
+    .view--audio-program-video .view__content > .view__row a {
+      color: #222222; }
+  .view--audio-program-video .view__content .product-image img {
+    max-width: 100%;
+    padding: 10%; }
+  .view--audio-program-video .view__content .product-details {
+    height: 100%;
+    min-height: 9em;
+    padding: 10%; }
+    .view--audio-program-video .view__content .product-details h4 {
+      margin-top: 0px;
+      margin-bottom: 0px; }
+
+.view--audio-program-video .color-1 .product-image,
+.view--daily-classes-and-workshops .color-1 .product-image {
+  background: #2e3f52; }
+
+.view--audio-program-video .color-1 .product-details,
+.view--daily-classes-and-workshops .color-1 .product-details {
+  background: #8ca4c0; }
+  .view--audio-program-video .color-1 .product-details:hover, .view--audio-program-video .color-1 .product-details:focus,
+  .view--daily-classes-and-workshops .color-1 .product-details:hover,
+  .view--daily-classes-and-workshops .color-1 .product-details:focus {
+    background: #496484;
+    color: white; }
+    .view--audio-program-video .color-1 .product-details:hover a, .view--audio-program-video .color-1 .product-details:focus a,
+    .view--daily-classes-and-workshops .color-1 .product-details:hover a,
+    .view--daily-classes-and-workshops .color-1 .product-details:focus a {
+      color: white; }
+
+.view--audio-program-video .color-2 .product-image,
+.view--daily-classes-and-workshops .color-2 .product-image {
+  background: #2a5346; }
+
+.view--audio-program-video .color-2 .product-details,
+.view--daily-classes-and-workshops .color-2 .product-details {
+  background: #77b9a5; }
+  .view--audio-program-video .color-2 .product-details:hover, .view--audio-program-video .color-2 .product-details:focus,
+  .view--daily-classes-and-workshops .color-2 .product-details:hover,
+  .view--daily-classes-and-workshops .color-2 .product-details:focus {
+    background: #448572;
+    color: white; }
+    .view--audio-program-video .color-2 .product-details:hover a, .view--audio-program-video .color-2 .product-details:focus a,
+    .view--daily-classes-and-workshops .color-2 .product-details:hover a,
+    .view--daily-classes-and-workshops .color-2 .product-details:focus a {
+      color: white; }
+
+.view--audio-program-video .color-3 .product-image,
+.view--daily-classes-and-workshops .color-3 .product-image {
+  background: #559035; }
+
+.view--audio-program-video .color-3 .product-details,
+.view--daily-classes-and-workshops .color-3 .product-details {
+  background: #b3db9d; }
+  .view--audio-program-video .color-3 .product-details:hover, .view--audio-program-video .color-3 .product-details:focus,
+  .view--daily-classes-and-workshops .color-3 .product-details:hover,
+  .view--daily-classes-and-workshops .color-3 .product-details:focus {
+    background: #78bf52;
+    color: white; }
+    .view--audio-program-video .color-3 .product-details:hover a, .view--audio-program-video .color-3 .product-details:focus a,
+    .view--daily-classes-and-workshops .color-3 .product-details:hover a,
+    .view--daily-classes-and-workshops .color-3 .product-details:focus a {
+      color: white; }
+
+.view--audio-program-video .color-4 .product-image,
+.view--daily-classes-and-workshops .color-4 .product-image {
+  background: #96b32f; }
+
+.view--audio-program-video .color-4 .product-details,
+.view--daily-classes-and-workshops .color-4 .product-details {
+  background: #dce9ac; }
+  .view--audio-program-video .color-4 .product-details:hover, .view--audio-program-video .color-4 .product-details:focus,
+  .view--daily-classes-and-workshops .color-4 .product-details:hover,
+  .view--daily-classes-and-workshops .color-4 .product-details:focus {
+    background: #b1ce47;
+    color: white; }
+    .view--audio-program-video .color-4 .product-details:hover a, .view--audio-program-video .color-4 .product-details:focus a,
+    .view--daily-classes-and-workshops .color-4 .product-details:hover a,
+    .view--daily-classes-and-workshops .color-4 .product-details:focus a {
+      color: white; }
+
+.view--audio-program-video .color-5 .product-image,
+.view--daily-classes-and-workshops .color-5 .product-image {
+  background: #c9bd28; }
+
+.view--audio-program-video .color-5 .product-details,
+.view--daily-classes-and-workshops .color-5 .product-details {
+  background: #f0ebb4; }
+  .view--audio-program-video .color-5 .product-details:hover, .view--audio-program-video .color-5 .product-details:focus,
+  .view--daily-classes-and-workshops .color-5 .product-details:hover,
+  .view--daily-classes-and-workshops .color-5 .product-details:focus {
+    background: #dad04a;
+    color: white; }
+    .view--audio-program-video .color-5 .product-details:hover a, .view--audio-program-video .color-5 .product-details:focus a,
+    .view--daily-classes-and-workshops .color-5 .product-details:hover a,
+    .view--daily-classes-and-workshops .color-5 .product-details:focus a {
+      color: white; }
+
+.view--audio-program-video .color-6 .product-image,
+.view--daily-classes-and-workshops .color-6 .product-image {
+  background: #c98828; }
+
+.view--audio-program-video .color-6 .product-details,
+.view--daily-classes-and-workshops .color-6 .product-details {
+  background: #f0d7b4; }
+  .view--audio-program-video .color-6 .product-details:hover, .view--audio-program-video .color-6 .product-details:focus,
+  .view--daily-classes-and-workshops .color-6 .product-details:hover,
+  .view--daily-classes-and-workshops .color-6 .product-details:focus {
+    background: #dfab5f;
+    color: white; }
+    .view--audio-program-video .color-6 .product-details:hover a, .view--audio-program-video .color-6 .product-details:focus a,
+    .view--daily-classes-and-workshops .color-6 .product-details:hover a,
+    .view--daily-classes-and-workshops .color-6 .product-details:focus a {
+      color: white; }
+
+.view--audio-program-video .color-7 .product-image,
+.view--daily-classes-and-workshops .color-7 .product-image {
+  background: #c95c28; }
+
+.view--audio-program-video .color-7 .product-details,
+.view--daily-classes-and-workshops .color-7 .product-details {
+  background: #f0c7b4; }
+  .view--audio-program-video .color-7 .product-details:hover, .view--audio-program-video .color-7 .product-details:focus,
+  .view--daily-classes-and-workshops .color-7 .product-details:hover,
+  .view--daily-classes-and-workshops .color-7 .product-details:focus {
+    background: #df885f;
+    color: white; }
+    .view--audio-program-video .color-7 .product-details:hover a, .view--audio-program-video .color-7 .product-details:focus a,
+    .view--daily-classes-and-workshops .color-7 .product-details:hover a,
+    .view--daily-classes-and-workshops .color-7 .product-details:focus a {
+      color: white; }
+
+.view--audio-program-video .color-8 .product-image,
+.view--daily-classes-and-workshops .color-8 .product-image {
+  background: #a0334e; }
+
+.view--audio-program-video .color-8 .product-details,
+.view--daily-classes-and-workshops .color-8 .product-details {
+  background: #e2a4b3; }
+  .view--audio-program-video .color-8 .product-details:hover, .view--audio-program-video .color-8 .product-details:focus,
+  .view--daily-classes-and-workshops .color-8 .product-details:hover,
+  .view--daily-classes-and-workshops .color-8 .product-details:focus {
+    background: #c95773;
+    color: white; }
+    .view--audio-program-video .color-8 .product-details:hover a, .view--audio-program-video .color-8 .product-details:focus a,
+    .view--daily-classes-and-workshops .color-8 .product-details:hover a,
+    .view--daily-classes-and-workshops .color-8 .product-details:focus a {
+      color: white; }
+
+.view--audio-program-video .color-9 .product-image,
+.view--daily-classes-and-workshops .color-9 .product-image {
+  background: #5a2e55; }
+
+.view--audio-program-video .color-9 .product-details,
+.view--daily-classes-and-workshops .color-9 .product-details {
+  background: #bc7eb5; }
+  .view--audio-program-video .color-9 .product-details:hover, .view--audio-program-video .color-9 .product-details:focus,
+  .view--daily-classes-and-workshops .color-9 .product-details:hover,
+  .view--daily-classes-and-workshops .color-9 .product-details:focus {
+    background: #8c4884;
+    color: white; }
+    .view--audio-program-video .color-9 .product-details:hover a, .view--audio-program-video .color-9 .product-details:focus a,
+    .view--daily-classes-and-workshops .color-9 .product-details:hover a,
+    .view--daily-classes-and-workshops .color-9 .product-details:focus a {
+      color: white; }
+
+.view--daily-classes-and-workshops .view__content {
+  overflow-y: hidden; }
+  .view--daily-classes-and-workshops .view__content a {
+    color: #222222; }
+  .view--daily-classes-and-workshops .view__content .product-details {
+    height: 100%;
+    min-height: 12em;
+    padding: 10%;
+    margin-bottom: 30px; }
+    .view--daily-classes-and-workshops .view__content .product-details h4 {
+      margin-top: 0px;
+      margin-bottom: 0px; }
+    .view--daily-classes-and-workshops .view__content .product-details .practitioner-name {
+      white-space: nowrap; }
 
 .view--staff img {
   max-width: 100%; }
@@ -8895,6 +9088,144 @@ ol.breadcrumb {
   color: inherit;
   margin-bottom: 1em;
   text-align: center; }
+
+.view--audio-program-video .col-xs-1, .view--audio-program-video .col-sm-1, .view--audio-program-video .col-md-1, .view--audio-program-video .col-lg-1,
+.view--audio-program-video .col-xs-2, .view--audio-program-video .col-sm-2, .view--audio-program-video .col-md-2, .view--audio-program-video .col-lg-2,
+.view--audio-program-video .col-xs-3, .view--audio-program-video .col-sm-3, .view--audio-program-video .col-md-3, .view--audio-program-video .col-lg-3,
+.view--audio-program-video .col-xs-4, .view--audio-program-video .col-sm-4, .view--audio-program-video .col-md-4, .view--audio-program-video .col-lg-4,
+.view--audio-program-video .col-xs-5, .view--audio-program-video .col-sm-5, .view--audio-program-video .col-md-5, .view--audio-program-video .col-lg-5,
+.view--audio-program-video .col-xs-6, .view--audio-program-video .col-sm-6, .view--audio-program-video .col-md-6, .view--audio-program-video .col-lg-6,
+.view--audio-program-video .col-xs-7, .view--audio-program-video .col-sm-7, .view--audio-program-video .col-md-7, .view--audio-program-video .col-lg-7,
+.view--audio-program-video .col-xs-8, .view--audio-program-video .col-sm-8, .view--audio-program-video .col-md-8, .view--audio-program-video .col-lg-8,
+.view--audio-program-video .col-xs-9, .view--audio-program-video .col-sm-9, .view--audio-program-video .col-md-9, .view--audio-program-video .col-lg-9,
+.view--audio-program-video .col-xs-10, .view--audio-program-video .col-sm-10, .view--audio-program-video .col-md-10, .view--audio-program-video .col-lg-10,
+.view--audio-program-video .col-xs-11, .view--audio-program-video .col-sm-11, .view--audio-program-video .col-md-11, .view--audio-program-video .col-lg-11,
+.view--audio-program-video .col-xs-12, .view--audio-program-video .col-sm-12, .view--audio-program-video .col-md-12, .view--audio-program-video .calendar-calendar, .view--audio-program-video .view .row > .list-group, .view .view--audio-program-video .row > .list-group,
+.view--audio-program-video .calendar-calendar, .view--audio-program-video .view .row > .list-group, .view--audio-program-video .col-lg-12,
+.view--daily-classes-and-workshops .col-xs-1,
+.view--daily-classes-and-workshops .col-sm-1,
+.view--daily-classes-and-workshops .col-md-1,
+.view--daily-classes-and-workshops .col-lg-1,
+.view--daily-classes-and-workshops .col-xs-2,
+.view--daily-classes-and-workshops .col-sm-2,
+.view--daily-classes-and-workshops .col-md-2,
+.view--daily-classes-and-workshops .col-lg-2,
+.view--daily-classes-and-workshops .col-xs-3,
+.view--daily-classes-and-workshops .col-sm-3,
+.view--daily-classes-and-workshops .col-md-3,
+.view--daily-classes-and-workshops .col-lg-3,
+.view--daily-classes-and-workshops .col-xs-4,
+.view--daily-classes-and-workshops .col-sm-4,
+.view--daily-classes-and-workshops .col-md-4,
+.view--daily-classes-and-workshops .col-lg-4,
+.view--daily-classes-and-workshops .col-xs-5,
+.view--daily-classes-and-workshops .col-sm-5,
+.view--daily-classes-and-workshops .col-md-5,
+.view--daily-classes-and-workshops .col-lg-5,
+.view--daily-classes-and-workshops .col-xs-6,
+.view--daily-classes-and-workshops .col-sm-6,
+.view--daily-classes-and-workshops .col-md-6,
+.view--daily-classes-and-workshops .col-lg-6,
+.view--daily-classes-and-workshops .col-xs-7,
+.view--daily-classes-and-workshops .col-sm-7,
+.view--daily-classes-and-workshops .col-md-7,
+.view--daily-classes-and-workshops .col-lg-7,
+.view--daily-classes-and-workshops .col-xs-8,
+.view--daily-classes-and-workshops .col-sm-8,
+.view--daily-classes-and-workshops .col-md-8,
+.view--daily-classes-and-workshops .col-lg-8,
+.view--daily-classes-and-workshops .col-xs-9,
+.view--daily-classes-and-workshops .col-sm-9,
+.view--daily-classes-and-workshops .col-md-9,
+.view--daily-classes-and-workshops .col-lg-9,
+.view--daily-classes-and-workshops .col-xs-10,
+.view--daily-classes-and-workshops .col-sm-10,
+.view--daily-classes-and-workshops .col-md-10,
+.view--daily-classes-and-workshops .col-lg-10,
+.view--daily-classes-and-workshops .col-xs-11,
+.view--daily-classes-and-workshops .col-sm-11,
+.view--daily-classes-and-workshops .col-md-11,
+.view--daily-classes-and-workshops .col-lg-11,
+.view--daily-classes-and-workshops .col-xs-12,
+.view--daily-classes-and-workshops .col-sm-12,
+.view--daily-classes-and-workshops .col-md-12,
+.view--daily-classes-and-workshops .calendar-calendar,
+.view--daily-classes-and-workshops .view .row > .list-group, .view
+.view--daily-classes-and-workshops .row > .list-group,
+.view--daily-classes-and-workshops .calendar-calendar,
+.view--daily-classes-and-workshops .view .row > .list-group,
+.view--daily-classes-and-workshops .col-lg-12,
+.view--staff .col-xs-1,
+.view--staff .col-sm-1,
+.view--staff .col-md-1,
+.view--staff .col-lg-1,
+.view--staff .col-xs-2,
+.view--staff .col-sm-2,
+.view--staff .col-md-2,
+.view--staff .col-lg-2,
+.view--staff .col-xs-3,
+.view--staff .col-sm-3,
+.view--staff .col-md-3,
+.view--staff .col-lg-3,
+.view--staff .col-xs-4,
+.view--staff .col-sm-4,
+.view--staff .col-md-4,
+.view--staff .col-lg-4,
+.view--staff .col-xs-5,
+.view--staff .col-sm-5,
+.view--staff .col-md-5,
+.view--staff .col-lg-5,
+.view--staff .col-xs-6,
+.view--staff .col-sm-6,
+.view--staff .col-md-6,
+.view--staff .col-lg-6,
+.view--staff .col-xs-7,
+.view--staff .col-sm-7,
+.view--staff .col-md-7,
+.view--staff .col-lg-7,
+.view--staff .col-xs-8,
+.view--staff .col-sm-8,
+.view--staff .col-md-8,
+.view--staff .col-lg-8,
+.view--staff .col-xs-9,
+.view--staff .col-sm-9,
+.view--staff .col-md-9,
+.view--staff .col-lg-9,
+.view--staff .col-xs-10,
+.view--staff .col-sm-10,
+.view--staff .col-md-10,
+.view--staff .col-lg-10,
+.view--staff .col-xs-11,
+.view--staff .col-sm-11,
+.view--staff .col-md-11,
+.view--staff .col-lg-11,
+.view--staff .col-xs-12,
+.view--staff .col-sm-12,
+.view--staff .col-md-12,
+.view--staff .calendar-calendar,
+.view--staff .view .row > .list-group, .view
+.view--staff .row > .list-group,
+.view--staff .calendar-calendar,
+.view--staff .view .row > .list-group,
+.view--staff .col-lg-12 {
+  padding-left: 15px;
+  padding-right: 15px; }
+
+.view--events .col-xs-1, .view--events .col-sm-1, .view--events .col-md-1, .view--events .col-lg-1,
+.view--events .col-xs-2, .view--events .col-sm-2, .view--events .col-md-2, .view--events .col-lg-2,
+.view--events .col-xs-3, .view--events .col-sm-3, .view--events .col-md-3, .view--events .col-lg-3,
+.view--events .col-xs-4, .view--events .col-sm-4, .view--events .col-md-4, .view--events .col-lg-4,
+.view--events .col-xs-5, .view--events .col-sm-5, .view--events .col-md-5, .view--events .col-lg-5,
+.view--events .col-xs-6, .view--events .col-sm-6, .view--events .col-md-6, .view--events .col-lg-6,
+.view--events .col-xs-7, .view--events .col-sm-7, .view--events .col-md-7, .view--events .col-lg-7,
+.view--events .col-xs-8, .view--events .col-sm-8, .view--events .col-md-8, .view--events .col-lg-8,
+.view--events .col-xs-9, .view--events .col-sm-9, .view--events .col-md-9, .view--events .col-lg-9,
+.view--events .col-xs-10, .view--events .col-sm-10, .view--events .col-md-10, .view--events .col-lg-10,
+.view--events .col-xs-11, .view--events .col-sm-11, .view--events .col-md-11, .view--events .col-lg-11,
+.view--events .col-xs-12, .view--events .col-sm-12, .view--events .col-md-12, .view--events .calendar-calendar, .view--events .view .row > .list-group, .view .view--events .row > .list-group,
+.view--events .calendar-calendar, .view--events .view .row > .list-group, .view--events .col-lg-12 {
+  padding-left: 0px;
+  padding-right: 0px; }
 
 .btn-primary, body.maintenance-page .form-actions .btn:first-child, body.maintenance-page .form-actions .media-widget > a:first-child, .btn-hero-lg, .btn-alt-light, .btn-alt-dark {
   margin: 1.5em 0px; }
