@@ -8579,8 +8579,7 @@ footer {
     -ms-flex-positive: 2;
         flex-grow: 2; }
   #search-api-page-block-form #edit-submit {
-    margin-left: 15px;
-    margin-right: 0px; }
+    margin-left: 15px; }
 
 .btn-hero-lg {
   background-color: transparent;
@@ -9067,7 +9066,11 @@ ol.breadcrumb {
       margin-top: 0px;
       margin-bottom: 0px; }
     .view--daily-classes-and-workshops .view__content .product-details .product-recorded-date {
-      padding-top: 7px; }
+      padding-top: 7px;
+      font-size: 87%; }
+      @media (min-width: 768px) {
+        .view--daily-classes-and-workshops .view__content .product-details .product-recorded-date {
+          font-size: 1em; } }
 
 .view--staff img {
   max-width: 100%; }
