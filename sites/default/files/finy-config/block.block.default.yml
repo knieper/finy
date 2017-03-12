@@ -26,6 +26,6 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: "<front>\r\n/individual-sessions\r\n/classes-workshops\r\n/classes-workshops/*\r\n/rates-memberships-policies\r\n/about-method\r\n/about-method/*\r\n/about-finy\r\n/about-finy/*\r\n/first-time\r\n/feldenkrais-home\r\n/store\r\n/store/*\r\n/finy/store\r\n/finy/store/*\r\n/user/*"
+    pages: "<front>\r\n/individual-sessions\r\n/classes-workshops\r\n/classes-workshops/*\r\n/rates-membership\r\n/about-method\r\n/about-method/*\r\n/about-finy\r\n/about-finy/*\r\n/first-time\r\n/feldenkrais-home\r\n/store\r\n/store/*\r\n/finy/store\r\n/finy/store/*\r\n/user/*"
     negate: true
     context_mapping: {  }

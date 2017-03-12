@@ -59,7 +59,12 @@ img[data-responsive-image-style="body"]{
   max-width: 100%;
 }
 
-///
+///--clearfix
 .local-clearfix{
   clear:both;
+}
+
+//--no wrap util
+.no-wrap{
+  white-space: nowrap;
 }

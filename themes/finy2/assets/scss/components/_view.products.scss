@@ -3,10 +3,12 @@
   .view__content{
     overflow-y: hidden;
     > .view__row{
-      a{
-        color: $gray-darker;
-      }
+      color: $gray-darker;
       margin-bottom: floor($grid-gutter-width/2);
+      a{
+        color:$gray-darker;
+        text-decoration: none;
+      }
     }
     .product-image{
       img{
@@ -170,8 +172,10 @@
 .view--daily-classes-and-workshops{
   .view__content{
     overflow-y: hidden;
+    color: $gray-darker;
     a{
-      color: $gray-darker;
+      color:$gray-darker;
+      text-decoration: none;
     }
     .product-details{
       height: 100%;
@@ -182,8 +186,8 @@
         margin-top:0px;
         margin-bottom:0px;
       }
-      .practitioner-name{
-        white-space: nowrap;
+      .product-recorded-date{
+        padding-top: floor($grid-gutter-width/4);
       }
     }
   }

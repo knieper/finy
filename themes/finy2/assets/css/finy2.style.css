@@ -8879,9 +8879,11 @@ ol.breadcrumb {
 .view--audio-program-video .view__content {
   overflow-y: hidden; }
   .view--audio-program-video .view__content > .view__row {
+    color: #222222;
     margin-bottom: 15px; }
     .view--audio-program-video .view__content > .view__row a {
-      color: #222222; }
+      color: #222222;
+      text-decoration: none; }
   .view--audio-program-video .view__content .product-image img {
     max-width: 100%;
     padding: 10%; }
@@ -9047,9 +9049,11 @@ ol.breadcrumb {
       color: white; }
 
 .view--daily-classes-and-workshops .view__content {
-  overflow-y: hidden; }
+  overflow-y: hidden;
+  color: #222222; }
   .view--daily-classes-and-workshops .view__content a {
-    color: #222222; }
+    color: #222222;
+    text-decoration: none; }
   .view--daily-classes-and-workshops .view__content .product-details {
     height: 100%;
     min-height: 12em;
@@ -9058,8 +9062,8 @@ ol.breadcrumb {
     .view--daily-classes-and-workshops .view__content .product-details h4 {
       margin-top: 0px;
       margin-bottom: 0px; }
-    .view--daily-classes-and-workshops .view__content .product-details .practitioner-name {
-      white-space: nowrap; }
+    .view--daily-classes-and-workshops .view__content .product-details .product-recorded-date {
+      padding-top: 7px; }
 
 .view--staff img {
   max-width: 100%; }
@@ -9269,5 +9273,8 @@ img[data-responsive-image-style="body"] {
 
 .local-clearfix {
   clear: both; }
+
+.no-wrap {
+  white-space: nowrap; }
 
 /*# sourceMappingURL=finy2.style.css.map */
