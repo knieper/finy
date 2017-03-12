@@ -8579,7 +8579,8 @@ footer {
     -ms-flex-positive: 2;
         flex-grow: 2; }
   #search-api-page-block-form #edit-submit {
-    margin-left: 15px; }
+    margin-left: 15px;
+    margin-right: 0px; }
 
 .btn-hero-lg {
   background-color: transparent;
@@ -8880,7 +8881,7 @@ ol.breadcrumb {
   overflow-y: hidden; }
   .view--audio-program-video .view__content > .view__row {
     color: #222222;
-    margin-bottom: 15px; }
+    margin-bottom: 7px; }
     .view--audio-program-video .view__content > .view__row a {
       color: #222222;
       text-decoration: none; }
@@ -8889,8 +8890,11 @@ ol.breadcrumb {
     padding: 10%; }
   .view--audio-program-video .view__content .product-details {
     height: 100%;
-    min-height: 9em;
+    min-height: 12em;
     padding: 10%; }
+    @media (min-width: 768px) {
+      .view--audio-program-video .view__content .product-details {
+        min-height: 10em; } }
     .view--audio-program-video .view__content .product-details h4 {
       margin-top: 0px;
       margin-bottom: 0px; }
