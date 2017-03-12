@@ -29,8 +29,8 @@
   .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,
   .col-xs-12, .col-sm-12, .col-md-12,
   .calendar-calendar, .view .row > .list-group, .col-lg-12{
-    padding-left: floor($grid-gutter-width/4);
-    padding-right: floor($grid-gutter-width/4);
+    padding-left: floor($grid-gutter-width/8);
+    padding-right: floor($grid-gutter-width/8);
   }
 }
 //no padding to keep events styled correctly

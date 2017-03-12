@@ -9208,8 +9208,8 @@ ol.breadcrumb {
 .view--staff .calendar-calendar,
 .view--staff .view .row > .list-group,
 .view--staff .col-lg-12 {
-  padding-left: 15px;
-  padding-right: 15px; }
+  padding-left: 7px;
+  padding-right: 7px; }
 
 .view--events .col-xs-1, .view--events .col-sm-1, .view--events .col-md-1, .view--events .col-lg-1,
 .view--events .col-xs-2, .view--events .col-sm-2, .view--events .col-md-2, .view--events .col-lg-2,
