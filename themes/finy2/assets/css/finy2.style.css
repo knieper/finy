@@ -8873,7 +8873,7 @@ ol.breadcrumb {
     max-width: 100%;
     padding: 10%; }
   .view--audio-program-video .view__content .product-details {
-    height: 15em;
+    height: 14em;
     padding: 10%;
     display: -ms-flexbox;
     display: flex;
@@ -8888,6 +8888,8 @@ ol.breadcrumb {
   .view--audio-program-video .view__content h4 {
     margin-top: 0px;
     margin-bottom: 0px; }
+  .view--audio-program-video .view__content .product-practitioner {
+    line-height: 1.4em; }
   .view--audio-program-video .view__content .btn, .view--audio-program-video .view__content .media-widget > a {
     margin-top: 1em;
     margin-bottom: 0px; }
@@ -9118,19 +9120,22 @@ ol.breadcrumb {
         flex-direction: column; }
     @media (min-width: 768px) {
       .view--daily-classes-and-workshops .view__content .product-details {
-        min-height: 14em; } }
+        min-height: 13em; } }
     @media (min-width: 1200px) {
       .view--daily-classes-and-workshops .view__content .product-details {
-        min-height: 16em; } }
+        min-height: 15em; } }
   .view--daily-classes-and-workshops .view__content .product-title {
     -ms-flex-positive: 1;
         flex-grow: 1; }
   .view--daily-classes-and-workshops .view__content .product-recorded-date {
-    padding-top: 7px;
+    padding-top: 15px;
+    line-height: 1.3em;
     font-size: 87%; }
     @media (min-width: 1200px) {
       .view--daily-classes-and-workshops .view__content .product-recorded-date {
         font-size: 1em; } }
+  .view--daily-classes-and-workshops .view__content .product-practitioner {
+    line-height: 1.4em; }
   .view--daily-classes-and-workshops .view__content h4 {
     margin-top: 0px;
     margin-bottom: 0px; }

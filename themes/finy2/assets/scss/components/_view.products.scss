@@ -17,7 +17,7 @@
       }
     }
     .product-details{
-      height: 15em;
+      height: 14em;
       @include breakpoint(sm){
          height: 14em;
       }
@@ -30,7 +30,10 @@
     }
     h4{
       margin-top: 0px;
-      margin-bottom:0px;
+      margin-bottom: 0px;
+    }
+    .product-practitioner{
+      line-height: 1.4em;
     }
     .btn{
       margin-top: 1em;
@@ -242,10 +245,10 @@
     .product-details{
       min-height: 15em;
       @include breakpoint(sm){
-        min-height: 14em;
+        min-height: 13em;
       }
       @include breakpoint(lg){
-        min-height: 16em;
+        min-height: 15em;
       }
       padding: 10%;
       display: flex;
@@ -255,15 +258,19 @@
       flex-grow: 1;
     }
     .product-recorded-date{
-      padding-top: floor($grid-gutter-width/4);
+      padding-top: floor($grid-gutter-width/2);
+      line-height: 1.3em;
       font-size: 87%;
       @include breakpoint(lg){
         font-size: 1em;
       }
     }
+    .product-practitioner{
+      line-height: 1.4em;
+    }
     h4{
       margin-top:0px;
-      margin-bottom:0px;
+      margin-bottom: 0px;
     }
     .btn{
       margin-top: 1em;
