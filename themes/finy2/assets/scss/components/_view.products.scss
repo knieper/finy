@@ -17,16 +17,27 @@
       }
     }
     .product-details{
-      height: 100%;
-      min-height: 12em;
+      height: 15em;
       @include breakpoint(sm){
-        min-height: 10em;
+         height: 14em;
       }
       padding: 10%;
-      h4{
-        margin-top:0px;
-        margin-bottom:0px;
-      }
+      display: flex;
+      flex-direction: column;
+    }
+    .product-title{
+      flex-grow: 1;
+    }
+    h4{
+      margin-top: 0px;
+      margin-bottom:0px;
+    }
+    .btn{
+      margin-top: 1em;
+      margin-bottom: 0px;
+    }
+    .product-purchase{
+      text-align: center;
     }
   }
 }
@@ -40,14 +51,19 @@
           background: darken($color1, 20%);
         }
         .product-details{
-          background: lighten($color1, 20%); //darken to improve contrast
+          background: lighten($color1, 20%);
           &:hover, &:focus{
-            background: darken($color1, 5%); //darken to improve contrast
+            background: darken($color1, 5%);
             color:white;
-            a{
-              color:white;
+            .btn-alt-dark{
+              border: 1px solid white;
+              background: darken($color1, 5%);
+              color: white;
             }
           }
+        }
+        .btn-alt-dark{
+          border-color: darken($color1, 10%);
         }
     }
     .color-2{
@@ -55,14 +71,19 @@
           background: darken($color2, 20%);
         }
         .product-details{
-          background: lighten($color2, 15%);
+          background: lighten($color2, 20%);
           &:hover, &:focus{
-            background: darken($color2, 5%); //darken to improve contrast
+            background: darken($color2, 5%);
             color:white;
-            a{
-              color:white;
+            .btn-alt-dark{
+              border: 1px solid white;
+              background: darken($color2, 5%);
+              color: white;
             }
           }
+        }
+        .btn-alt-dark{
+          border-color: darken($color2, 10%);
         }
     }
     .color-3{
@@ -70,14 +91,19 @@
           background: darken($color3, 20%);
         }
         .product-details{
-          background: lighten($color3, 15%);
+          background: lighten($color3, 20%);
           &:hover, &:focus{
-            background: darken($color3, 5%); //darken to improve contrast
+            background: darken($color3, 5%);
             color:white;
-            a{
-              color:white;
+            .btn-alt-dark{
+              border: 1px solid white;
+              background: darken($color3, 5%);
+              color: white;
             }
           }
+        }
+        .btn-alt-dark{
+          border-color: darken($color3, 10%);
         }
     }
     .color-4{
@@ -85,14 +111,19 @@
           background: darken($color4, 20%);
         }
         .product-details{
-          background: lighten($color4, 15%);
+          background: lighten($color4, 20%);
           &:hover, &:focus{
-            background: darken($color4, 10%); //darken to improve contrast
+            background: darken($color4, 10%);
             color:white;
-            a{
-              color:white;
+            .btn-alt-dark{
+              border: 1px solid white;
+              background: darken($color4, 10%);
+              color: white;
             }
           }
+        }
+        .btn-alt-dark{
+          border-color: darken($color4, 15%);
         }
     }
     .color-5{
@@ -102,12 +133,17 @@
         .product-details{
           background: lighten($color5, 15%);
           &:hover, &:focus{
-            background: darken($color5, 10%); //darken to improve contrast
+            background: darken($color5, 15%);
             color:white;
-            a{
-              color:white;
+            .btn-alt-dark{
+              border: 1px solid white;
+              background: darken($color5, 15%);
+              color: white;
             }
           }
+        }
+        .btn-alt-dark{
+          border-color: darken($color5, 20%);
         }
     }
     .color-6{
@@ -117,12 +153,17 @@
         .product-details{
           background: lighten($color6, 15%);
           &:hover, &:focus{
-            background: darken($color6, 5%); //darken to improve contrast
+            background: darken($color6, 15%);
             color:white;
-            a{
-              color:white;
+            .btn-alt-dark{
+              border: 1px solid white;
+              background: darken($color6, 15%);
+              color: white;
             }
           }
+        }
+        .btn-alt-dark{
+          border-color: darken($color6, 20%);
         }
     }
     .color-7{
@@ -130,14 +171,19 @@
           background: darken($color7, 20%);
         }
         .product-details{
-          background: lighten($color7, 15%);
+          background: lighten($color7, 20%);
           &:hover, &:focus{
-            background: darken($color7, 5%); //darken to improve contrast
+            background: darken($color7, 10%);
             color:white;
-            a{
-              color:white;
+            .btn-alt-dark{
+              border: 1px solid white;
+              background: darken($color7, 10%);
+              color: white;
             }
           }
+        }
+        .btn-alt-dark{
+          border-color: darken($color7, 15%);
         }
     }
     .color-8{
@@ -145,14 +191,19 @@
           background: darken($color8, 20%);
         }
         .product-details{
-          background: lighten($color8, 15%);
+          background: lighten($color8, 20%);
           &:hover, &:focus{
-            background: darken($color8, 5%); //darken to improve contrast
+            background: darken($color8, 10%);
             color:white;
-            a{
-              color:white;
+            .btn-alt-dark{
+              border: 1px solid white;
+              background: darken($color8, 10%);
+              color: white;
             }
           }
+        }
+        .btn-alt-dark{
+          border-color: darken($color8, 15%);
         }
     }
     .color-9{
@@ -160,14 +211,19 @@
           background: darken($color9, 20%);
         }
         .product-details{
-          background: lighten($color9, 15%);
+          background: lighten($color9, 20%);
           &:hover, &:focus{
-            background: darken($color9, 5%); //darken to improve contrast
+            background: darken($color9, 10%);
             color:white;
-            a{
-              color:white;
+            .btn-alt-dark{
+              border: 1px solid white;
+              background: darken($color9, 10%);
+              color: white;
             }
           }
+        }
+        .btn-alt-dark{
+          border-color: darken($color9, 15%);
         }
     }
 }
@@ -180,25 +236,41 @@
       color:$gray-darker;
       text-decoration: none;
     }
+    > .view__row{
+      margin-bottom: floor($grid-gutter-width/4);
+    }
     .product-details{
-      height: 100%;
-      min-height: 14em;
+      min-height: 15em;
       @include breakpoint(sm){
-        min-height: 12em;
+        min-height: 14em;
+      }
+      @include breakpoint(lg){
+        min-height: 16em;
       }
       padding: 10%;
-      margin-bottom: floor($grid-gutter-width/4);
-      h4{
-        margin-top:0px;
-        margin-bottom:0px;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-title{
+      flex-grow: 1;
+    }
+    .product-recorded-date{
+      padding-top: floor($grid-gutter-width/4);
+      font-size: 87%;
+      @include breakpoint(lg){
+        font-size: 1em;
       }
-      .product-recorded-date{
-        padding-top: floor($grid-gutter-width/4);
-        font-size: 87%;
-        @include breakpoint(sm){
-          font-size: 1em;
-        }
-      }
+    }
+    h4{
+      margin-top:0px;
+      margin-bottom:0px;
+    }
+    .btn{
+      margin-top: 1em;
+      margin-bottom: 0px;
+    }
+    .product-purchase{
+      text-align: center;
     }
   }
 }
