@@ -1,0 +1,14 @@
+uuid: 0038733e-4433-474e-9636-4e6c1ecfe05d
+langcode: en
+status: true
+dependencies: {  }
+name: store_item
+label: 'store item (300x300)'
+effects:
+  49b0e864-f999-4bbf-beeb-f48880cc5b39:
+    uuid: 49b0e864-f999-4bbf-beeb-f48880cc5b39
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 300
+      height: 300

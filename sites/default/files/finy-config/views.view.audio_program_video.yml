@@ -7,7 +7,7 @@ dependencies:
     - field.storage.node.field_color_coding
     - field.storage.node.field_image
     - node.type.store_item
-    - responsive_image.styles.body
+    - responsive_image.styles.store_item
     - taxonomy.vocabulary.product
   content:
     - 'taxonomy_term:product:5e6143fe-b664-4081-8e7f-d7d8cbc28900'
@@ -197,7 +197,7 @@ display:
           click_sort_column: target_id
           type: responsive_image
           settings:
-            responsive_image_style: body
+            responsive_image_style: store_item
             image_link: content
           group_column: ''
           group_columns: {  }
@@ -284,7 +284,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<div class=\"product-details\">\n<div class=\"product-title\"><h4>{{ title }} </h4>\n<div class=\"product-practitioner\"><small>with </small><span class=\"no-wrap\">{{ field_author_practitioner }}</span></div></div>\n<div class=\"product-purchase\"><a href=\"{{ path }}\" rel=\"nofollow\" class=\"btn btn-alt-dark\">Purchase</a></div>\n</div>"
+            text: "<div class=\"product-details\">\n<div class=\"product-title\"><h4>{{ title }} </h4>\n<div class=\"product-practitioner\"><small>with </small><span class=\"no-wrap\">{{ field_author_practitioner }}</span></div></div>\n<div class=\"product-purchase\"><a href=\"{{ path }}\" rel=\"nofollow\" class=\"btn btn-alt-dark\">Details</a></div>\n</div>"
             make_link: false
             path: ''
             absolute: false

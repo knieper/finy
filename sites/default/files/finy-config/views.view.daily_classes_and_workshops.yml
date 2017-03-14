@@ -1154,7 +1154,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<div class=\"product-details\">\n<div class=\"product-title\"><h4>{{ title }}</h4>\n<div class=\"product-practitioner\"><small>with </small><span class=\"no-wrap\">{{ field_author_practitioner }}</span></div>\n<div class=\"product-recorded-date\">{{ field_recorded_date }}</div></div>\n<div class=\"product-purchase\"><a href=\"{{ path }}\" rel=\"nofollow\" class=\"btn btn-alt-dark\">Purchase</a></div>\n</div>"
+            text: "<div class=\"product-details\">\n<div class=\"product-title\"><h4>{{ title }}</h4>\n<div class=\"product-practitioner\"><small>with </small><span class=\"no-wrap\">{{ field_author_practitioner }}</span></div>\n<div class=\"product-recorded-date\">{{ field_recorded_date }}</div></div>\n<div class=\"product-purchase\"><a href=\"{{ path }}\" rel=\"nofollow\" class=\"btn btn-alt-dark\">Details</a></div>\n</div>"
             make_link: false
             path: '{{ path }}'
             absolute: false
