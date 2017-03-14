@@ -1,0 +1,10 @@
+uuid: 5987f7db-aae9-4625-a9f0-1bcca9c3d31c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.single_recording
+label: 'single recording'
+targetEntityType: node
+cache: true

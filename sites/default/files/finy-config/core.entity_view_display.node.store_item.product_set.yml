@@ -1,8 +1,9 @@
-uuid: 2ceeba1f-0095-423b-a649-eb92e328defe
+uuid: 7ced928c-8ee1-4c5e-bc71-c92f20f09bcd
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.product_set
     - field.field.node.store_item.body
     - field.field.node.store_item.field_audience
     - field.field.node.store_item.field_author_practitioner
@@ -22,13 +23,12 @@ dependencies:
   module:
     - datetime
     - link
-    - options
     - text
     - user
-id: node.store_item.default
+id: node.store_item.product_set
 targetEntityType: node
 bundle: store_item
-mode: default
+mode: product_set
 content:
   body:
     label: hidden
@@ -50,12 +50,6 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-  field_day_of_the_week:
-    weight: 5
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
   field_price:
     weight: 8
     label: above
@@ -120,6 +114,7 @@ content:
     third_party_settings: {  }
 hidden:
   field_color_coding: true
+  field_day_of_the_week: true
   field_format: true
   field_image: true
   field_related_products: true

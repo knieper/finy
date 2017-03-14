@@ -17,7 +17,6 @@ dependencies:
     - node.type.events
   module:
     - datetime
-    - image
     - link
     - text
     - user
@@ -62,14 +61,6 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
-  field_image:
-    weight: 5
-    label: hidden
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
   field_member_cost:
     weight: 8
     label: inline
@@ -108,4 +99,5 @@ content:
     third_party_settings: {  }
 hidden:
   field_color_coding: true
+  field_image: true
   langcode: true

@@ -1,8 +1,9 @@
-uuid: 2ceeba1f-0095-423b-a649-eb92e328defe
+uuid: 3de5ba54-95a7-47f9-914f-6e265fecf1c3
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.single_recording
     - field.field.node.store_item.body
     - field.field.node.store_item.field_audience
     - field.field.node.store_item.field_author_practitioner
@@ -23,19 +24,12 @@ dependencies:
     - datetime
     - link
     - options
-    - text
     - user
-id: node.store_item.default
+id: node.store_item.single_recording
 targetEntityType: node
 bundle: store_item
-mode: default
+mode: single_recording
 content:
-  body:
-    label: hidden
-    type: text_default
-    weight: 2
-    settings: {  }
-    third_party_settings: {  }
   field_audience:
     weight: 4
     label: hidden
@@ -119,6 +113,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  body: true
   field_color_coding: true
   field_format: true
   field_image: true

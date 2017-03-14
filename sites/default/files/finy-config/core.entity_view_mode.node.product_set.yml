@@ -1,10 +1,10 @@
-uuid: 4be8dc3d-48db-4153-aaa9-e7de2ab6983c
+uuid: 5a969a49-1701-47d4-9dd8-eb1fd21daa75
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.full_event
-label: 'full event'
+id: node.product_set
+label: 'product set'
 targetEntityType: node
 cache: true
