@@ -9342,7 +9342,8 @@ ol.breadcrumb {
 
 hr {
   border-top: 2px solid #DCE2C8;
-  margin: 3em 0px; }
+  margin: 3em 0px;
+  clear: both; }
 
 @media (min-width: 992px) {
   .col-md-6 hr, .col-md-4 hr {

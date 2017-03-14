@@ -4,6 +4,7 @@
 .btn-primary{
   margin: 1.5em 0px;
 }
+///@todo: delete if not used on home page
 .btn-alt-light{
   @extend .btn-primary;
       background-color: transparent;
@@ -43,6 +44,7 @@
 hr {
   border-top: 2px solid $brand-secondary;
   margin: 3em 0px;
+  clear:both;
 }
 //hide hr when two column
 @media (min-width: $screen-md-min){

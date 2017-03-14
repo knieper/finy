@@ -52,7 +52,7 @@ settings:
     language:
       language_list: un
     stylescombo:
-      styles: "div.text-center|Centered div.\r\np.text-center|Centered paragraph.\r\nh2.text-center|Centered header 2.\r\nspan.green|Green span.\r\nspan.small|Small aside.\r\na.btn.btn-primary|Primary button.\r\ndiv.highlight|Highlight.\r\np.btn.btn-hero-lg|Hero button."
+      styles: "div.text-center|Centered div.\r\np.text-center|Centered paragraph.\r\nh2.text-center|Centered header 2.\r\nspan.green|Green span.\r\nspan.small|Small aside.\r\na.btn.btn-primary|Primary button.\r\ndiv.highlight|Highlight.\r\np.btn.btn-hero-lg|Hero button.\r\ndiv.col-md-6|Two column div at medium. "
     linkit:
       linkit_profile: basic
 image_upload:
