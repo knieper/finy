@@ -940,7 +940,7 @@ display:
     display_options:
       display_extenders: {  }
       path: store/daily-classes-and-workshops/highlight
-      title: ''
+      title: 'Daily class and workshop recordings'
       defaults:
         title: false
         style: false
