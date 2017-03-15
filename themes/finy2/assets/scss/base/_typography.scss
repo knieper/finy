@@ -1,25 +1,11 @@
 // Typography
 // -----------------------------------------------------------------------------
-body{
-  //as screen size goes up increase default line height a bit. original default was 23 for a 16px font-size
-  @media (min-width: $screen-sm){
-    // 26
-    //line-height: ceil($line-height-computed*1.083);
-  }
-  @media (min-width: $screen-md){
-    //28 for medium screens;
-    //line-height: ceil($line-height-computed*1.1667);
-  }
-  @media (min-width: $screen-lg){
-    // 29 for large screens;
-    //line-height: ceil($line-height-computed*1.2083);
-  }
-}
+
 //increase spacing for main content
 p{
   margin-bottom: 1em;
 }
-//not sure I like yet
+//@todo: consider completely at the end...not sure I like yet
 article{
   li{
     padding-bottom: .25em;

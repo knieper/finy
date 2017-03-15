@@ -2,8 +2,8 @@ uuid: 3c9d3f88-c459-4e6e-a5e7-3f5c5f4501e4
 langcode: en
 status: true
 dependencies: {  }
-name: Product
+name: 'Product format'
 vid: product
-description: ''
-hierarchy: 1
+description: 'Format keywords'
+hierarchy: 0
 weight: 0

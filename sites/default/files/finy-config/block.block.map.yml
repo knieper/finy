@@ -5,9 +5,13 @@ dependencies:
   content:
     - 'block_content:basic:9447afd2-227c-4396-bb31-25a2db0c524d'
   module:
+    - block_class
     - block_content
   theme:
     - finy2
+third_party_settings:
+  block_class:
+    classes: col-md-6
 id: map
 theme: finy2
 region: footer

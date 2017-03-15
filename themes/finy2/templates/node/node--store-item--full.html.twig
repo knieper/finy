@@ -74,23 +74,29 @@ not node.isPublished() ? bundle ~ '--unpublished',
 view_mode ? bundle ~ '--' ~ view_mode|clean_class,
 ]
 %}
-
 {{ attach_library('classy/node') }}
-<article{{ attributes.addClass(classes).addClass('col-xs-12 col-sm-12 col-md-12') }}>
-    <div class="event-titles col-xs-12 col-sm-6 col-md-6">
-    {{ title_prefix }}
- 	  {% if not page %}
-    	<h3{{ title_attributes }} class="pull-left"> <a href="{{ url }}" rel="bookmark">{{ label }} <small> {{ content.field_subtitle }}</small></a></h3>
-  	{% endif %}
-  	{{ title_suffix }}
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-  	<div class="event-logistics">
-      {{ content.field_practitioner }}
-      {{ content.field_event_start_date }} - {{ content.field_event_end_date }}
-    </div>
-    <div class="event-details">
-      <a class="btn btn-alt-dark" role="button" title="Details and Register" rel="nofollow" href=" {{ url }} ">Details and Register</a>
-    </div>
-    </div>
+<article{{ attributes.addClass(classes) }}>
+
+  {{ title_prefix }}
+  {% if not page %}
+    <h2{{ title_attributes }}>
+      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+    </h2>
+  {% endif %}
+  {{ title_suffix }}
+
+  <div{{ content_attributes.addClass('node__content') }}>
+    {{ content.field_subtitle }}
+    <div class="product-practitioner"><small>with</small>{{ content.field_author_practitioner }}</div>
+    {{ content.body }}
+    {{ content.field_format }}
+    {{ content.field_run_time }}
+    {{ content.field_price }}
+    {{ content.field_purchase_link }} 
+
+<hr>
+    {{ content }}
+
+  </div>
+
 </article>

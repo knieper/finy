@@ -23,7 +23,7 @@ dependencies:
   module:
     - datetime
     - entity_browser
-    - link
+    - link_class
     - path
     - scheduler
     - text
@@ -109,9 +109,12 @@ content:
     weight: 39
     settings:
       placeholder_url: ''
-      placeholder_title: ''
+      placeholder_title: 'Add to cart'
+      link_class_mode: force_class
+      link_class_force: 'btn btn-primary'
+      link_class_select: ''
     third_party_settings: {  }
-    type: link_default
+    type: link_class_field_widget
   field_recorded_date:
     weight: 43
     settings: {  }

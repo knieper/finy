@@ -5,6 +5,7 @@ module:
   backup_migrate: 0
   ban: 0
   block: 0
+  block_class: 0
   block_content: 0
   breakpoint: 0
   captcha_free: 0
@@ -38,6 +39,7 @@ module:
   inline_responsive_images: 0
   language: 0
   link: 0
+  link_class: 0
   linkit: 0
   menu_link_content: 0
   menu_ui: 0

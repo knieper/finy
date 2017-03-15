@@ -6,9 +6,9 @@ dependencies:
     - search_api.index.products
 id: store
 label: Store
-path: /finy/store
+path: /store
 clean_url: true
-show_all_when_no_keys: true
+show_all_when_no_keys: false
 index: products
 limit: 10
 searched_fields:

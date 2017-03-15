@@ -45,7 +45,7 @@ content:
     type: entity_reference_label
   field_author_practitioner:
     weight: 1
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
@@ -56,9 +56,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: list_default
+  field_format:
+    type: entity_reference_label
+    weight: 0
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
   field_price:
     weight: 8
-    label: above
+    label: inline
     settings:
       thousand_separator: ''
       decimal_separator: .
@@ -75,7 +82,7 @@ content:
     type: entity_reference_label
   field_published_year:
     weight: 12
-    label: above
+    label: inline
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -83,18 +90,18 @@ content:
     type: number_integer
   field_purchase_link:
     weight: 9
-    label: above
+    label: hidden
     settings:
       trim_length: 80
+      url_plain: true
+      rel: nofollow
       url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
+      target: '0'
     third_party_settings: {  }
     type: link
   field_recorded_date:
     weight: 13
-    label: above
+    label: inline
     settings:
       format_type: medium
       timezone_override: ''
@@ -102,14 +109,14 @@ content:
     type: datetime_default
   field_run_time:
     weight: 11
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
   field_subtitle:
     weight: 0
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -120,7 +127,6 @@ content:
     third_party_settings: {  }
 hidden:
   field_color_coding: true
-  field_format: true
   field_image: true
   field_related_products: true
   langcode: true
