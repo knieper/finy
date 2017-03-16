@@ -40,7 +40,7 @@ filters:
     status: true
     weight: -10
     settings:
-      allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h3 id> <h4 id> <h5 id> <h6 id> <br> <img src alt height width data-entity-type data-entity-uuid data-align data-caption data-image-style data-responsive-image-style> <h2 id class="text-center"> <hr> <p class="btn-primary text-center btn-hero-lg btn"> <drupal-entity data-entity-type data-entity-uuid data-entity-embed-display data-entity-embed-display-settings data-align data-caption data-embed-button> <a role href hreflang !href accesskey id rel target title class=" btn btn-primary"> <span class="red green small"> <div class="highlight text-center col-md-6">'
+      allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h3 id> <h4 id> <h5 id> <h6 id> <br> <img src alt height width data-entity-type data-entity-uuid data-align data-caption data-image-style data-responsive-image-style> <h2 id class="text-center"> <hr> <p class="btn-primary text-center btn-hero-lg btn"> <drupal-entity data-entity-type data-entity-uuid data-entity-embed-display data-entity-embed-display-settings data-align data-caption data-embed-button> <a role href hreflang !href accesskey id rel target title class=" btn btn-primary"> <span class="red green small"> <div class="highlight text-center col-md-6"> <iframe src frameborder style allowfullscreen width height>'
       filter_html_help: true
       filter_html_nofollow: true
   filter_htmlcorrector:
@@ -72,6 +72,7 @@ filters:
       image_style_medium_hero: '0'
       image_style_small_hero: '0'
       image_style_smallest_headshot: '0'
+      image_style_store_item: '0'
       image_style_thumbnail: '0'
       image_style_xsmall_hero: '0'
   filter_responsive_image_style:
@@ -83,6 +84,7 @@ filters:
       responsive_style_body: '1'
       responsive_style_headshot: '1'
       responsive_style_hero: '1'
+      responsive_style_store_item: '0'
   entity_embed:
     id: entity_embed
     provider: entity_embed

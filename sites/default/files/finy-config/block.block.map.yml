@@ -11,7 +11,7 @@ dependencies:
     - finy2
 third_party_settings:
   block_class:
-    classes: col-md-6
+    classes: 'col-md-6 text-right'
 id: map
 theme: finy2
 region: footer
