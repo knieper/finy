@@ -10,8 +10,10 @@ module:
   kint: 0
 theme: {  }
 blacklist:
+  - system.file
   - devel.settings
   - devel.toolbar.settings
+  - system.file
 graylist: {  }
 graylist_dependents: true
 graylist_skip_equal: true
