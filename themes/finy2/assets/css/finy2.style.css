@@ -8568,6 +8568,21 @@ footer {
   padding-left: 0px;
   padding-right: 15px; }
 
+.col-xs-1.paragraph, .col-sm-1.paragraph, .col-md-1.paragraph, .col-lg-1.paragraph,
+.col-xs-2.paragraph, .col-sm-2.paragraph, .col-md-2.paragraph, .col-lg-2.paragraph,
+.col-xs-3.paragraph, .col-sm-3.paragraph, .col-md-3.paragraph, .col-lg-3.paragraph,
+.col-xs-4.paragraph, .col-sm-4.paragraph, .col-md-4.paragraph, .col-lg-4.paragraph,
+.col-xs-5.paragraph, .col-sm-5.paragraph, .col-md-5.paragraph, .col-lg-5.paragraph,
+.col-xs-6.paragraph, .col-sm-6.paragraph, .col-md-6.paragraph, .col-lg-6.paragraph,
+.col-xs-7.paragraph, .col-sm-7.paragraph, .col-md-7.paragraph, .col-lg-7.paragraph,
+.col-xs-8.paragraph, .col-sm-8.paragraph, .col-md-8.paragraph, .col-lg-8.paragraph,
+.col-xs-9.paragraph, .col-sm-9.paragraph, .col-md-9.paragraph, .col-lg-9.paragraph,
+.col-xs-10.paragraph, .col-sm-10.paragraph, .col-md-10.paragraph, .col-lg-10.paragraph,
+.col-xs-11.paragraph, .col-sm-11.paragraph, .col-md-11.paragraph, .col-lg-11.paragraph,
+.col-xs-12.paragraph, .col-sm-12.paragraph, .col-md-12.paragraph, .paragraph.calendar-calendar, .view .row > .paragraph.list-group,
+.calendar-calendar.paragraph, .view .row > .list-group.paragraph, .col-lg-12.paragraph {
+  margin-bottom: 3em; }
+
 #search-api-page-block-form {
   display: -ms-flexbox;
   display: flex;
@@ -8725,6 +8740,9 @@ ol.breadcrumb {
     content: 'with '; }
   .events.events--brief-event .events__field-practitioner a {
     color: white; }
+
+.page--front .node__content {
+  padding-top: 3em; }
 
 .view--events .color-1 .events--brief-event {
   background: #2e3f52; }

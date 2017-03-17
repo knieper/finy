@@ -1,2 +1,6 @@
 // Node: Page
 // -----------------------------------------------------------------------------
+//increase spacing on front page because there will not be a breadcrumb
+.page--front .node__content{
+    padding-top: 3em;
+}
