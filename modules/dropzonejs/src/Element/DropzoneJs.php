@@ -3,9 +3,11 @@
 namespace Drupal\dropzonejs\Element;
 
 use Drupal\Component\Utility\Bytes;
+use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\FormElement;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 
 /**
@@ -85,7 +87,7 @@ class DropzoneJs extends FormElement {
 
     if (!\Drupal::currentUser()->hasPermission('dropzone upload files')) {
       $element['#access'] = FALSE;
-      drupal_set_message(self::t("You don't have sufficent permissions to use the DropzoneJS uploader. Contact your system administrator"), 'warning');
+      drupal_set_message(new TranslatableMarkup("You don't have sufficent permissions to use the DropzoneJS uploader. Contact your system administrator"), 'warning');
     }
 
     return $element;
@@ -112,7 +114,7 @@ class DropzoneJs extends FormElement {
         // options.
         $element['#id'] => [
           'maxFilesize' => $max_size,
-          'dictDefaultMessage' => $element['#dropzone_description'],
+          'dictDefaultMessage' => Html::escape($element['#dropzone_description']),
           'acceptedFiles' => '.' . str_replace(' ', ',.', self::getValidExtensions($element)),
           'maxFiles' => $element['#max_files'],
         ],
