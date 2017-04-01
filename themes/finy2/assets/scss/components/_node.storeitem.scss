@@ -1,0 +1,47 @@
+// Node: Product / Store Item content type
+// -----------------------------------------------------------------------------
+.store-item {
+  //add dollar sign
+  .store-item__field-price{
+    .field__item{
+      &:before{
+        content: '$';
+      }
+    }
+  }
+
+}
+
+// View mode: Teaser
+// -----------------------------------------------------------------------------
+.store-item--teaser {
+
+}
+
+// View mode: Full
+// -----------------------------------------------------------------------------
+.store-item--full {
+
+  //display format taxonomy inline and add padding between each.
+  .store-item__field-format,
+  .store-item__product-keywords {
+    .field__item{
+      display: inline;
+      padding-right: 1em;
+    }
+  }
+
+  //display run time, price, and recorded date inline with label
+  .store-item__field_recorded-date,
+  .store-item__field-run-time,
+  .store-item__field-price {
+    .field__label{
+      display: inline;
+    }
+    .field__item{
+      display: inline;
+    }
+  }
+
+
+}

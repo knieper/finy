@@ -8583,6 +8583,11 @@ footer {
 .calendar-calendar.paragraph, .view .row > .list-group.paragraph, .col-lg-12.paragraph {
   margin-bottom: 3em; }
 
+.carousel {
+  width: 432px; }
+  .carousel .carousel-control {
+    background-image: none; }
+
 #search-api-page-block-form {
   display: -ms-flexbox;
   display: flex;
@@ -8744,6 +8749,24 @@ ol.breadcrumb {
 .page--front .node__content {
   padding-top: 3em; }
 
+.store-item .store-item__field-price .field__item:before {
+  content: '$'; }
+
+.store-item--full .store-item__field-format .field__item,
+.store-item--full .store-item__product-keywords .field__item {
+  display: inline;
+  padding-right: 1em; }
+
+.store-item--full .store-item__field_recorded-date .field__label,
+.store-item--full .store-item__field-run-time .field__label,
+.store-item--full .store-item__field-price .field__label {
+  display: inline; }
+
+.store-item--full .store-item__field_recorded-date .field__item,
+.store-item--full .store-item__field-run-time .field__item,
+.store-item--full .store-item__field-price .field__item {
+  display: inline; }
+
 .view--events .color-1 .events--brief-event {
   background: #2e3f52; }
 
@@ -8879,6 +8902,25 @@ ol.breadcrumb {
   .view--events .color-9 .btn-alt-dark:hover, .view--events .color-9 .btn-alt-dark:focus {
     background-color: #9D5194; }
 
+.view--staff img {
+  max-width: 100%; }
+
+.view--staff .col-xs-6 {
+  padding-left: 4px;
+  padding-right: 4px; }
+
+@media (min-width: 768px) {
+  .view--staff .col-sm-4 {
+    padding-left: 8px;
+    padding-right: 8px; } }
+
+.view--staff img {
+  border: 1px solid #e2e2e2; }
+
+.view--staff .views-field-name {
+  padding-top: 4px;
+  padding-bottom: 8px; }
+
 .view--audio-program-video .view__content {
   overflow-y: hidden; }
   .view--audio-program-video .view__content > .view__row {
@@ -8921,21 +8963,15 @@ ol.breadcrumb {
 .view--audio-program-video .color-1 .product-details,
 .view--daily-classes-and-workshops .color-1 .product-details {
   background: #8ca4c0; }
-  .view--audio-program-video .color-1 .product-details:hover, .view--audio-program-video .color-1 .product-details:focus,
-  .view--daily-classes-and-workshops .color-1 .product-details:hover,
-  .view--daily-classes-and-workshops .color-1 .product-details:focus {
+  .view--audio-program-video .color-1 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-1 .product-details:focus .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-1 .product-details:hover .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-1 .product-details:focus .btn-alt-dark {
     background: #496484;
     color: white; }
-    .view--audio-program-video .color-1 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-1 .product-details:focus .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-1 .product-details:hover .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-1 .product-details:focus .btn-alt-dark {
-      border: 1px solid white;
-      background: #496484;
-      color: white; }
 
 .view--audio-program-video .color-1 .btn-alt-dark,
 .view--daily-classes-and-workshops .color-1 .btn-alt-dark {
-  border-color: #405873; }
+  border-color: #374b63; }
 
 .view--audio-program-video .color-2 .product-image,
 .view--daily-classes-and-workshops .color-2 .product-image {
@@ -8944,21 +8980,15 @@ ol.breadcrumb {
 .view--audio-program-video .color-2 .product-details,
 .view--daily-classes-and-workshops .color-2 .product-details {
   background: #87c2b0; }
-  .view--audio-program-video .color-2 .product-details:hover, .view--audio-program-video .color-2 .product-details:focus,
-  .view--daily-classes-and-workshops .color-2 .product-details:hover,
-  .view--daily-classes-and-workshops .color-2 .product-details:focus {
+  .view--audio-program-video .color-2 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-2 .product-details:focus .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-2 .product-details:hover .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-2 .product-details:focus .btn-alt-dark {
     background: #448572;
     color: white; }
-    .view--audio-program-video .color-2 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-2 .product-details:focus .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-2 .product-details:hover .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-2 .product-details:focus .btn-alt-dark {
-      border: 1px solid white;
-      background: #448572;
-      color: white; }
 
 .view--audio-program-video .color-2 .btn-alt-dark,
 .view--daily-classes-and-workshops .color-2 .btn-alt-dark {
-  border-color: #3c7463; }
+  border-color: #336355; }
 
 .view--audio-program-video .color-3 .product-image,
 .view--daily-classes-and-workshops .color-3 .product-image {
@@ -8967,21 +8997,15 @@ ol.breadcrumb {
 .view--audio-program-video .color-3 .product-details,
 .view--daily-classes-and-workshops .color-3 .product-details {
   background: #c1e2af; }
-  .view--audio-program-video .color-3 .product-details:hover, .view--audio-program-video .color-3 .product-details:focus,
-  .view--daily-classes-and-workshops .color-3 .product-details:hover,
-  .view--daily-classes-and-workshops .color-3 .product-details:focus {
+  .view--audio-program-video .color-3 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-3 .product-details:focus .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-3 .product-details:hover .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-3 .product-details:focus .btn-alt-dark {
     background: #78bf52;
     color: white; }
-    .view--audio-program-video .color-3 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-3 .product-details:focus .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-3 .product-details:hover .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-3 .product-details:focus .btn-alt-dark {
-      border: 1px solid white;
-      background: #78bf52;
-      color: white; }
 
 .view--audio-program-video .color-3 .btn-alt-dark,
 .view--daily-classes-and-workshops .color-3 .btn-alt-dark {
-  border-color: #6bb543; }
+  border-color: #60a23c; }
 
 .view--audio-program-video .color-4 .product-image,
 .view--daily-classes-and-workshops .color-4 .product-image {
@@ -8990,17 +9014,11 @@ ol.breadcrumb {
 .view--audio-program-video .color-4 .product-details,
 .view--daily-classes-and-workshops .color-4 .product-details {
   background: #e4eec0; }
-  .view--audio-program-video .color-4 .product-details:hover, .view--audio-program-video .color-4 .product-details:focus,
-  .view--daily-classes-and-workshops .color-4 .product-details:hover,
-  .view--daily-classes-and-workshops .color-4 .product-details:focus {
+  .view--audio-program-video .color-4 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-4 .product-details:focus .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-4 .product-details:hover .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-4 .product-details:focus .btn-alt-dark {
     background: #b1ce47;
     color: white; }
-    .view--audio-program-video .color-4 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-4 .product-details:focus .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-4 .product-details:hover .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-4 .product-details:focus .btn-alt-dark {
-      border: 1px solid white;
-      background: #b1ce47;
-      color: white; }
 
 .view--audio-program-video .color-4 .btn-alt-dark,
 .view--daily-classes-and-workshops .color-4 .btn-alt-dark {
@@ -9013,21 +9031,15 @@ ol.breadcrumb {
 .view--audio-program-video .color-5 .product-details,
 .view--daily-classes-and-workshops .color-5 .product-details {
   background: #f0ebb4; }
-  .view--audio-program-video .color-5 .product-details:hover, .view--audio-program-video .color-5 .product-details:focus,
-  .view--daily-classes-and-workshops .color-5 .product-details:hover,
-  .view--daily-classes-and-workshops .color-5 .product-details:focus {
+  .view--audio-program-video .color-5 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-5 .product-details:focus .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-5 .product-details:hover .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-5 .product-details:focus .btn-alt-dark {
     background: #d6cb34;
     color: white; }
-    .view--audio-program-video .color-5 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-5 .product-details:focus .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-5 .product-details:hover .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-5 .product-details:focus .btn-alt-dark {
-      border: 1px solid white;
-      background: #d6cb34;
-      color: white; }
 
 .view--audio-program-video .color-5 .btn-alt-dark,
 .view--daily-classes-and-workshops .color-5 .btn-alt-dark {
-  border-color: #c9bd28; }
+  border-color: #d6cb34; }
 
 .view--audio-program-video .color-6 .product-image,
 .view--daily-classes-and-workshops .color-6 .product-image {
@@ -9036,21 +9048,15 @@ ol.breadcrumb {
 .view--audio-program-video .color-6 .product-details,
 .view--daily-classes-and-workshops .color-6 .product-details {
   background: #f0d7b4; }
-  .view--audio-program-video .color-6 .product-details:hover, .view--audio-program-video .color-6 .product-details:focus,
-  .view--daily-classes-and-workshops .color-6 .product-details:hover,
-  .view--daily-classes-and-workshops .color-6 .product-details:focus {
+  .view--audio-program-video .color-6 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-6 .product-details:focus .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-6 .product-details:hover .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-6 .product-details:focus .btn-alt-dark {
     background: #d69534;
     color: white; }
-    .view--audio-program-video .color-6 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-6 .product-details:focus .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-6 .product-details:hover .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-6 .product-details:focus .btn-alt-dark {
-      border: 1px solid white;
-      background: #d69534;
-      color: white; }
 
 .view--audio-program-video .color-6 .btn-alt-dark,
 .view--daily-classes-and-workshops .color-6 .btn-alt-dark {
-  border-color: #c98828; }
+  border-color: #d69534; }
 
 .view--audio-program-video .color-7 .product-image,
 .view--daily-classes-and-workshops .color-7 .product-image {
@@ -9059,17 +9065,11 @@ ol.breadcrumb {
 .view--audio-program-video .color-7 .product-details,
 .view--daily-classes-and-workshops .color-7 .product-details {
   background: #f4d7c9; }
-  .view--audio-program-video .color-7 .product-details:hover, .view--audio-program-video .color-7 .product-details:focus,
-  .view--daily-classes-and-workshops .color-7 .product-details:hover,
-  .view--daily-classes-and-workshops .color-7 .product-details:focus {
+  .view--audio-program-video .color-7 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-7 .product-details:focus .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-7 .product-details:hover .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-7 .product-details:focus .btn-alt-dark {
     background: #da794a;
     color: white; }
-    .view--audio-program-video .color-7 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-7 .product-details:focus .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-7 .product-details:hover .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-7 .product-details:focus .btn-alt-dark {
-      border: 1px solid white;
-      background: #da794a;
-      color: white; }
 
 .view--audio-program-video .color-7 .btn-alt-dark,
 .view--daily-classes-and-workshops .color-7 .btn-alt-dark {
@@ -9082,17 +9082,11 @@ ol.breadcrumb {
 .view--audio-program-video .color-8 .product-details,
 .view--daily-classes-and-workshops .color-8 .product-details {
   background: #e8b7c3; }
-  .view--audio-program-video .color-8 .product-details:hover, .view--audio-program-video .color-8 .product-details:focus,
-  .view--daily-classes-and-workshops .color-8 .product-details:hover,
-  .view--daily-classes-and-workshops .color-8 .product-details:focus {
+  .view--audio-program-video .color-8 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-8 .product-details:focus .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-8 .product-details:hover .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-8 .product-details:focus .btn-alt-dark {
     background: #c34363;
     color: white; }
-    .view--audio-program-video .color-8 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-8 .product-details:focus .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-8 .product-details:hover .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-8 .product-details:focus .btn-alt-dark {
-      border: 1px solid white;
-      background: #c34363;
-      color: white; }
 
 .view--audio-program-video .color-8 .btn-alt-dark,
 .view--daily-classes-and-workshops .color-8 .btn-alt-dark {
@@ -9105,31 +9099,25 @@ ol.breadcrumb {
 .view--audio-program-video .color-9 .product-details,
 .view--daily-classes-and-workshops .color-9 .product-details {
   background: #c58fbf; }
-  .view--audio-program-video .color-9 .product-details:hover, .view--audio-program-video .color-9 .product-details:focus,
-  .view--daily-classes-and-workshops .color-9 .product-details:hover,
-  .view--daily-classes-and-workshops .color-9 .product-details:focus {
+  .view--audio-program-video .color-9 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-9 .product-details:focus .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-9 .product-details:hover .btn-alt-dark,
+  .view--daily-classes-and-workshops .color-9 .product-details:focus .btn-alt-dark {
     background: #7b4074;
     color: white; }
-    .view--audio-program-video .color-9 .product-details:hover .btn-alt-dark, .view--audio-program-video .color-9 .product-details:focus .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-9 .product-details:hover .btn-alt-dark,
-    .view--daily-classes-and-workshops .color-9 .product-details:focus .btn-alt-dark {
-      border: 1px solid white;
-      background: #7b4074;
-      color: white; }
 
 .view--audio-program-video .color-9 .btn-alt-dark,
 .view--daily-classes-and-workshops .color-9 .btn-alt-dark {
   border-color: #6b3764; }
 
-.view--daily-classes-and-workshops .view__content {
+.view--daily-classes-and-workshops--page-2 .view__content {
   overflow-y: hidden;
   color: #222222; }
-  .view--daily-classes-and-workshops .view__content a {
+  .view--daily-classes-and-workshops--page-2 .view__content a {
     color: #222222;
     text-decoration: none; }
-  .view--daily-classes-and-workshops .view__content > .view__row {
+  .view--daily-classes-and-workshops--page-2 .view__content > .view__row {
     margin-bottom: 7px; }
-  .view--daily-classes-and-workshops .view__content .product-details {
+  .view--daily-classes-and-workshops--page-2 .view__content .product-details {
     min-height: 15em;
     padding: 10%;
     display: -ms-flexbox;
@@ -9137,50 +9125,37 @@ ol.breadcrumb {
     -ms-flex-direction: column;
         flex-direction: column; }
     @media (min-width: 768px) {
-      .view--daily-classes-and-workshops .view__content .product-details {
+      .view--daily-classes-and-workshops--page-2 .view__content .product-details {
         min-height: 13em; } }
     @media (min-width: 1200px) {
-      .view--daily-classes-and-workshops .view__content .product-details {
+      .view--daily-classes-and-workshops--page-2 .view__content .product-details {
         min-height: 15em; } }
-  .view--daily-classes-and-workshops .view__content .product-title {
+  .view--daily-classes-and-workshops--page-2 .view__content .product-title {
     -ms-flex-positive: 1;
         flex-grow: 1; }
-  .view--daily-classes-and-workshops .view__content .product-recorded-date {
+  .view--daily-classes-and-workshops--page-2 .view__content .product-recorded-date {
     padding-top: 15px;
     line-height: 1.3em;
     font-size: 87%; }
     @media (min-width: 1200px) {
-      .view--daily-classes-and-workshops .view__content .product-recorded-date {
+      .view--daily-classes-and-workshops--page-2 .view__content .product-recorded-date {
         font-size: 1em; } }
-  .view--daily-classes-and-workshops .view__content .product-practitioner {
+  .view--daily-classes-and-workshops--page-2 .view__content .product-practitioner {
     line-height: 1.4em; }
-  .view--daily-classes-and-workshops .view__content h4 {
+  .view--daily-classes-and-workshops--page-2 .view__content h4 {
     margin-top: 0px;
     margin-bottom: 0px; }
-  .view--daily-classes-and-workshops .view__content .btn, .view--daily-classes-and-workshops .view__content .media-widget > a {
+  .view--daily-classes-and-workshops--page-2 .view__content .btn, .view--daily-classes-and-workshops--page-2 .view__content .media-widget > a {
     margin-top: 1em;
     margin-bottom: 0px; }
-  .view--daily-classes-and-workshops .view__content .product-purchase {
+  .view--daily-classes-and-workshops--page-2 .view__content .product-purchase {
     text-align: center; }
 
-.view--staff img {
-  max-width: 100%; }
+.view--daily-classes-and-workshops .btn, .view--daily-classes-and-workshops .media-widget > a {
+  margin: 0px; }
 
-.view--staff .col-xs-6 {
-  padding-left: 4px;
-  padding-right: 4px; }
-
-@media (min-width: 768px) {
-  .view--staff .col-sm-4 {
-    padding-left: 8px;
-    padding-right: 8px; } }
-
-.view--staff img {
-  border: 1px solid #e2e2e2; }
-
-.view--staff .views-field-name {
-  padding-top: 4px;
-  padding-bottom: 8px; }
+.view--daily-classes-and-workshops tr td:last-of-type {
+  text-align: center; }
 
 .viewsreference-title {
   font-size: 37px;

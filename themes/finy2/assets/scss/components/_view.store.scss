@@ -47,6 +47,7 @@
 
 //--product color coding
 //@todo: redo using mixins
+//@todo: remove alternative full block hover options
 .view--audio-program-video,
 .view--daily-classes-and-workshops{
     .color-1{
@@ -56,17 +57,18 @@
         .product-details{
           background: lighten($color1, 20%);
           &:hover, &:focus{
-            background: darken($color1, 5%);
-            color:white;
+            //background: darken($color1, 5%);
+            //color:white;
             .btn-alt-dark{
-              border: 1px solid white;
+              //border: 1px solid white;
               background: darken($color1, 5%);
               color: white;
             }
           }
         }
         .btn-alt-dark{
-          border-color: darken($color1, 10%);
+          //border-color: darken($color1, 10%);
+          border-color: darken($color1, 15%);
         }
     }
     .color-2{
@@ -76,17 +78,18 @@
         .product-details{
           background: lighten($color2, 20%);
           &:hover, &:focus{
-            background: darken($color2, 5%);
-            color:white;
+            //background: darken($color2, 5%);
+            //color:white;
             .btn-alt-dark{
-              border: 1px solid white;
+              //border: 1px solid white;
               background: darken($color2, 5%);
               color: white;
             }
           }
         }
         .btn-alt-dark{
-          border-color: darken($color2, 10%);
+          //border-color: darken($color2, 10%);
+          border-color: darken($color2, 15%);
         }
     }
     .color-3{
@@ -96,17 +99,18 @@
         .product-details{
           background: lighten($color3, 20%);
           &:hover, &:focus{
-            background: darken($color3, 5%);
-            color:white;
+            //background: darken($color3, 5%);
+            //color:white;
             .btn-alt-dark{
-              border: 1px solid white;
+              //border: 1px solid white;
               background: darken($color3, 5%);
               color: white;
             }
           }
         }
         .btn-alt-dark{
-          border-color: darken($color3, 10%);
+          //border-color: darken($color3, 10%);
+          border-color: darken($color3, 15%);
         }
     }
     .color-4{
@@ -116,16 +120,17 @@
         .product-details{
           background: lighten($color4, 20%);
           &:hover, &:focus{
-            background: darken($color4, 10%);
-            color:white;
+            //background: darken($color4, 10%);
+            //color:white;
             .btn-alt-dark{
-              border: 1px solid white;
+              //border: 1px solid white;
               background: darken($color4, 10%);
               color: white;
             }
           }
         }
         .btn-alt-dark{
+          //border-color: darken($color4, 15%);
           border-color: darken($color4, 15%);
         }
     }
@@ -136,17 +141,18 @@
         .product-details{
           background: lighten($color5, 15%);
           &:hover, &:focus{
-            background: darken($color5, 15%);
-            color:white;
+            //background: darken($color5, 15%);
+            //color:white;
             .btn-alt-dark{
-              border: 1px solid white;
+              //border: 1px solid white;
               background: darken($color5, 15%);
               color: white;
             }
           }
         }
         .btn-alt-dark{
-          border-color: darken($color5, 20%);
+          //border-color: darken($color5, 20%);
+          border-color: darken($color5, 15%);
         }
     }
     .color-6{
@@ -156,17 +162,18 @@
         .product-details{
           background: lighten($color6, 15%);
           &:hover, &:focus{
-            background: darken($color6, 15%);
-            color:white;
+            //background: darken($color6, 15%);
+            //color:white;
             .btn-alt-dark{
-              border: 1px solid white;
+              //border: 1px solid white;
               background: darken($color6, 15%);
               color: white;
             }
           }
         }
         .btn-alt-dark{
-          border-color: darken($color6, 20%);
+          //border-color: darken($color6, 20%);
+          border-color: darken($color6, 15%);
         }
     }
     .color-7{
@@ -176,16 +183,17 @@
         .product-details{
           background: lighten($color7, 20%);
           &:hover, &:focus{
-            background: darken($color7, 10%);
-            color:white;
+            //background: darken($color7, 10%);
+            //color:white;
             .btn-alt-dark{
-              border: 1px solid white;
+              //border: 1px solid white;
               background: darken($color7, 10%);
               color: white;
             }
           }
         }
         .btn-alt-dark{
+          //border-color: darken($color7, 15%);
           border-color: darken($color7, 15%);
         }
     }
@@ -196,16 +204,17 @@
         .product-details{
           background: lighten($color8, 20%);
           &:hover, &:focus{
-            background: darken($color8, 10%);
-            color:white;
+            //background: darken($color8, 10%);
+            //color:white;
             .btn-alt-dark{
-              border: 1px solid white;
+              //border: 1px solid white;
               background: darken($color8, 10%);
               color: white;
             }
           }
         }
         .btn-alt-dark{
+          //border-color: darken($color8, 15%);
           border-color: darken($color8, 15%);
         }
     }
@@ -216,22 +225,23 @@
         .product-details{
           background: lighten($color9, 20%);
           &:hover, &:focus{
-            background: darken($color9, 10%);
-            color:white;
+            //background: darken($color9, 10%);
+            //color:white;
             .btn-alt-dark{
-              border: 1px solid white;
+              //border: 1px solid white;
               background: darken($color9, 10%);
               color: white;
             }
           }
         }
         .btn-alt-dark{
+          //border-color: darken($color9, 15%);
           border-color: darken($color9, 15%);
         }
     }
 }
 
-.view--daily-classes-and-workshops{
+.view--daily-classes-and-workshops--page-2{
   .view__content{
     overflow-y: hidden;
     color: $gray-darker;
@@ -278,6 +288,17 @@
     }
     .product-purchase{
       text-align: center;
+    }
+  }
+}
+
+.view--daily-classes-and-workshops{
+  .btn{
+    margin: 0px;
+  }
+  tr{
+    td:last-of-type{
+      text-align:center;
     }
   }
 }

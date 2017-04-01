@@ -87,16 +87,25 @@ view_mode ? bundle ~ '--' ~ view_mode|clean_class,
 
   <div{{ content_attributes.addClass('node__content') }}>
     {{ content.field_subtitle }}
-    <div class="product-practitioner"><small>with</small>{{ content.field_author_practitioner }}</div>
+    {{ content.field_author_practitioner }}
     {{ content.body }}
+    {% if product_type == 'single' %}
+      {{ content.field_audience }}
+    {% endif %}
     {{ content.field_format }}
+    {{ content.product_keywords }}
+    {% if product_type == 'single' %}
+      {{ content.field_recorded_date }}
+    {% endif %}
     {{ content.field_run_time }}
+    {% if product_type == 'set' %}
+      {{ content.field_published_year }}
+    {% endif %}
     {{ content.field_price }}
-    {{ content.field_purchase_link }} 
+    {{ content.field_purchase_link }}
 
-<hr>
-    {{ content }}
-
-  </div>
+    {% if product_type == 'set' %}
+      {{ content.field_related_products }}
+    {% endif %}
 
 </article>

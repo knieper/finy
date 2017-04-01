@@ -9,3 +9,22 @@ $includes_path = dirname(__FILE__) . '/includes/*.inc';
 foreach (glob($includes_path) as $filename) {
   require_once dirname(__FILE__) . '/includes/' . basename($filename);
 }
+
+function finy2_preprocess_node(&$variables){
+   //set potential set formats to match the following taxonomy term ids for physical or downloadable audio set, video or book
+   $sets = array('22','33', '34','36', '32', '31');
+   //check that field exists
+   if($variables['elements']['#node']->hasField('field_format')){
+      $format_values = $variables['elements']['#node']->get('field_format')->getValue();
+      foreach($format_values as $value){
+        if(in_array($value['target_id'], $sets)){
+          $variables['product_type'] = 'set';
+        }
+      }
+      //if none of the taxonomy ids matched then set it to single
+      if($variables['product_type'] != 'set'){
+        $variables['product_type'] = 'single';
+      }
+   //dpm($variables['product_type']);
+  }
+}
