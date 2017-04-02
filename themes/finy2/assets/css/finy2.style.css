@@ -8749,20 +8749,28 @@ ol.breadcrumb {
 .page--front .node__content {
   padding-top: 3em; }
 
-.store-item .store-item__field-price .field__item:before {
-  content: '$'; }
+.store-item .store-item__field-price {
+  font-size: 28px; }
+  .store-item .store-item__field-price .field__item:before {
+    content: '$'; }
+
+.store-item .store-item__field-author-practitioner:before {
+  content: 'by '; }
+
+.store-item .store-item__field-audience .field__item:before {
+  content: 'Suitable '; }
 
 .store-item--full .store-item__field-format .field__item,
 .store-item--full .store-item__product-keywords .field__item {
   display: inline;
   padding-right: 1em; }
 
-.store-item--full .store-item__field_recorded-date .field__label,
+.store-item--full .store-item__field-recorded-date .field__label,
 .store-item--full .store-item__field-run-time .field__label,
 .store-item--full .store-item__field-price .field__label {
   display: inline; }
 
-.store-item--full .store-item__field_recorded-date .field__item,
+.store-item--full .store-item__field-recorded-date .field__item,
 .store-item--full .store-item__field-run-time .field__item,
 .store-item--full .store-item__field-price .field__item {
   display: inline; }

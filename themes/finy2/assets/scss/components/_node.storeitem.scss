@@ -3,9 +3,22 @@
 .store-item {
   //add dollar sign
   .store-item__field-price{
+    font-size: $font-size-h3;
     .field__item{
       &:before{
         content: '$';
+      }
+    }
+  }
+  .store-item__field-author-practitioner{
+      &:before{
+        content: 'by ';
+      }
+  }
+  .store-item__field-audience{
+    .field__item{
+      &:before{
+        content: 'Suitable ';
       }
     }
   }
@@ -32,7 +45,7 @@
   }
 
   //display run time, price, and recorded date inline with label
-  .store-item__field_recorded-date,
+  .store-item__field-recorded-date,
   .store-item__field-run-time,
   .store-item__field-price {
     .field__label{
