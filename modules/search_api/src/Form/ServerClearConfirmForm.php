@@ -5,6 +5,7 @@ namespace Drupal\search_api\Form;
 use Drupal\Core\Entity\EntityConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Utility\Error;
 use Drupal\search_api\SearchApiException;
 
 /**
@@ -23,7 +24,7 @@ class ServerClearConfirmForm extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getDescription() {
-    return $this->t('This will permanently remove all data currently indexed on this server. Before the data is reindexed, searches on the indexes associated with this server will not return any results. This action cannot be undone.');
+    return $this->t('This will permanently remove all data currently indexed on this server for indexes that aren\'t read-only. Items are queued for reindexing. Until reindexing occurs, searches for the affected indexes will not return any results. This action cannot be undone.');
   }
 
   /**
@@ -58,10 +59,13 @@ class ServerClearConfirmForm extends EntityConfirmFormBase {
         $index->reindex();
       }
       catch (SearchApiException $e) {
-        $args = array(
+        $message = '%type while clearing index %index: @message in %function (line %line of %file).';
+        $variables = array(
           '%index' => $index->label(),
         );
-        watchdog_exception('search_api', $e, '%type while clearing index %index: @message in %function (line %line of %file).', $args);
+        $variables += Error::decodeException($e);
+        $this->getLogger('search_api')->error($message, $variables);
+
         $failed_reindexing[] = $index->label();
       }
     }

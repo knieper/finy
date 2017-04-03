@@ -5,6 +5,7 @@
  * Defines theme functions for the Search API module.
  */
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Url;
@@ -35,15 +36,14 @@ function theme_search_api_admin_fields_table($variables) {
           $row[] = $cell;
         }
       }
-      if (empty($form['fields'][$name]['description']['#value'])) {
-        $rows[] = Utility::deepCopy($row);
+      $row = array(
+        'data' => $row,
+        'data-field-row-id' => $name,
+      );
+      if (!empty($form['fields'][$name]['description']['#value'])) {
+        $row['title'] = strip_tags($form['fields'][$name]['description']['#value']);
       }
-      else {
-        $rows[] = array(
-          'data' => $row,
-          'title' => strip_tags($form['fields'][$name]['description']['#value']),
-        );
-      }
+      $rows[] = $row;
     }
   }
 
@@ -60,6 +60,7 @@ function theme_search_api_admin_fields_table($variables) {
     '#theme' => 'table',
     '#header' => $form['#header'],
     '#rows' => $rows,
+    '#empty' => t('No fields have been added for this datasource.'),
   );
 
   $output .= render($build);
@@ -160,6 +161,9 @@ function theme_search_api_form_item_list(array $variables) {
   $build = array(
     '#theme' => 'item_list',
   );
+  if (!empty($element['#title'])) {
+    $build['#title'] = $element['#title'];
+  }
   foreach (Element::children($element) as $key) {
     $build['#items'][$key] = $element[$key];
   }
@@ -206,21 +210,22 @@ function theme_search_api_server($variables) {
   // Get the individual parts of the row by reference.
   $label = &$row['data'][0]['data'];
   $info = &$row['data'][1];
-  $class = &$row['class'][0];
+  $classes = &$row['class'];
 
   // Check if the server is enabled.
   if ($server->status()) {
-    $class = 'ok';
+    $classes[] = 'ok';
     $info = t('enabled (<a href=":url">disable</a>)', array(':url' => $server->toUrl('disable')->toString()));
   }
   else {
-    $class = 'warning';
+    $classes[] = 'warning';
     $info = t('disabled (<a href=":url">enable</a>)', array(':url' => $server->toUrl('enable')->toString()));
   }
   // Append the row and reset variables.
   $label = t('Status');
+  $classes[] = 'search-api-server-summary--status';
   $rows[] = Utility::deepCopy($row);
-  $class = '';
+  $classes = [];
 
   // Check if the backend used by the server is valid and get its label.
   if ($server->hasValidBackend()) {
@@ -228,14 +233,15 @@ function theme_search_api_server($variables) {
     $info = Html::escape($backend->label());
   }
   else {
-    $class = 'error';
+    $classes[] = 'error';
     $info = t('Invalid or missing backend plugin: %backend_id', array('%backend_id' => $server->getBackendId()));
   }
 
   // Append the row and reset variables.
   $label = t('Backend class');
+  $classes[] = 'search-api-server-summary--backend';
   $rows[] = Utility::deepCopy($row);
-  $class = '';
+  $classes = [];
 
   // Build the indexes links container.
   $indexes = array(
@@ -254,7 +260,9 @@ function theme_search_api_server($variables) {
   if ($indexes['#links']) {
     $label = t('Search indexes');
     $info = render($indexes);
+    $classes[] = 'search-api-server-summary--indexes';
     $rows[] = Utility::deepCopy($row);
+    $classes = [];
   }
 
   // Add backend-specific additional information.
@@ -262,8 +270,11 @@ function theme_search_api_server($variables) {
     // Convert the extra information and append the information to the row.
     $label = $information['label'];
     $info = $information['info'];
-    $class = (empty($information['status']) ? '' : $information['status']);
+    if (!empty($information['status'])) {
+      $classes[] = $information['status'];
+    }
     $rows[] = Utility::deepCopy($row);
+    $classes = [];
   }
 
   // Append the server info table to the output.
@@ -302,7 +313,6 @@ function search_api_preprocess_search_api_index(array &$variables) {
     }
   }
 }
-
 
 /**
  * Returns HTML for a search index.
@@ -343,45 +353,59 @@ function theme_search_api_index(array $variables) {
       array('header' => TRUE),
       '',
     ),
-    'class' => array(''),
+    'class' => array(),
   );
   // Get the individual parts of the row by reference.
   $label = &$row['data'][0]['data'];
   $info = &$row['data'][1];
-  $class = &$row['class'][0];
+  $classes = &$row['class'];
 
   // Check if the index is enabled.
   if ($index->status()) {
-    $class = 'ok';
+    $classes[] = 'ok';
     $info = t('enabled (<a href=":url">disable</a>)', array(':url' => $index->toUrl('disable')->toString()));
   }
   // Check if a server is available and enabled.
   elseif ($server && $server->status()) {
-    $class = 'warning';
+    $classes[] = 'warning';
     $info = t('disabled (<a href=":url">enable</a>)', array(':url' => $index->toUrl('enable')->toString()));
   }
   else {
-    $class = 'warning';
+    $classes[] = 'warning';
     $info = t('disabled');
   }
   // Append the row and reset variables.
   $label = t('Status');
+  $classes[] = 'search-api-index-summary--status';
   $rows[] = Utility::deepCopy($row);
-  $class = '';
+  $classes = [];
 
   foreach ($index->getDatasourceIds() as $datasource_id) {
     // Check if the datasource is valid.
     if ($index->isValidDatasource($datasource_id)) {
       $info = $index->getDatasource($datasource_id)->label();
+      if ($tracker) {
+        $args = [
+          '@indexed' => $tracker->getIndexedItemsCount($datasource_id),
+          '@total' => $tracker->getTotalItemsCount($datasource_id),
+        ];
+        $indexed = t('@indexed/@total indexed', $args);
+        $args = [
+          '@datasource' => $info,
+          '@indexed' => $indexed,
+        ];
+        $info = new FormattableMarkup('@datasource <small>(@indexed)</small>', $args);
+      }
     }
     else {
-      $class = 'error';
+      $classes[] = 'error';
       $info = t('Invalid or missing datasource plugin: %datasource_id', array('%datasource_id' => $datasource_id));
     }
     // Append the row and reset variables.
-    $label = t('Data source');
+    $label = t('Datasource');
+    $classes[] = 'search-api-index-summary--datasource';
     $rows[] = Utility::deepCopy($row);
-    $class = '';
+    $classes = [];
   }
 
   // Check if the tracker is valid.
@@ -389,27 +413,29 @@ function theme_search_api_index(array $variables) {
     $info = $tracker->label();
   }
   else {
-    $class = 'error';
+    $classes[] = 'error';
     $info = t('Invalid or missing tracker plugin: %tracker_id', array('%tracker_id' => $index->getTrackerId()));
   }
   // Append the row and reset variables.
   $label = t('Tracker');
+  $classes[] = 'search-api-index-summary--tracker';
   $rows[] = Utility::deepCopy($row);
-  $class = '';
+  $classes = [];
 
   // Check if a server is available.
+  $classes[] = 'search-api-index-summary--server';
   if ($server) {
     $label = t('Server');
     $info = $server->toLink(NULL, 'canonical')->toString();
     $rows[] = Utility::deepCopy($row);
   }
   elseif ($index->getServerId()) {
-    $class = 'error';
+    $classes[] = 'error';
     $label = t('Server');
     $info = t('Unknown server set for index: %server_id', array('%server_id' => $index->getServerId()));
     $rows[] = Utility::deepCopy($row);
-    $class = '';
   }
+  $classes = [];
 
   // Check if the index is enabled.
   if ($index->status()) {
@@ -422,24 +448,27 @@ function theme_search_api_index(array $variables) {
     else {
       $args = array('@message' => $variables['server_count_error']);
       $info = t('Error while checking server index status: @message', $args);
-      $class = 'error';
+      $classes[] = 'error';
     }
+    $classes[] = 'search-api-index-summary--server-index-status';
     $rows[] = Utility::deepCopy($row);
+    $classes = [];
 
     $cron_limit = $index->getOption('cron_limit', \Drupal::config('search_api.settings')->get('default_cron_limit'));
     // Check if the cron limit is higher than zero.
     if ($cron_limit > 0) {
-      $class = 'ok';
+      $classes[] = 'ok';
       $info = \Drupal::translation()->formatPlural($cron_limit, 'During cron runs, 1 item will be indexed per batch.', 'During cron runs, @count items will be indexed per batch.');
     }
     else {
-      $class = 'warning';
+      $classes[] = 'warning';
       $info = t('No items will be indexed during cron runs.');
     }
     // Append the row and reset variables.
     $label = t('Cron batch size');
+    $classes[] = 'search-api-index-summary--cron-batch-size';
     $rows[] = Utility::deepCopy($row);
-    $class = '';
+    $classes = [];
 
     // Add the indexing progress bar.
     if ($tracker) {

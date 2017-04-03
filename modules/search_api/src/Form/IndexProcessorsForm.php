@@ -99,6 +99,7 @@ class IndexProcessorsForm extends EntityForm {
     }
 
     $stages = $this->processorPluginManager->getProcessingStages();
+    /** @var \Drupal\search_api\Processor\ProcessorInterface[][] $processors_by_stage */
     $processors_by_stage = array();
     foreach ($all_processors as $processor_id => $processor) {
       foreach ($stages as $stage => $definition) {
@@ -129,7 +130,7 @@ class IndexProcessorsForm extends EntityForm {
     }
 
     $form['#tree'] = TRUE;
-    $form['#attached']['library'][] = 'search_api/drupal.search_api.index-active-formatters';
+    $form['#attached']['library'][] = 'search_api/drupal.search_api.processors';
     $form['#title'] = $this->t('Manage processors for search index %label', array('%label' => $this->entity->label()));
     $form['description']['#markup'] = '<p>' . $this->t('Configure processors which will pre- and post-process data at index and search time.') . '</p>';
 
@@ -190,9 +191,15 @@ class IndexProcessorsForm extends EntityForm {
       );
     }
     foreach ($processors_by_stage as $stage => $processors) {
-      /** @var \Drupal\search_api\Processor\ProcessorInterface $processor */
+      // Sort the processors by weight for this stage.
+      $processor_weights = [];
       foreach ($processors as $processor_id => $processor) {
-        $weight = $processor->getWeight($stage);
+        $processor_weights[$processor_id] = $processor->getWeight($stage);
+      }
+      asort($processor_weights);
+
+      foreach ($processor_weights as $processor_id => $weight) {
+        $processor = $processors[$processor_id];
         if ($processor->isHidden()) {
           $form['processors'][$processor_id]['weights'][$stage] = array(
             '#type' => 'value',
@@ -208,6 +215,7 @@ class IndexProcessorsForm extends EntityForm {
           '#type' => 'weight',
           '#title' => $this->t('Weight for processor %title', array('%title' => $processor->label())),
           '#title_display' => 'invisible',
+          '#delta' => 50,
           '#default_value' => $weight,
           '#parents' => array('processors', $processor_id, 'weights', $stage),
           '#attributes' => array(
@@ -339,7 +347,7 @@ class IndexProcessorsForm extends EntityForm {
   }
 
   /**
-   * Retrieves all available processor
+   * Retrieves all available processors.
    */
   protected function getAllProcessors() {
     $processors = $this->entity->getProcessors();
@@ -359,7 +367,7 @@ class IndexProcessorsForm extends EntityForm {
       else {
         $this->logger->warning('Processor %id specifies a non-existing class %class.', array(
           '%id' => $name,
-          '%class' => $processor_definition['class']
+          '%class' => $processor_definition['class'],
         ));
       }
     }

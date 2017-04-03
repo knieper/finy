@@ -2,10 +2,8 @@
 
 namespace Drupal\search_api\Query;
 
-use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\search_api\IndexInterface;
 use Drupal\search_api\ParseMode\ParseModeInterface;
-use Drupal\search_api\ParseMode\ParseModePluginManager;
 
 /**
  * Represents a search query on a Search API index.
@@ -253,6 +251,7 @@ interface QueryInterface extends ConditionSetInterface {
    * @return $this
    */
   public function setProcessingLevel($level);
+
   /**
    * Aborts this query.
    *
@@ -416,9 +415,6 @@ interface QueryInterface extends ConditionSetInterface {
    *
    * @param string $name
    *   The name of an option. The following options are recognized by default:
-   *   - conjunction: The type of conjunction to use for this query – either
-   *     'AND' or 'OR'. 'AND' by default. This only influences the search keys,
-   *     condition groups will always use AND by default.
    *   - offset: The position of the first returned search results relative to
    *     the whole result in the index.
    *   - limit: The maximum number of search results to return. -1 means no

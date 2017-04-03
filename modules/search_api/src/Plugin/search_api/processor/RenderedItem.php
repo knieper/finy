@@ -11,13 +11,15 @@ use Drupal\Core\Theme\ThemeInitializationInterface;
 use Drupal\Core\Theme\ThemeManagerInterface;
 use Drupal\search_api\Datasource\DatasourceInterface;
 use Drupal\search_api\Item\ItemInterface;
+use Drupal\search_api\LoggerTrait;
 use Drupal\search_api\Plugin\search_api\processor\Property\RenderedItemProperty;
 use Drupal\search_api\Processor\ProcessorPluginBase;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Adds an additional field containing the rendered item.
+ *
+ * @see \Drupal\search_api\Plugin\search_api\processor\Property\RenderedItemProperty
  *
  * @SearchApiProcessor(
  *   id = "rendered_item",
@@ -25,13 +27,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   description = @Translation("Adds an additional field containing the rendered item as it would look when viewed."),
  *   stages = {
  *     "add_properties" = 0,
- *     "pre_index_save" = -10,
  *   },
  *   locked = true,
  *   hidden = true,
  * )
  */
 class RenderedItem extends ProcessorPluginBase {
+
+  use LoggerTrait;
 
   /**
    * The current_user service used by this plugin.
@@ -46,13 +49,6 @@ class RenderedItem extends ProcessorPluginBase {
    * @var \Drupal\Core\Render\RendererInterface|null
    */
   protected $renderer;
-
-  /**
-   * The logger to use for log messages.
-   *
-   * @var \Psr\Log\LoggerInterface|null
-   */
-  protected $logger;
 
   /**
    * Theme manager service.
@@ -135,29 +131,6 @@ class RenderedItem extends ProcessorPluginBase {
    */
   public function setRenderer(RendererInterface $renderer) {
     $this->renderer = $renderer;
-    return $this;
-  }
-
-  /**
-   * Retrieves the logger to use for log messages.
-   *
-   * @return \Psr\Log\LoggerInterface
-   *   The logger to use.
-   */
-  public function getLogger() {
-    return $this->logger ?: \Drupal::service('logger.channel.search_api');
-  }
-
-  /**
-   * Sets the logger to use for log messages.
-   *
-   * @param \Psr\Log\LoggerInterface $logger
-   *   The new logger.
-   *
-   * @return $this
-   */
-  public function setLogger(LoggerInterface $logger) {
-    $this->logger = $logger;
     return $this;
   }
 

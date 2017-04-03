@@ -5,6 +5,7 @@
  * Drush commands for Search API.
  */
 
+use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\search_api\Entity\Index;
 use Drupal\search_api\Entity\Server;
 use Drupal\search_api\IndexBatchHelper;
@@ -235,22 +236,16 @@ function drush_search_api_enable($index_id = NULL) {
     return;
   }
 
-  $index_ids = search_api_drush_get_indexes($index_id);
+  $indexes = search_api_drush_get_indexes($index_id);
 
-  if (!$index_ids) {
+  if (!$indexes) {
     drush_set_error(dt('You must specify at least one index to enable. The indexes I know about are:'));
     drush_search_api_list();
   }
 
-  foreach ($index_ids as $index_id) {
-    $indexes = search_api_drush_get_indexes($index_id);
-    if (!$indexes) {
-      continue;
-    }
-    foreach ($indexes as $index) {
-      if ($index_id || !$index->status()) {
-        search_api_drush_set_index_state($index);
-      }
+  foreach ($indexes as $index) {
+    if (!$index->status()) {
+      search_api_drush_set_index_state($index);
     }
   }
 }
@@ -275,19 +270,16 @@ function drush_search_api_disable($index_id = NULL) {
     return;
   }
 
-  $index_ids = search_api_drush_get_indexes($index_id);
+  $indexes = search_api_drush_get_indexes($index_id);
 
-  if (!$index_ids) {
+  if (!$indexes) {
     drush_set_error(dt('You must specify at least one index to disable. The indexes I know about are:'));
     drush_search_api_list();
   }
 
-  foreach ($index_ids as $index_id) {
-    $indexes = search_api_drush_get_indexes($index_id);
-    foreach ($indexes as $index) {
-      if ($index->status()) {
-        search_api_drush_set_index_state($index, FALSE);
-      }
+  foreach ($indexes as $index) {
+    if ($index->status()) {
+      search_api_drush_set_index_state($index, FALSE);
     }
   }
 }
@@ -539,6 +531,7 @@ function search_api_drush_set_index_state(IndexInterface $index, $enable = TRUE)
     return;
   }
 
+  $index = _search_api_drush_reload_entity_override_free($index);
   $index->$method()->save();
   drush_log(dt("The index @index was successfully @desired_state.", array('@index' => $index->label(), '@desired_state' => $state_label)), 'ok');
 }
@@ -618,6 +611,7 @@ function drush_search_api_server_enable($server_id = NULL) {
     drush_print(dt('The server could not be loaded.'));
     return;
   }
+  $server = _search_api_drush_reload_entity_override_free($server);
   $server->setStatus(TRUE)->save();
   drush_print(dt('The server was enabled successfully.'));
 
@@ -639,6 +633,7 @@ function drush_search_api_server_disable($server_id = NULL) {
     drush_print(dt('The server could not be loaded.'));
     return;
   }
+  $server = _search_api_drush_reload_entity_override_free($server);
   $server->setStatus(FALSE)->save();
   drush_print(dt('The server was disabled successfully.'));
 }
@@ -674,6 +669,7 @@ function drush_search_api_set_index_server($index_id = NULL, $server_id = NULL) 
   }
   // Set the new server on the index.
   try {
+    $index = _search_api_drush_reload_entity_override_free($index);
     $index->setServer($server);
     $index->save();
     drush_log(dt('Index @index has been set to use server @server and items have been queued for indexing.', array('@index' => $index_id, '@server' => $server_id)), 'ok');
@@ -682,4 +678,12 @@ function drush_search_api_set_index_server($index_id = NULL, $server_id = NULL) 
     drush_log($e->getMessage(), 'error');
     drush_log(dt('There was an error setting index @index to use server @server, or this index is already configured to use this server.', array('@index' => $index_id, '@server' => $server_id)), 'error');
   }
+}
+
+
+function _search_api_drush_reload_entity_override_free(ConfigEntityInterface $entity) {
+  /** @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $storage */
+  $storage = \Drupal::entityTypeManager()
+    ->getStorage($entity->getEntityTypeId());
+  return $storage->loadOverrideFree($entity->id());
 }

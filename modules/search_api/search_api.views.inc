@@ -179,7 +179,10 @@ function _search_api_views_get_handlers(FieldInterface $field) {
       $types[] = 'entity';
     }
 
-    // @todo Detect fields with fixed lists of options, add type "options".
+    if ($definition->getSetting('allowed_values')) {
+      $types[] = 'options';
+    }
+
     $types[] = $field->getType();
     /** @var \Drupal\search_api\DataType\DataTypeInterface $data_type */
     $data_type = \Drupal::service('plugin.manager.search_api.data_type')->createInstance($field->getType());
@@ -275,6 +278,9 @@ function _search_api_views_handler_mapping() {
         ),
       ),
       'text' => array(
+        'argument' => array(
+          'id' => 'search_api',
+        ),
         'filter' => array(
           'id' => 'search_api_text',
         ),
@@ -283,6 +289,9 @@ function _search_api_views_handler_mapping() {
         ),
       ),
       'options' => array(
+        'argument' => array(
+          'id' => 'search_api',
+        ),
         'filter' => array(
           'id' => 'search_api_options',
         ),
@@ -303,6 +312,10 @@ function _search_api_views_handler_mapping() {
         ),
       ),
       'entity:user' => array(
+        'argument' => array(
+          'id' => 'search_api',
+          'filter' => 'intval',
+        ),
         'filter' => array(
           'id' => 'search_api_user',
         ),
@@ -311,6 +324,9 @@ function _search_api_views_handler_mapping() {
         ),
       ),
       'entity:node_type' => array(
+        'argument' => array(
+          'id' => 'search_api',
+        ),
         'filter' => array(
           'id' => 'search_api_options',
           'options callback' => 'node_type_get_names',
@@ -352,6 +368,29 @@ function _search_api_views_handler_adjustments($type, FieldInterface $field, arr
       $target_bundles = $data_definition->getSettings()['handler_settings']['target_bundles'];
       if (count($target_bundles) == 1) {
         $definitions['filter']['vocabulary'] = reset($target_bundles);
+      }
+    }
+  }
+  elseif ($type == 'options') {
+    if ($data_definition instanceof FieldItemDataDefinition) {
+      // If this is a normal Field API field, dynamically retrieve the options
+      // list at query time.
+      $field_definition = $data_definition->getFieldDefinition();
+      $bundle = $field_definition->getTargetBundle();
+      $field_name = $field_definition->getName();
+      $entity_type = $field_definition->getTargetEntityTypeId();
+      $definitions['filter']['options callback'] = '_search_api_views_get_allowed_values';
+      $definitions['filter']['options arguments'] = array($entity_type, $bundle, $field_name);
+    }
+    else {
+      // Otherwise, include the options list verbatim in the Views data, unless
+      // it's too big (or doesn't look valid).
+      $options = $data_definition->getSetting('allowed_values');
+      if (is_array($options) && count($options) <= 50) {
+        // Since the Views InOperator filter plugin doesn't allow just including
+        // the options in the definition, we use this workaround.
+        $definitions['filter']['options callback'] = 'array_filter';
+        $definitions['filter']['options arguments'] = array($options);
       }
     }
   }

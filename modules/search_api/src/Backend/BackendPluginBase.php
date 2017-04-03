@@ -4,12 +4,13 @@ namespace Drupal\search_api\Backend;
 
 use Drupal\search_api\Entity\Server;
 use Drupal\search_api\Item\ItemInterface;
+use Drupal\search_api\LoggerTrait;
 use Drupal\search_api\Query\QueryInterface;
 use Drupal\search_api\SearchApiException;
 use Drupal\search_api\IndexInterface;
 use Drupal\search_api\Plugin\ConfigurablePluginBase;
 use Drupal\search_api\ServerInterface;
-use Drupal\search_api\Utility\Utility;
+use Drupal\search_api\Utility\FieldsHelper;
 
 /**
  * Defines a base class for backend plugins.
@@ -40,6 +41,8 @@ use Drupal\search_api\Utility\Utility;
  */
 abstract class BackendPluginBase extends ConfigurablePluginBase implements BackendInterface {
 
+  use LoggerTrait;
+
   /**
    * The server this backend is configured for.
    *
@@ -57,14 +60,44 @@ abstract class BackendPluginBase extends ConfigurablePluginBase implements Backe
   protected $serverId;
 
   /**
+   * The fields helper.
+   *
+   * @var \Drupal\search_api\Utility\FieldsHelper|null
+   */
+  protected $fieldsHelper;
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(array $configuration, $plugin_id, array $plugin_definition) {
-    if (!empty($configuration['server']) && $configuration['server'] instanceof ServerInterface) {
-      $this->setServer($configuration['server']);
-      unset($configuration['server']);
+    if (!empty($configuration['#server']) && $configuration['#server'] instanceof ServerInterface) {
+      $this->setServer($configuration['#server']);
+      unset($configuration['#server']);
     }
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+  }
+
+  /**
+   * Retrieves the fields helper.
+   *
+   * @return \Drupal\search_api\Utility\FieldsHelper
+   *   The fields helper.
+   */
+  public function getFieldsHelper() {
+    return $this->fieldsHelper ?: \Drupal::service('search_api.fields_helper');
+  }
+
+  /**
+   * Sets the fields helper.
+   *
+   * @param \Drupal\search_api\Utility\FieldsHelper $fields_helper
+   *   The new fields helper.
+   *
+   * @return $this
+   */
+  public function setFieldsHelper(FieldsHelper $fields_helper) {
+    $this->fieldsHelper = $fields_helper;
+    return $this;
   }
 
   /**
@@ -79,6 +112,7 @@ abstract class BackendPluginBase extends ConfigurablePluginBase implements Backe
    */
   public function setServer(ServerInterface $server) {
     $this->server = $server;
+    return $this;
   }
 
   /**
@@ -137,7 +171,7 @@ abstract class BackendPluginBase extends ConfigurablePluginBase implements Backe
       $vars = array(
         '%server' => $this->getServer()->label(),
       );
-      watchdog_exception('search_api', $e, '%type while deleting items from server %server: @message in %function (line %line of %file).', $vars);
+      $this->logException($e, '%type while deleting items from server %server: @message in %function (line %line of %file).', $vars);
       drupal_set_message($this->t('Deleting some of the items on the server failed. Check the logs for details. The server was still removed.'), 'error');
     }
   }
@@ -195,9 +229,12 @@ abstract class BackendPluginBase extends ConfigurablePluginBase implements Backe
       'type' => 'string',
       'original type' => 'string',
     );
-    $fields['search_api_id'] = Utility::createField($index, 'search_api_id', $field_info);
-    $fields['search_api_datasource'] = Utility::createField($index, 'search_api_datasource', $field_info);
-    $fields['search_api_language'] = Utility::createField($index, 'search_api_language', $field_info);
+    $fields['search_api_id'] = $this->getFieldsHelper()
+      ->createField($index, 'search_api_id', $field_info);
+    $fields['search_api_datasource'] = $this->getFieldsHelper()
+      ->createField($index, 'search_api_datasource', $field_info);
+    $fields['search_api_language'] = $this->getFieldsHelper()
+      ->createField($index, 'search_api_language', $field_info);
 
     if ($item) {
       $fields['search_api_id']->setValues(array($item->getId()));

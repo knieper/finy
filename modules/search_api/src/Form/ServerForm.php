@@ -2,13 +2,13 @@
 
 namespace Drupal\search_api\Form;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\PluginFormInterface;
 use Drupal\Core\Form\SubformState;
 use Drupal\Core\Url;
+use Drupal\Core\Utility\Error;
 use Drupal\search_api\Backend\BackendPluginManager;
 use Drupal\search_api\SearchApiException;
 use Drupal\search_api\ServerInterface;
@@ -55,26 +55,6 @@ class ServerForm extends EntityForm {
     /** @var \Drupal\search_api\Backend\BackendPluginManager $backend_plugin_manager */
     $backend_plugin_manager = $container->get('plugin.manager.search_api.backend');
     return new static($entity_type_manager, $backend_plugin_manager);
-  }
-
-  /**
-   * Retrieves the server storage controller.
-   *
-   * @return \Drupal\Core\Entity\EntityStorageInterface
-   *   The server storage controller.
-   */
-  protected function getStorage() {
-    return $this->storage ?: \Drupal::service('entity_type.manager')->getStorage('search_api_server');
-  }
-
-  /**
-   * Retrieves the backend plugin manager.
-   *
-   * @return \Drupal\search_api\Backend\BackendPluginManager
-   *   The backend plugin manager.
-   */
-  protected function getBackendPluginManager() {
-    return $this->backendPluginManager ?: \Drupal::service('plugin.manager.search_api.backend');
   }
 
   /**
@@ -133,7 +113,7 @@ class ServerForm extends EntityForm {
       '#maxlength' => 50,
       '#required' => TRUE,
       '#machine_name' => array(
-        'exists' => array($this->getStorage(), 'load'),
+        'exists' => array($this->storage, 'load'),
         'source' => array('name'),
       ),
       '#disabled' => !$server->isNew(),
@@ -150,7 +130,19 @@ class ServerForm extends EntityForm {
       '#description' => $this->t('Enter a description for the server.'),
       '#default_value' => $server->getDescription(),
     );
-    $backend_options = $this->getBackendOptions();
+
+    $backends = $this->backendPluginManager->getDefinitions();
+    $backend_options = [];
+    $descriptions = [];
+    foreach ($backends as $backend_id => $definition) {
+      $config = $backend_id === $server->getBackendId() ? $server->getBackendConfig() : [];
+      $config['#server'] = $server;
+      $backend = $this->backendPluginManager
+        ->createInstance($backend_id, $config);
+      $backend_options[$backend_id] = $backend->label();
+      $descriptions[$backend_id]['#description'] = $backend->getDescription();
+    }
+    asort($backend_options, SORT_NATURAL | SORT_FLAG_CASE);
     if ($backend_options) {
       if (count($backend_options) == 1) {
         $server->set('backend', key($backend_options));
@@ -170,26 +162,12 @@ class ServerForm extends EntityForm {
           'effect' => 'fade',
         ),
       );
+      $form['backend'] += $descriptions;
     }
     else {
       drupal_set_message($this->t('There are no backend plugins available for the Search API. Please install a <a href=":url">module that provides a backend plugin</a> to proceed.', array(':url' => Url::fromUri('https://www.drupal.org/node/1254698')->toString())), 'error');
       $form = array();
     }
-  }
-
-  /**
-   * Returns all available backend plugins, as an options list.
-   *
-   * @return string[]
-   *   An associative array mapping backend plugin IDs to their (HTML-escaped)
-   *   labels.
-   */
-  protected function getBackendOptions() {
-    $options = array();
-    foreach ($this->getBackendPluginManager()->getDefinitions() as $plugin_id => $plugin_definition) {
-      $options[$plugin_id] = Html::escape($plugin_definition['label']);
-    }
-    return $options;
   }
 
   /**
@@ -214,7 +192,6 @@ class ServerForm extends EntityForm {
         // Modify the backend plugin configuration container element.
         $form['backend_config']['#type'] = 'details';
         $form['backend_config']['#title'] = $this->t('Configure %plugin backend', array('%plugin' => $backend->label()));
-        $form['backend_config']['#description'] = $backend->getDescription();
         $form['backend_config']['#open'] = TRUE;
       }
     }
@@ -309,7 +286,11 @@ class ServerForm extends EntityForm {
       }
       catch (SearchApiException $e) {
         $form_state->setRebuild();
-        watchdog_exception('search_api', $e);
+
+        $message = '%type: @message in %function (line %line of %file).';
+        $variables = Error::decodeException($e);
+        $this->getLogger('search_api')->error($message, $variables);
+
         drupal_set_message($this->t('The server could not be saved.'), 'error');
       }
     }

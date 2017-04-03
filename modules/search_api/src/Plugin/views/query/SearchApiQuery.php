@@ -4,12 +4,13 @@ namespace Drupal\search_api\Plugin\views\query;
 
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\Html;
-use Drupal\Core\Cache\UncacheableDependencyTrait;
 use Drupal\Core\Database\Query\ConditionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\search_api\Entity\Index;
+use Drupal\search_api\LoggerTrait;
 use Drupal\search_api\ParseMode\ParseModeInterface;
 use Drupal\search_api\Query\ConditionGroupInterface;
 use Drupal\search_api\Query\QueryInterface;
@@ -20,7 +21,6 @@ use Drupal\views\Plugin\views\display\DisplayPluginBase;
 use Drupal\views\Plugin\views\query\QueryPluginBase;
 use Drupal\views\ResultRow;
 use Drupal\views\ViewExecutable;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -34,7 +34,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class SearchApiQuery extends QueryPluginBase {
 
-  use UncacheableDependencyTrait;
+  use LoggerTrait;
 
   /**
    * Number of results to display.
@@ -113,11 +113,11 @@ class SearchApiQuery extends QueryPluginBase {
   protected $groupOperator = 'AND';
 
   /**
-   * The logger to use for log messages.
+   * The module handler.
    *
-   * @var \Psr\Log\LoggerInterface|null
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface|null
    */
-  protected $logger;
+  protected $moduleHandler;
 
   /**
    * {@inheritdoc}
@@ -126,32 +126,10 @@ class SearchApiQuery extends QueryPluginBase {
     /** @var static $plugin */
     $plugin = parent::create($container, $configuration, $plugin_id, $plugin_definition);
 
+    $plugin->setModuleHandler($container->get('module_handler'));
     $plugin->setLogger($container->get('logger.channel.search_api'));
 
     return $plugin;
-  }
-
-  /**
-   * Retrieves the logger to use for log messages.
-   *
-   * @return \Psr\Log\LoggerInterface
-   *   The logger to use.
-   */
-  public function getLogger() {
-    return $this->logger ?: \Drupal::service('logger.channel.search_api');
-  }
-
-  /**
-   * Sets the logger to use for log messages.
-   *
-   * @param \Psr\Log\LoggerInterface $logger
-   *   The new logger.
-   *
-   * @return $this
-   */
-  public function setLogger(LoggerInterface $logger) {
-    $this->logger = $logger;
-    return $this;
   }
 
   /**
@@ -177,6 +155,29 @@ class SearchApiQuery extends QueryPluginBase {
       return Index::load($index_id);
     }
     return NULL;
+  }
+
+  /**
+   * Retrieves the module handler.
+   *
+   * @return \Drupal\Core\Extension\ModuleHandlerInterface
+   *   The module handler.
+   */
+  public function getModuleHandler() {
+    return $this->moduleHandler ?: \Drupal::moduleHandler();
+  }
+
+  /**
+   * Sets the module handler.
+   *
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The new module handler.
+   *
+   * @return $this
+   */
+  public function setModuleHandler(ModuleHandlerInterface $module_handler) {
+    $this->moduleHandler = $module_handler;
+    return $this;
   }
 
   /**
@@ -386,7 +387,7 @@ class SearchApiQuery extends QueryPluginBase {
    * {@inheritdoc}
    */
   public function alter(ViewExecutable $view) {
-    \Drupal::moduleHandler()->invokeAll('views_query_alter', array($view, $this));
+    $this->getModuleHandler()->invokeAll('views_query_alter', array($view, $this));
   }
 
   /**
@@ -1249,9 +1250,6 @@ class SearchApiQuery extends QueryPluginBase {
    *
    * @param string $name
    *   The name of an option. The following options are recognized by default:
-   *   - conjunction: The type of conjunction to use for this query – either
-   *     'AND' or 'OR'. 'AND' by default. This only influences the search keys,
-   *     condition groups will always use AND by default.
    *   - offset: The position of the first returned search results relative to
    *     the whole result in the index.
    *   - limit: The maximum number of search results to return. -1 means no

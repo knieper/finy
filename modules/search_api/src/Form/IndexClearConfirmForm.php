@@ -5,6 +5,7 @@ namespace Drupal\search_api\Form;
 use Drupal\Core\Entity\EntityConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Utility\Error;
 use Drupal\search_api\SearchApiException;
 
 /**
@@ -23,7 +24,7 @@ class IndexClearConfirmForm extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getDescription() {
-    return $this->t('All indexed data for this index will be deleted from the search server. Searches on this index will not return any items until they are reindexed. This action cannot be undone.');
+    return $this->t('All indexed data for this index will be deleted from the search server. Searches on this index will not return any results until items are reindexed. This action cannot be undone.');
   }
 
   /**
@@ -37,18 +38,23 @@ class IndexClearConfirmForm extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    /** @var \Drupal\search_api\IndexInterface $entity */
-    $entity = $this->getEntity();
+    /** @var \Drupal\search_api\IndexInterface $index */
+    $index = $this->getEntity();
 
     try {
-      $entity->clear();
+      $index->clear();
     }
     catch (SearchApiException $e) {
-      drupal_set_message($this->t('Failed to clear the search index %name.', array('%name' => $entity->label())), 'error');
-      watchdog_exception('search_api', $e, '%type while trying to clear the index %name: @message in %function (line %line of %file)', array('%name' => $entity->label()));
+      drupal_set_message($this->t('Failed to clear the search index %name.', array('%name' => $index->label())), 'error');
+      $message = '%type while trying to clear the index %name: @message in %function (line %line of %file)';
+      $variables = array(
+        '%name' => $index->label(),
+      );
+      $variables += Error::decodeException($e);
+      $this->getLogger('search_api')->error($message, $variables);
     }
 
-    $form_state->setRedirect('entity.search_api_index.canonical', array('search_api_index' => $entity->id()));
+    $form_state->setRedirect('entity.search_api_index.canonical', array('search_api_index' => $index->id()));
   }
 
 }

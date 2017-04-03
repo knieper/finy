@@ -3,7 +3,6 @@
 namespace Drupal\search_api\Entity;
 
 use Drupal\Component\Plugin\DependentPluginInterface;
-use Drupal\Component\Plugin\Exception\PluginException;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
@@ -11,6 +10,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\search_api\Datasource\DatasourceInterface;
 use Drupal\search_api\IndexInterface;
 use Drupal\search_api\Item\FieldInterface;
+use Drupal\search_api\LoggerTrait;
 use Drupal\search_api\Processor\ProcessorInterface;
 use Drupal\search_api\Query\QueryInterface;
 use Drupal\search_api\Query\ResultSetInterface;
@@ -20,7 +20,6 @@ use Drupal\search_api\Tracker\TrackerInterface;
 use Drupal\search_api\Utility\Utility;
 use Drupal\user\TempStoreException;
 use Drupal\views\Views;
-use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 /**
  * Defines the search index configuration entity.
@@ -28,6 +27,7 @@ use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
  * @ConfigEntityType(
  *   id = "search_api_index",
  *   label = @Translation("Search index"),
+ *   label_collection = @Translation("Search indexes"),
  *   label_singular = @Translation("search index"),
  *   label_plural = @Translation("search indexes"),
  *   label_count = @PluralTranslation(
@@ -35,7 +35,7 @@ use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
  *     plural = "@count search indexes",
  *   ),
  *   handlers = {
- *     "storage" = "Drupal\Core\Config\Entity\ConfigEntityStorage",
+ *     "storage" = "Drupal\search_api\Entity\SearchApiConfigEntityStorage",
  *     "list_builder" = "Drupal\search_api\IndexListBuilder",
  *     "form" = {
  *       "default" = "Drupal\search_api\Form\IndexForm",
@@ -76,7 +76,8 @@ use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
  *     "add-form" = "/admin/config/search/search-api/add-index",
  *     "edit-form" = "/admin/config/search/search-api/index/{search_api_index}/edit",
  *     "fields" = "/admin/config/search/search-api/index/{search_api_index}/fields",
- *     "add-fields" = "/admin/config/search/search-api/index/{search_api_index}/fields/add",
+ *     "add-fields" = "/admin/config/search/search-api/index/{search_api_index}/fields/add/nojs",
+ *     "add-fields-ajax" = "/admin/config/search/search-api/index/{search_api_index}/fields/add/ajax",
  *     "break-lock-form" = "/admin/config/search/search-api/index/{search_api_index}/fields/break-lock",
  *     "processors" = "/admin/config/search/search-api/index/{search_api_index}/processors",
  *     "delete-form" = "/admin/config/search/search-api/index/{search_api_index}/delete",
@@ -86,6 +87,8 @@ use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
  * )
  */
 class Index extends ConfigEntityBase implements IndexInterface {
+
+  use LoggerTrait;
 
   /**
    * The ID of the index.
@@ -255,13 +258,6 @@ class Index extends ConfigEntityBase implements IndexInterface {
   protected $processorInstances;
 
   /**
-   * Whether reindexing has been triggered for this index in this page request.
-   *
-   * @var bool
-   */
-  protected $hasReindexed = FALSE;
-
-  /**
    * The number of currently active "batch tracking" modes.
    *
    * @var int
@@ -322,59 +318,11 @@ class Index extends ConfigEntityBase implements IndexInterface {
   /**
    * {@inheritdoc}
    */
-  public function createPlugin($type, $plugin_id, $configuration = array()) {
-    try {
-      /** @var \Drupal\Component\Plugin\PluginManagerInterface $plugin_manager */
-      $plugin_manager = \Drupal::getContainer()
-        ->get("plugin.manager.search_api.$type");
-      $configuration['#index'] = $this;
-      return $plugin_manager->createInstance($plugin_id, $configuration);
-    }
-    catch (ServiceNotFoundException $e) {
-      throw new SearchApiException("Unknown plugin type '$type'");
-    }
-    catch (PluginException $e) {
-      throw new SearchApiException("Unknown $type plugin with ID '$plugin_id'");
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function createPlugins($type, array $plugin_ids = NULL, $configurations = array()) {
-    if ($plugin_ids === NULL) {
-      try {
-        /** @var \Drupal\Component\Plugin\PluginManagerInterface $plugin_manager */
-        $plugin_manager = \Drupal::getContainer()
-          ->get("plugin.manager.search_api.$type");
-        $plugin_ids = array_keys($plugin_manager->getDefinitions());
-      }
-      catch (ServiceNotFoundException $e) {
-        throw new SearchApiException("Unknown plugin type '$type'");
-      }
-    }
-
-    $plugins = array();
-    foreach ($plugin_ids as $plugin_id) {
-      $configuration = array();
-      if (isset($configurations[$plugin_id])) {
-        $configuration = $configurations[$plugin_id];
-      }
-      elseif (isset($this->{"{$type}_settings"}[$plugin_id])) {
-        $configuration = $this->{"{$type}_settings"}[$plugin_id];
-      }
-      $plugins[$plugin_id] = $this->createPlugin($type, $plugin_id, $configuration);
-    }
-
-    return $plugins;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getDatasources() {
     if ($this->datasourceInstances === NULL) {
-      $this->datasourceInstances = $this->createPlugins('datasource', array_keys($this->datasource_settings));
+      $this->datasourceInstances = \Drupal::getContainer()
+        ->get('search_api.plugin_helper')
+        ->createDatasourcePlugins($this, array_keys($this->datasource_settings));
     }
 
     return $this->datasourceInstances;
@@ -480,7 +428,9 @@ class Index extends ConfigEntityBase implements IndexInterface {
         $configuration = $this->tracker_settings[$tracker_id];
       }
 
-      $this->trackerInstance = $this->createPlugin('tracker', $tracker_id, $configuration);
+      $this->trackerInstance = \Drupal::getContainer()
+        ->get('search_api.plugin_helper')
+        ->createTrackerPlugin($this, $tracker_id, $configuration);
     }
 
     return $this->trackerInstance;
@@ -552,7 +502,10 @@ class Index extends ConfigEntityBase implements IndexInterface {
     // We should only reach this point in the code once, at the first call after
     // the index is loaded.
     $this->processorInstances = array();
-    foreach ($this->createPlugins('processor') as $processor_id => $processor) {
+    $processors = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createProcessorPlugins($this);
+    foreach ($processors as $processor_id => $processor) {
       if (isset($this->processor_settings[$processor_id]) || $processor->isLocked()) {
         $this->processorInstances[$processor_id] = $processor;
       }
@@ -564,14 +517,30 @@ class Index extends ConfigEntityBase implements IndexInterface {
   /**
    * {@inheritdoc}
    */
-  public function getProcessorsByStage($stage) {
-    // Get a list of all processors meeting the criteria (stage and, optionally,
-    // enabled) along with their effective weights (user-set or default).
+  public function getProcessorsByStage($stage, $overrides = []) {
+    // Get a list of all processors which support this stage, along with their
+    // weights.
     $processors = $this->getProcessors();
     $processor_weights = array();
     foreach ($processors as $name => $processor) {
       if ($processor->supportsStage($stage)) {
         $processor_weights[$name] = $processor->getWeight($stage);
+      }
+    }
+
+    // Apply any overrides that were passed by the caller.
+    $plugin_helper = \Drupal::getContainer()->get('search_api.plugin_helper');
+    foreach ($overrides as $name => $config) {
+      $processor = $plugin_helper->createProcessorPlugin($this, $name, $config);
+      if ($processor->supportsStage($stage)) {
+        $processors[$name] = $processor;
+        $processor_weights[$name] = $processor->getWeight($stage);
+      }
+      else {
+        // In rare cases, the override might change whether or not the processor
+        // supports the given stage. So, to make sure, unset the weight in case
+        // it was set before.
+        unset($processor_weights[$name]);
       }
     }
 
@@ -814,6 +783,14 @@ class Index extends ConfigEntityBase implements IndexInterface {
   /**
    * {@inheritdoc}
    */
+  public function discardFieldChanges() {
+    $this->fieldInstances = NULL;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getPropertyDefinitions($datasource_id) {
     if (isset($datasource_id)) {
       $datasource = $this->getDatasource($datasource_id);
@@ -866,7 +843,7 @@ class Index extends ConfigEntityBase implements IndexInterface {
         }
       }
       catch (SearchApiException $e) {
-        watchdog_exception('search_api', $e);
+        $this->logException($e);
         // If the complete datasource could not be loaded, don't report all its
         // individual requested items as missing.
         unset($items_by_datasource[$datasource_id]);
@@ -881,8 +858,7 @@ class Index extends ConfigEntityBase implements IndexInterface {
       $missing_ids = array_reduce(array_map('array_values', $items_by_datasource), 'array_merge', array());
       $args['%index'] = $this->label();
       $args['@items'] = '"' . implode('", "', $missing_ids) . '"';
-      \Drupal::service('logger.channel.search_api')
-        ->warning('Could not load the following items on index %index: @items.', $args);
+      $this->getLogger()->warning('Could not load the following items on index %index: @items.', $args);
       // Also remove those items from tracking so we don't keep trying to load
       // them.
       foreach ($items_by_datasource as $datasource_id => $raw_ids) {
@@ -908,7 +884,7 @@ class Index extends ConfigEntityBase implements IndexInterface {
         }
         catch (SearchApiException $e) {
           $variables['%index'] = $this->label();
-          watchdog_exception('search_api', $e, '%type while trying to index items on index %index: @message in %function (line %line of %file)', $variables);
+          $this->logException($e, '%type while trying to index items on index %index: @message in %function (line %line of %file)', $variables);
         }
       }
     }
@@ -975,7 +951,7 @@ class Index extends ConfigEntityBase implements IndexInterface {
       }
       // Since we've indexed items now, triggering reindexing would have some
       // effect again. Therefore, we reset the flag.
-      $this->hasReindexed = FALSE;
+      $this->setHasReindexed(FALSE);
       \Drupal::moduleHandler()->invokeAll('search_api_items_indexed', array($this, $processed_ids));
     }
 
@@ -1051,7 +1027,7 @@ class Index extends ConfigEntityBase implements IndexInterface {
           }
         }
         catch (SearchApiException $e) {
-          watchdog_exception('search_api', $e);
+          $this->logException($e);
         }
       }
     }
@@ -1081,8 +1057,8 @@ class Index extends ConfigEntityBase implements IndexInterface {
    * {@inheritdoc}
    */
   public function reindex() {
-    if ($this->status() && !$this->hasReindexed) {
-      $this->hasReindexed = TRUE;
+    if ($this->status() && !$this->isReindexing()) {
+      $this->setHasReindexed();
       $this->getTrackerInstance()->trackAllItemsUpdated();
       \Drupal::moduleHandler()->invokeAll('search_api_index_reindex', array($this, FALSE));
     }
@@ -1095,9 +1071,9 @@ class Index extends ConfigEntityBase implements IndexInterface {
     if ($this->status()) {
       // Only invoke the hook if we actually did something.
       $invoke_hook = FALSE;
-      if (!$this->hasReindexed) {
+      if (!$this->isReindexing()) {
         $invoke_hook = TRUE;
-        $this->hasReindexed = TRUE;
+        $this->setHasReindexed();
         $this->getTrackerInstance()->trackAllItemsUpdated();
       }
       if (!$this->isReadOnly()) {
@@ -1114,7 +1090,23 @@ class Index extends ConfigEntityBase implements IndexInterface {
    * {@inheritdoc}
    */
   public function isReindexing() {
-    return $this->hasReindexed;
+    $id = $this->id();
+    return \Drupal::state()->get("search_api.index.$id.has_reindexed", FALSE);
+  }
+
+  /**
+   * Sets whether this index has all items marked for re-indexing.
+   *
+   * @param bool $has_reindexed
+   *   (optional) TRUE if the index has all items marked for re-indexing, FALSE
+   *   otherwise.
+   *
+   * @return $this
+   */
+  protected function setHasReindexed($has_reindexed = TRUE) {
+    $id = $this->id();
+    \Drupal::state()->set("search_api.index.$id.has_reindexed", $has_reindexed);
+    return $this;
   }
 
   /**
@@ -1152,9 +1144,26 @@ class Index extends ConfigEntityBase implements IndexInterface {
       return;
     }
 
-    // Prevent enabling of indexes when the server is disabled.
-    if ($this->status() && !$this->isServerEnabled()) {
-      $this->disable();
+    // Retrieve active config overrides for this index.
+    $overrides = Utility::getConfigOverrides($this);
+
+    // Prevent enabling of indexes when the server is disabled. Take into
+    // account that both the index's "status" and "server" properties might be
+    // overridden.
+    if ($this->status() && !isset($overrides['status'])) {
+      // NULL would be a valid override, so we can't use isset() here.
+      if (!array_key_exists('server', $overrides)) {
+        if (!$this->isServerEnabled()) {
+          $this->disable();
+        }
+      }
+      else {
+        $server_id = $overrides['server'];
+        $server = $server_id !== NULL ? Server::load($server_id) : NULL;
+        if (!$server || !$server->status()) {
+          $this->disable();
+        }
+      }
     }
 
     // Merge in default options.
@@ -1187,7 +1196,8 @@ class Index extends ConfigEntityBase implements IndexInterface {
     }
 
     // Call the preIndexSave() method of all applicable processors.
-    foreach ($this->getProcessorsByStage(ProcessorInterface::STAGE_PRE_INDEX_SAVE) as $processor) {
+    $processor_overrides = !empty($overrides['processor_settings']) ? $overrides['processor_settings'] : [];
+    foreach ($this->getProcessorsByStage(ProcessorInterface::STAGE_PRE_INDEX_SAVE, $processor_overrides) as $processor) {
       $processor->preIndexSave();
     }
 
@@ -1249,6 +1259,11 @@ class Index extends ConfigEntityBase implements IndexInterface {
   public function postSave(EntityStorageInterface $storage, $update = TRUE) {
     parent::postSave($storage, $update);
 
+    // New indexes don't have any items indexed.
+    if (!$update) {
+      $this->setHasReindexed();
+    }
+
     try {
       // Fake an original for inserts to make code cleaner.
       /** @var \Drupal\search_api\IndexInterface $original */
@@ -1301,11 +1316,8 @@ class Index extends ConfigEntityBase implements IndexInterface {
       Cache::invalidateTags($this->getCacheTags());
     }
     catch (SearchApiException $e) {
-      watchdog_exception('search_api', $e);
+      $this->logException($e);
     }
-
-    // Reset the field instances so saved renames won't be reported anymore.
-    $this->fieldInstances = NULL;
   }
 
   /**

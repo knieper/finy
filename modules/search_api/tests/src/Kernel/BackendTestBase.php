@@ -181,7 +181,9 @@ abstract class BackendTestBase extends KernelTestBase {
     $index = $this->getIndex();
 
     /** @var \Drupal\search_api\Processor\ProcessorInterface $processor */
-    $processor = $index->createPlugin('processor', 'html_filter');
+    $processor = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createProcessorPlugin($index, 'html_filter');
     $index->addProcessor($processor)->save();
 
     $this->assertArrayHasKey('html_filter', $index->getProcessors(), 'HTML filter processor is added.');
@@ -458,6 +460,7 @@ abstract class BackendTestBase extends KernelTestBase {
     $this->regressionTest2783987();
     $this->regressionTest2809753();
     $this->regressionTest2767609();
+    $this->regressionTest2745655();
   }
 
   /**
@@ -854,6 +857,32 @@ abstract class BackendTestBase extends KernelTestBase {
   }
 
   /**
+   * Tests (NOT) NULL conditions on fulltext fields.
+   *
+   * @see https://www.drupal.org/node/2745655
+   */
+  protected function regressionTest2745655() {
+    $name = $this->entities[3]->name[0]->value;
+    $this->entities[3]->name[0]->value = NULL;
+    $this->entities[3]->save();
+    $this->indexItems($this->indexId);
+
+    $results = $this->buildSearch()
+      ->addCondition('name', NULL)
+      ->execute();
+    $this->assertResults([3], $results, 'Search for items without name');
+
+    $results = $this->buildSearch()
+      ->addCondition('name', NULL, '<>')
+      ->execute();
+    $this->assertResults([1, 2, 4, 5], $results, 'Search for items with name');
+
+    $this->entities[3]->set('name', [$name]);
+    $this->entities[3]->save();
+    $this->indexItems($this->indexId);
+  }
+
+  /**
    * Compares two facet filters to determine their order.
    *
    * Used as a callback for usort() in regressionTests().
@@ -991,6 +1020,8 @@ abstract class BackendTestBase extends KernelTestBase {
 
     $index->getField('body')->setType('text');
     $index->save();
+    $count = $this->indexItems($this->indexId);
+    $this->assertEquals(count($this->entities), $count, 'All items needed to be re-indexed after switching type from string to text.');
   }
 
   /**

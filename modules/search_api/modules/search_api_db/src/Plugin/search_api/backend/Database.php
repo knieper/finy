@@ -2,6 +2,7 @@
 
 namespace Drupal\search_api_db\Plugin\search_api\backend;
 
+use Drupal\Component\Utility\Crypt;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -26,12 +27,12 @@ use Drupal\search_api\Plugin\search_api\data_type\value\TextToken;
 use Drupal\search_api\Query\ConditionGroupInterface;
 use Drupal\search_api\Query\QueryInterface;
 use Drupal\search_api\SearchApiException;
+use Drupal\search_api\Utility\DataTypeHelper;
 use Drupal\search_api\Utility\Utility;
 use Drupal\search_api_autocomplete\Entity\SearchApiAutocompleteSearch;
 use Drupal\search_api_autocomplete\Suggestion;
 use Drupal\search_api_db\DatabaseCompatibility\DatabaseCompatibilityHandlerInterface;
 use Drupal\search_api_db\DatabaseCompatibility\GenericDatabase;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -118,13 +119,6 @@ class Database extends BackendPluginBase implements PluginFormInterface {
   protected $dataTypePluginManager;
 
   /**
-   * The logger to use for logging messages.
-   *
-   * @var \Psr\Log\LoggerInterface|null
-   */
-  protected $logger;
-
-  /**
    * The key-value store to use.
    *
    * @var \Drupal\Core\KeyValueStore\KeyValueStoreInterface
@@ -144,6 +138,13 @@ class Database extends BackendPluginBase implements PluginFormInterface {
    * @var \Drupal\Core\Datetime\DateFormatterInterface|null
    */
   protected $dateFormatter;
+
+  /**
+   * The data type helper.
+   *
+   * @var \Drupal\search_api\Utility\DataTypeHelper|null
+   */
+  protected $dataTypeHelper;
 
   /**
    * The keywords ignored during the current search query.
@@ -186,37 +187,22 @@ class Database extends BackendPluginBase implements PluginFormInterface {
     /** @var static $backend */
     $backend = parent::create($container, $configuration, $plugin_id, $plugin_definition);
 
-    /** @var \Drupal\Core\Extension\ModuleHandlerInterface $module_handler */
-    $module_handler = $container->get('module_handler');
-    $backend->setModuleHandler($module_handler);
-
-    /** @var \Drupal\Core\Config\ConfigFactoryInterface $config_factory */
-    $config_factory = $container->get('config.factory');
-    $backend->setConfigFactory($config_factory);
-
-    /** @var \Drupal\search_api\DataType\DataTypePluginManager $data_type_plugin_manager */
-    $data_type_plugin_manager = $container->get('plugin.manager.search_api.data_type');
-    $backend->setDataTypePluginManager($data_type_plugin_manager);
-
-    /** @var \Psr\Log\LoggerInterface $logger */
-    $logger = $container->get('logger.channel.search_api_db');
-    $backend->setLogger($logger);
-
-    /** @var \Drupal\Core\KeyValueStore\KeyValueFactoryInterface $keyvalue_factory */
-    $keyvalue_factory = $container->get('keyvalue');
-    $backend->setKeyValueStore($keyvalue_factory->get(self::INDEXES_KEY_VALUE_STORE_ID));
+    $backend->setModuleHandler($container->get('module_handler'));
+    $backend->setConfigFactory($container->get('config.factory'));
+    $backend->setDataTypePluginManager($container->get('plugin.manager.search_api.data_type'));
+    $backend->setLogger($container->get('logger.channel.search_api_db'));
+    $backend->setKeyValueStore($container->get('keyvalue')->get(self::INDEXES_KEY_VALUE_STORE_ID));
+    $backend->setDateFormatter($container->get('date.formatter'));
+    $backend->setDataTypeHelper($container->get('search_api.data_type_helper'));
 
     // For a new backend plugin, the database might not be set yet. In that case
     // we of course also don't need a DBMS compatibility handler.
     if ($backend->getDatabase()) {
-      /** @var \Drupal\search_api_db\DatabaseCompatibility\DatabaseCompatibilityHandlerInterface $dbms_compatibility_handler */
       $dbms_compatibility_handler = $container->get('search_api_db.database_compatibility');
       // Make sure that we actually provide a handler for the right database,
       // otherwise fall back to the generic handler.
       if ($dbms_compatibility_handler->getDatabase() != $backend->getDatabase()) {
-        /** @var \Drupal\Component\Transliteration\TransliterationInterface $transliterator */
-        $transliterator = $container->get('transliteration');
-        $dbms_compatibility_handler = new GenericDatabase($backend->getDatabase(), $transliterator);
+        $dbms_compatibility_handler = new GenericDatabase($backend->getDatabase(), $container->get('transliteration'));
       }
       $backend->setDbmsCompatibilityHandler($dbms_compatibility_handler);
     }
@@ -304,29 +290,6 @@ class Database extends BackendPluginBase implements PluginFormInterface {
   }
 
   /**
-   * Retrieves the logger to use.
-   *
-   * @return \Psr\Log\LoggerInterface
-   *   The logger to use.
-   */
-  public function getLogger() {
-    return $this->logger ?: \Drupal::service('logger.channel.search_api_db');
-  }
-
-  /**
-   * Sets the logger to use.
-   *
-   * @param \Psr\Log\LoggerInterface $logger
-   *   The logger to use.
-   *
-   * @return $this
-   */
-  public function setLogger(LoggerInterface $logger) {
-    $this->logger = $logger;
-    return $this;
-  }
-
-  /**
    * Retrieves the key-value store to use.
    *
    * @return \Drupal\Core\KeyValueStore\KeyValueStoreInterface
@@ -369,6 +332,29 @@ class Database extends BackendPluginBase implements PluginFormInterface {
    */
   public function setDateFormatter(DateFormatterInterface $date_formatter) {
     $this->dateFormatter = $date_formatter;
+    return $this;
+  }
+
+  /**
+   * Retrieves the data type helper.
+   *
+   * @return \Drupal\search_api\Utility\DataTypeHelper
+   *   The data type helper.
+   */
+  public function getDataTypeHelper() {
+    return $this->dataTypeHelper ?: \Drupal::service('search_api.data_type_helper');
+  }
+
+  /**
+   * Sets the data type helper.
+   *
+   * @param \Drupal\search_api\Utility\DataTypeHelper $data_type_helper
+   *   The new data type helper.
+   *
+   * @return $this
+   */
+  public function setDataTypeHelper(DataTypeHelper $data_type_helper) {
+    $this->dataTypeHelper = $data_type_helper;
     return $this;
   }
 
@@ -801,7 +787,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
     catch (\PDOException $e) {
       $variables['%column'] = $column;
       $variables['%table'] = $db['table'];
-      watchdog_exception('search_api_db', $e, '%type while trying to add a database index for column %column to table %table: @message in %function (line %line of %file).', $variables, RfcLogLevel::WARNING);
+      $this->logException($e, '%type while trying to add a database index for column %column to table %table: @message in %function (line %line of %file).', $variables, RfcLogLevel::WARNING);
     }
 
     if ($new_table) {
@@ -880,7 +866,8 @@ class Database extends BackendPluginBase implements PluginFormInterface {
       $denormalized_table = $db_info['index_table'];
 
       foreach ($fields as $field_id => $field) {
-        if (!isset($text_table) && Utility::isTextType($field['type'])) {
+        $was_text_type = $this->getDataTypeHelper()->isTextType($field['type']);
+        if (!isset($text_table) && $was_text_type) {
           // Stash the shared text table name for the index.
           $text_table = $field['table'];
         }
@@ -896,7 +883,8 @@ class Database extends BackendPluginBase implements PluginFormInterface {
         $fields[$field_id]['type'] = $new_type;
         $fields[$field_id]['boost'] = $new_fields[$field_id]->getBoost();
         if ($old_type != $new_type) {
-          if ($old_type == 'text' || $new_type == 'text') {
+          $is_text_type = $this->getDataTypeHelper()->isTextType($new_type);
+          if ($was_text_type || $is_text_type) {
             // A change in fulltext status necessitates completely clearing the
             // index.
             $reindex = TRUE;
@@ -921,13 +909,21 @@ class Database extends BackendPluginBase implements PluginFormInterface {
             $reindex = TRUE;
           }
         }
-        elseif ($new_type == 'text' && $field['boost'] != $new_fields[$field_id]->getBoost()) {
+        elseif ($was_text_type && $field['boost'] != $new_fields[$field_id]->getBoost()) {
           if (!$reindex) {
-            $multiplier = $new_fields[$field_id]->getBoost() / $field['boost'];
-            $this->database->update($text_table)
-              ->expression('score', 'score * :mult', array(':mult' => $multiplier))
-              ->condition('field_name', self::getTextFieldName($field_id))
-              ->execute();
+            // If there was a non-zero boost set previously, we can just update
+            // all scores with a single UPDATE query. Otherwise, no way around
+            // re-indexing.
+            if ($field['boost']) {
+              $multiplier = $new_fields[$field_id]->getBoost() / $field['boost'];
+              $this->database->update($text_table)
+                ->expression('score', 'score * :mult', array(':mult' => $multiplier))
+                ->condition('field_name', self::getTextFieldName($field_id))
+                ->execute();
+            }
+            else {
+              $reindex = TRUE;
+            }
           }
         }
 
@@ -937,7 +933,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
           ->fieldExists($field['table'], 'value');
         $denormalized_storage_exists = $this->database->schema()
           ->fieldExists($denormalized_table, $field['column']);
-        if (!Utility::isTextType($field['type']) && !$storage_exists) {
+        if (!$was_text_type && !$storage_exists) {
           $db = array(
             'table' => $field['table'],
           );
@@ -960,7 +956,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
       foreach ($new_fields as $field_id => $field) {
         $reindex = TRUE;
         $fields[$field_id] = array();
-        if (Utility::isTextType($field->getType())) {
+        if ($this->getDataTypeHelper()->isTextType($field->getType())) {
           if (!isset($text_table)) {
             // If we have not encountered a text table, assign a name for it.
             $text_table = $this->findFreeTable($prefix . '_', 'text');
@@ -993,7 +989,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
               'not null' => TRUE,
             ),
             'field_name' => array(
-              'description' => "The name of the field in which the token appears, or an MD5 hash of the field",
+              'description' => "The name of the field in which the token appears, or a base-64 encoded sha-256 hash of the field",
               'not null' => TRUE,
               'type' => 'varchar',
               'length' => 191,
@@ -1045,7 +1041,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
    *   The table which stores the denormalized data for this field.
    */
   protected function removeFieldStorage($name, $field, $index_table) {
-    if (Utility::isTextType($field['type'])) {
+    if ($this->getDataTypeHelper()->isTextType($field['type'])) {
       // Remove data from the text table.
       $this->database->delete($field['table'])
         ->condition('field_name', self::getTextFieldName($name))
@@ -1209,7 +1205,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
           $db_info['field_tables'][$field_id]['multi-valued'] = TRUE;
         }
 
-        if (Utility::isTextType($type)) {
+        if ($this->getDataTypeHelper()->isTextType($type)) {
           // Remember the text table the first time we encounter it.
           if (!isset($text_table)) {
             $text_table = $table;
@@ -1336,7 +1332,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
   protected static function getTextFieldName($name) {
     if (strlen($name) > 191) {
       // Replace long field names with something unique and predictable.
-      return md5($name);
+      return Crypt::hashBase64($name);
     }
     else {
       return $name;
@@ -1365,7 +1361,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
   protected function convert($value, $type, $original_type, IndexInterface $index) {
     if (!isset($value)) {
       // For text fields, we have to return an array even if the value is NULL.
-      return Utility::isTextType($type) ? array() : NULL;
+      return $this->getDataTypeHelper()->isTextType($type) ? array() : NULL;
     }
     switch ($type) {
       case 'text':
@@ -1573,7 +1569,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
       $result = $db_query->execute();
 
       foreach ($result as $row) {
-        $item = Utility::createItem($index, $row->item_id);
+        $item = $this->getFieldsHelper()->createItem($index, $row->item_id);
         $item->setScore($row->score / self::SCORE_MULTIPLIER);
         $results->addResultItem($item);
       }
@@ -1636,7 +1632,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
           if (!isset($fields[$name])) {
             throw new SearchApiException("Unknown field '$name' specified as search target.");
           }
-          if (!Utility::isTextType($fields[$name]['type'])) {
+          if (!$this->getDataTypeHelper()->isTextType($fields[$name]['type'])) {
             $types = $this->getDataTypePluginManager()->getInstances();
             $type = $types[$fields[$name]['type']]->label();
             throw new SearchApiException("Cannot perform fulltext search on field '$name' of type '$type'.");
@@ -2128,7 +2124,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
             $db_condition->condition($column, $value, $operator);
           }
         }
-        elseif (Utility::isTextType($field_info['type'])) {
+        elseif ($this->getDataTypeHelper()->isTextType($field_info['type'])) {
           $keys = $this->prepareKeys($value);
           if (!isset($keys)) {
             continue;
@@ -2253,7 +2249,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
         if ($order != QueryInterface::SORT_ASC && $order != QueryInterface::SORT_DESC) {
           $msg = $this->t('Unknown sort order @order. Assuming "@default".', array(
             '@order' => $order,
-            '@default' => QueryInterface::SORT_ASC
+            '@default' => QueryInterface::SORT_ASC,
           ));
           $this->warnings[(string) $msg] = 1;
           $order = QueryInterface::SORT_ASC;
@@ -2340,7 +2336,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
 
       // If "Include missing facet" is disabled, we use an INNER JOIN and add IS
       // NOT NULL for shared tables.
-      $is_text_type = Utility::isTextType($field['type']);
+      $is_text_type = $this->getDataTypeHelper()->isTextType($field['type']);
       $alias = $this->getTableAlias($field, $select, TRUE, $facet['missing'] ? 'leftJoin' : 'innerJoin');
       $select->addField($alias, $is_text_type ? 'word' : 'value', 'value');
       if ($is_text_type) {
@@ -2446,7 +2442,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
       $result = $this->database->queryTemporary((string) $db_query, $args);
     }
     catch (\PDOException $e) {
-      watchdog_exception('search_api', $e, '%type while trying to create a temporary table: @message in %function (line %line of %file).');
+      $this->logException($e, '%type while trying to create a temporary table: @message in %function (line %line of %file).');
       return FALSE;
     }
     return $result;
@@ -2554,7 +2550,7 @@ class Database extends BackendPluginBase implements PluginFormInterface {
       /** @var \Drupal\Core\Database\Query\SelectInterface|null $word_query */
       $word_query = NULL;
       foreach ($fulltext_fields as $field) {
-        if (!isset($fields[$field]) || !Utility::isTextType($fields[$field]['type'])) {
+        if (!isset($fields[$field]) || !$this->getDataTypeHelper()->isTextType($fields[$field]['type'])) {
           continue;
         }
         $field_query = $this->database->select($fields[$field]['table'], 't');

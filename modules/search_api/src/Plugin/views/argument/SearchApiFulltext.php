@@ -2,7 +2,6 @@
 
 namespace Drupal\search_api\Plugin\views\argument;
 
-use Drupal\Core\Cache\UncacheableDependencyTrait;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\search_api\ParseMode\ParseModePluginManager;
 use Drupal\search_api\Plugin\views\query\SearchApiQuery;
@@ -16,8 +15,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @ViewsArgument("search_api_fulltext")
  */
 class SearchApiFulltext extends SearchApiStandard {
-
-  use UncacheableDependencyTrait;
 
   /**
    * The parse mode manager.
@@ -138,11 +135,9 @@ class SearchApiFulltext extends SearchApiStandard {
         ->createInstance($this->options['parse_mode']);
       $this->query->setParseMode($parse_mode);
     }
+    $this->query->getParseMode()->setConjunction($this->options['conjunction']);
     if ($this->options['fields']) {
       $this->query->setFulltextFields($this->options['fields']);
-    }
-    if ($this->options['conjunction'] != 'AND') {
-      $this->query->setOption('conjunction', $this->options['conjunction']);
     }
 
     $old = $this->query->getOriginalKeys();

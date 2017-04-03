@@ -11,9 +11,9 @@ use Drupal\views\ViewEntityInterface;
 /**
  * Derives a display plugin definition for all supported search view displays.
  *
- * @see \Drupal\search_api\Plugin\search_api\display\ViewsBlockDisplay
- * @see \Drupal\search_api\Plugin\search_api\display\ViewsPageDisplay
- * @see \Drupal\search_api\Plugin\search_api\display\ViewsRestDisplay
+ * @see \Drupal\search_api\Plugin\search_api\display\ViewsBlock
+ * @see \Drupal\search_api\Plugin\search_api\display\ViewsPage
+ * @see \Drupal\search_api\Plugin\search_api\display\ViewsRest
  */
 class ViewsDisplayDeriver extends DisplayDeriverBase {
 
@@ -92,7 +92,7 @@ class ViewsDisplayDeriver extends DisplayDeriverBase {
         // Create the actual derivative plugin definition.
         $args = array(
           '%view_name' => $view->label(),
-          '%display_title' => $display_info['display_title']
+          '%display_title' => $display_info['display_title'],
         );
         if ($view->get('description')) {
           $args['%view_description'] = $view->get('description');
@@ -110,7 +110,7 @@ class ViewsDisplayDeriver extends DisplayDeriverBase {
         ) + $base_plugin_definition;
 
         // Add the path information to the definition.
-        if ($display->getPath()) {
+        if ($display->hasPath()) {
           $plugin_derivatives[$machine_name]['path'] = '/' . $display->getPath();
         }
       }

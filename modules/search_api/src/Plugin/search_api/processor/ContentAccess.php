@@ -4,18 +4,19 @@ namespace Drupal\search_api\Plugin\search_api\processor;
 
 use Drupal\comment\CommentInterface;
 use Drupal\Core\Database\Connection;
-use Psr\Log\LoggerInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\Core\TypedData\ComplexDataInterface;
 use Drupal\node\NodeInterface;
 use Drupal\search_api\Datasource\DatasourceInterface;
-use Drupal\search_api\Item\ItemInterface;
-use Drupal\search_api\Processor\ProcessorProperty;
-use Drupal\search_api\SearchApiException;
 use Drupal\search_api\IndexInterface;
+use Drupal\search_api\Item\ItemInterface;
+use Drupal\search_api\LoggerTrait;
 use Drupal\search_api\Processor\ProcessorPluginBase;
+use Drupal\search_api\Processor\ProcessorProperty;
 use Drupal\search_api\Query\QueryInterface;
+use Drupal\search_api\SearchApiException;
 use Drupal\user\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -35,6 +36,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class ContentAccess extends ProcessorPluginBase {
 
+  use LoggerTrait;
+
   /**
    * The database connection.
    *
@@ -43,11 +46,11 @@ class ContentAccess extends ProcessorPluginBase {
   protected $database;
 
   /**
-   * The logger to use for logging messages.
+   * The current_user service used by this plugin.
    *
-   * @var \Psr\Log\LoggerInterface|null
+   * @var \Drupal\Core\Session\AccountProxyInterface|null
    */
-  protected $logger;
+  protected $currentUser;
 
   /**
    * {@inheritdoc}
@@ -58,6 +61,7 @@ class ContentAccess extends ProcessorPluginBase {
 
     $processor->setLogger($container->get('logger.channel.search_api'));
     $processor->setDatabase($container->get('database'));
+    $processor->setCurrentUser($container->get('current_user'));
 
     return $processor;
   }
@@ -86,23 +90,26 @@ class ContentAccess extends ProcessorPluginBase {
   }
 
   /**
-   * Retrieves the logger to use.
+   * Retrieves the current user.
    *
-   * @return \Psr\Log\LoggerInterface
-   *   The logger to use.
+   * @return \Drupal\Core\Session\AccountProxyInterface
+   *   The current user.
    */
-  public function getLogger() {
-    return $this->logger ?: \Drupal::service('logger.channel.search_api');
+  public function getCurrentUser() {
+    return $this->currentUser ?: \Drupal::currentUser();
   }
 
   /**
-   * Sets the logger to use.
+   * Sets the current user.
    *
-   * @param \Psr\Log\LoggerInterface $logger
-   *   The logger to use.
+   * @param \Drupal\Core\Session\AccountProxyInterface $current_user
+   *   The current user.
+   *
+   * @return $this
    */
-  public function setLogger(LoggerInterface $logger) {
-    $this->logger = $logger;
+  public function setCurrentUser(AccountProxyInterface $current_user) {
+    $this->currentUser = $current_user;
+    return $this;
   }
 
   /**
@@ -229,7 +236,7 @@ class ContentAccess extends ProcessorPluginBase {
    */
   public function preprocessSearchQuery(QueryInterface $query) {
     if (!$query->getOption('search_api_bypass_access')) {
-      $account = $query->getOption('search_api_access_account', \Drupal::currentUser());
+      $account = $query->getOption('search_api_access_account', $this->getCurrentUser());
       if (is_numeric($account)) {
         $account = User::load($account);
       }
@@ -238,11 +245,11 @@ class ContentAccess extends ProcessorPluginBase {
           $this->addNodeAccess($query, $account);
         }
         catch (SearchApiException $e) {
-          watchdog_exception('search_api', $e);
+          $this->logException($e);
         }
       }
       else {
-        $account = $query->getOption('search_api_access_account', \Drupal::currentUser());
+        $account = $query->getOption('search_api_access_account', $this->getCurrentUser());
         if ($account instanceof AccountInterface) {
           $account = $account->id();
         }

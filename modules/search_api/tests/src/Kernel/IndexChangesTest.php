@@ -138,7 +138,9 @@ class IndexChangesTest extends KernelTestBase {
     $this->assertEquals($expected, $tracker->getRemainingItems());
 
     /** @var \Drupal\search_api\Datasource\DatasourceInterface $datasource */
-    $datasource = $this->index->createPlugin('datasource', 'entity:entity_test_mulrev_changed');
+    $datasource = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createDatasourcePlugin($this->index, 'entity:entity_test_mulrev_changed');
     $this->index->addDatasource($datasource)->save();
 
     $this->taskManager->executeAllTasks();
@@ -260,24 +262,24 @@ class IndexChangesTest extends KernelTestBase {
     $this->index->save();
 
     /** @var \Drupal\search_api\Tracker\TrackerInterface $tracker */
-    $tracker = $this->index->createPlugin('tracker', 'search_api_test');
+    $tracker = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createTrackerPlugin($this->index, 'search_api_test');
     $this->index->setTracker($tracker)->save();
 
     $this->taskManager->executeAllTasks();
 
     $methods = $this->getCalledMethods('tracker');
-    // Note: The initial "trackAllItemsUpdated" call comes from the test
-    // backend, which marks the index for re-indexing every time it gets
-    // updated.
     $expected = array(
-      'trackAllItemsUpdated',
       'trackItemsInserted',
       'trackItemsInserted',
     );
     $this->assertEquals($expected, $methods);
 
     /** @var \Drupal\search_api\Tracker\TrackerInterface $tracker */
-    $tracker = $this->index->createPlugin('tracker', 'default');
+    $tracker = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createTrackerPlugin($this->index, 'default');
     $this->index->setTracker($tracker)->save();
 
     $this->taskManager->executeAllTasks();

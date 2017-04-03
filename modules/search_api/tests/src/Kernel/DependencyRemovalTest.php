@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\search_api\Kernel;
 
+use Drupal\field\Tests\EntityReference\EntityReferenceTestTrait;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -17,6 +18,7 @@ use Drupal\search_api_test\PluginTestTrait;
  */
 class DependencyRemovalTest extends KernelTestBase {
 
+  use EntityReferenceTestTrait;
   use PluginTestTrait;
 
   /**
@@ -83,7 +85,10 @@ class DependencyRemovalTest extends KernelTestBase {
    * Tests index with a field dependency that gets removed.
    */
   public function testFieldDependency() {
-    // Add new field storage and field definitions.
+    // Add new field storage and field definitions. Use an indirect reference
+    // for the field to test whether this can also be handled correctly.
+    $this->createEntityReferenceField('user', 'user', 'parent', 'Parent', 'user');
+    $parent_field_storage = FieldStorageConfig::loadByName('user', 'parent');
     /** @var \Drupal\field\FieldStorageConfigInterface $field_storage */
     $field_storage = FieldStorageConfig::create(array(
       'field_name' => 'field_search',
@@ -100,15 +105,32 @@ class DependencyRemovalTest extends KernelTestBase {
     ));
     $field_search->save();
 
-    // Create a Search API field/item and add it to the current index.
-    $field = Utility::createFieldFromProperty($this->index, $field_storage->getPropertyDefinition('value'), 'entity:user', 'field_search', NULL, 'string');
-    $field->setLabel('Search Field');
+    // Add fields to the index.
+    $fields_helper = \Drupal::getContainer()->get('search_api.fields_helper');
+    $field = $fields_helper->createFieldFromProperty($this->index, $field_storage->getPropertyDefinition('value'), 'entity:user', 'field_search', 'search', 'string');
+    $this->index->addField($field);
+    $field = $fields_helper->createFieldFromProperty($this->index, $field_storage->getPropertyDefinition('value'), 'entity:user', 'parent:entity:field_search', 'parent_search', 'string');
+    $this->index->addField($field);
+    $field = $fields_helper->createFieldFromProperty($this->index, $parent_field_storage->getPropertyDefinition('target_id'), 'entity:user', 'parent', 'parent', 'string');
     $this->index->addField($field);
     $this->index->save();
 
     // New field has been added to the list of dependencies.
     $config_dependencies = \Drupal::config('search_api.index.' . $this->index->id())->get('dependencies.config');
+    $this->assertContains($parent_field_storage->getConfigDependencyName(), $config_dependencies);
     $this->assertContains($field_storage->getConfigDependencyName(), $config_dependencies);
+
+    // Remove a dependent field.
+    $parent_field_storage->delete();
+
+    // Index has not been deleted and index dependencies were updated.
+    $this->reloadIndex();
+    $index = \Drupal::config('search_api.index.' . $this->index->id());
+    $dependencies = $index->get('dependencies');
+    $this->assertFalse(isset($dependencies['config'][$parent_field_storage->getConfigDependencyName()]));
+    $this->assertContains($field_storage->getConfigDependencyName(), $config_dependencies);
+    // Correct fields were removed.
+    $this->assertEquals(['search'], array_keys($index->get('field_settings')));
 
     // Remove a dependent field.
     $field_storage->delete();
@@ -117,6 +139,8 @@ class DependencyRemovalTest extends KernelTestBase {
     $this->reloadIndex();
     $dependencies = \Drupal::config('search_api.index.' . $this->index->id())->get('dependencies');
     $this->assertFalse(isset($dependencies['config'][$field_storage->getConfigDependencyName()]));
+    // Last field was removed.
+    $this->assertEquals([], array_keys($index->get('field_settings')));
   }
 
   /**
@@ -219,11 +243,13 @@ class DependencyRemovalTest extends KernelTestBase {
     $dependency_name = $this->dependency->getConfigDependencyName();
 
     // Also index users, to verify that they are unaffected by the processor.
-    $datasources = $this->index->createPlugins('datasource', array('entity:user', 'search_api_test'), array(
-      'search_api_test' => array(
-        $dependency_key => array($dependency_name),
-      ),
-    ));
+    $datasources = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createDatasourcePlugins($this->index, ['entity:user', 'search_api_test'], [
+        'search_api_test' => [
+          $dependency_key => array($dependency_name),
+        ],
+      ]);
     $this->index->setDatasources($datasources);
 
     $this->index->save();
@@ -269,9 +295,11 @@ class DependencyRemovalTest extends KernelTestBase {
     // server.
     $dependency_key = $this->dependency->getConfigDependencyKey();
     $dependency_name = $this->dependency->getConfigDependencyName();
-    $datasources['search_api_test'] = $this->index->createPlugin('datasource', 'search_api_test', array(
-      $dependency_key => array($dependency_name),
-    ));
+    $datasources['search_api_test'] = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createDatasourcePlugin($this->index, 'search_api_test', [
+        $dependency_key => [$dependency_name],
+      ]);
     $this->index->setDatasources($datasources);
 
     $this->index->save();
@@ -310,9 +338,11 @@ class DependencyRemovalTest extends KernelTestBase {
     $dependency_name = $this->dependency->getConfigDependencyName();
 
     /** @var \Drupal\search_api\Processor\ProcessorInterface $processor */
-    $processor = $this->index->createPlugin('processor', 'search_api_test', array(
-      $dependency_key => array($dependency_name),
-    ));
+    $processor = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createProcessorPlugin($this->index, 'search_api_test', [
+        $dependency_key => [$dependency_name],
+      ]);
     $this->index->addProcessor($processor);
     $this->index->save();
 
@@ -365,13 +395,15 @@ class DependencyRemovalTest extends KernelTestBase {
     $dependency_name = $this->dependency->getConfigDependencyName();
 
     /** @var \Drupal\search_api\Tracker\TrackerInterface $tracker */
-    $tracker = $this->index->createPlugin('tracker', 'search_api_test', array(
-      'dependencies' => array(
-        $dependency_key => array(
-          $dependency_name,
-        ),
-      ),
-    ));
+    $tracker = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createTrackerPlugin($this->index, 'search_api_test', [
+        'dependencies' => [
+          $dependency_key => [
+            $dependency_name,
+          ],
+        ],
+      ]);
     $this->index->setTracker($tracker);
     $this->index->save();
 
@@ -439,17 +471,25 @@ class DependencyRemovalTest extends KernelTestBase {
   public function testModuleDependency() {
     // Test with all types of plugins at once.
     /** @var \Drupal\search_api\Datasource\DatasourceInterface $datasource */
-    $datasource = $this->index->createPlugin('datasource', 'search_api_test');
+    $datasource = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createDatasourcePlugin($this->index, 'search_api_test');
     $this->index->addDatasource($datasource);
-    $datasource = $this->index->createPlugin('datasource', 'entity:user');
+    $datasource = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createDatasourcePlugin($this->index, 'entity:user');
     $this->index->addDatasource($datasource);
 
     /** @var \Drupal\search_api\Processor\ProcessorInterface $processor */
-    $processor = $this->index->createPlugin('processor', 'search_api_test');
+    $processor = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createProcessorPlugin($this->index, 'search_api_test');
     $this->index->addProcessor($processor);
 
     /** @var \Drupal\search_api\Tracker\TrackerInterface $tracker */
-    $tracker = $this->index->createPlugin('tracker', 'search_api_test');
+    $tracker = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createTrackerPlugin($this->index, 'search_api_test');
     $this->index->setTracker($tracker);
 
     $this->index->save();
@@ -520,7 +560,9 @@ class DependencyRemovalTest extends KernelTestBase {
 
     // Use the "user" datasource (to not get a module dependency via that) and
     // add a field with the given data type.
-    $datasources = $this->index->createPlugins('datasource', array('entity:user'));
+    $datasources = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createDatasourcePlugins($this->index, ['entity:user']);
     $this->index->setDatasources($datasources);
     $field = Utility::createField($this->index, 'uid', array(
       'label' => 'ID',

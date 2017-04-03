@@ -13,8 +13,8 @@ use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
 use Drupal\entity_test\Entity\EntityTestMulRevChanged;
 use Drupal\language\Entity\ConfigurableLanguage;
+use Drupal\search_api\Display\DisplayInterface;
 use Drupal\search_api\Entity\Index;
-use Drupal\search_api\SearchApiException;
 use Drupal\search_api\Utility\Utility;
 
 /**
@@ -37,13 +37,6 @@ class ViewsTest extends SearchApiBrowserTestBase {
     'language',
     'rest',
   ];
-
-  /**
-   * A search index ID.
-   *
-   * @var string
-   */
-  protected $indexId = 'database_search_index';
 
   /**
    * {@inheritdoc}
@@ -73,7 +66,6 @@ class ViewsTest extends SearchApiBrowserTestBase {
    */
   public function testView() {
     $this->checkResults([], array_keys($this->entities), 'Unfiltered search');
-
 
     $this->checkResults(
       ['search_api_fulltext' => 'foobar'],
@@ -257,7 +249,10 @@ class ViewsTest extends SearchApiBrowserTestBase {
 
     // Make sure the datasource filter works correctly with multiple selections.
     $index = Index::load($this->indexId);
-    $index->addDatasource($index->createPlugin('datasource', 'entity:user'));
+    $datasource = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createDatasourcePlugin($index, 'entity:user');
+    $index->addDatasource($datasource);
     $index->save();
 
     $query = [
@@ -291,19 +286,21 @@ class ViewsTest extends SearchApiBrowserTestBase {
     $this->checkResults($query, [], 'Search for results of no available datasource');
 
     // Make sure there was a display plugin created for this view.
-    $displays = \Drupal::getContainer()->get('plugin.manager.search_api.display')
+    /** @var \Drupal\search_api\Display\DisplayInterface[] $displays */
+    $displays = \Drupal::getContainer()
+      ->get('plugin.manager.search_api.display')
       ->getInstances();
 
-    if ($displays === []) {
-      throw new SearchApiException("No displays are loaded, tests will fail.");
-    }
-
     $display_id = 'views_page:search_api_test_view__page_1';
-    $this->assertTrue(array_key_exists($display_id, $displays), 'A display plugin was created for the test view page display.');
-    $this->assertTrue(array_key_exists('views_block:search_api_test_view__block_1', $displays), 'A display plugin was created for the test view block display.');
-    $this->assertTrue(array_key_exists('views_rest:search_api_test_view__rest_export_1', $displays), 'A display plugin was created for the test view block display.');
+    $this->assertArrayHasKey($display_id, $displays, 'A display plugin was created for the test view page display.');
+    $this->assertArrayHasKey('views_block:search_api_test_view__block_1', $displays, 'A display plugin was created for the test view block display.');
+    $this->assertArrayHasKey('views_rest:search_api_test_view__rest_export_1', $displays, 'A display plugin was created for the test view block display.');
+    $this->assertEquals('/search-api-test', $displays[$display_id]->getPath(), 'Display returns the correct path.');
     $view_url = Url::fromUserInput('/search-api-test')->toString();
-    $this->assertEquals($view_url, $displays[$display_id]->getUrl()->toString(), 'Display returns the correct path.');
+    $this->assertEquals($view_url, $displays[$display_id]->getUrl()->toString(), 'Display returns the correct URL.');
+    $this->assertNull($displays['views_block:search_api_test_view__block_1']->getPath(), 'Block display returns the correct path.');
+    $this->assertEquals('/search-api-rest-test', $displays['views_rest:search_api_test_view__rest_export_1']->getPath(), 'REST display returns the correct path.');
+
     $this->assertEquals('database_search_index', $displays[$display_id]->getIndex()->id(), 'Display returns the correct search index.');
 
     $admin_user = $this->drupalCreateUser([
@@ -320,11 +317,12 @@ class ViewsTest extends SearchApiBrowserTestBase {
 
     drupal_flush_all_caches();
 
-    $displays = \Drupal::getContainer()->get('plugin.manager.search_api.display')
+    $displays = \Drupal::getContainer()
+      ->get('plugin.manager.search_api.display')
       ->getInstances();
-    $this->assertFalse(array_key_exists('views_page:search_api_test_view__page_1', $displays), 'A display plugin was created for the test view page display.');
-    $this->assertTrue(array_key_exists('views_block:search_api_test_view__block_1', $displays), 'A display plugin was created for the test view block display.');
-    $this->assertTrue(array_key_exists('views_rest:search_api_test_view__rest_export_1', $displays), 'A display plugin was created for the test view block display.');
+    $this->assertArrayNotHasKey('views_page:search_api_test_view__page_1', $displays, 'No display plugin was created for the test view page display.');
+    $this->assertArrayHasKey('views_block:search_api_test_view__block_1', $displays, 'A display plugin was created for the test view block display.');
+    $this->assertArrayHasKey('views_rest:search_api_test_view__rest_export_1', $displays, 'A display plugin was created for the test view block display.');
   }
 
   /**
@@ -757,7 +755,8 @@ class ViewsTest extends SearchApiBrowserTestBase {
     ];
     $this->writeSettings($settings);
     // Allow for test-specific overrides.
-    $settings_testing_file = DRUPAL_ROOT . '/' . $this->originalSiteDirectory . '/settings.testing.php';
+    $original_site = !empty($this->originalSiteDirectory) ? $this->originalSiteDirectory : $this->originalSite;
+    $settings_testing_file = DRUPAL_ROOT . '/' . $original_site . '/settings.testing.php';
     if (file_exists($settings_testing_file)) {
       // Copy the testing-specific settings.php overrides in place.
       copy($settings_testing_file, $directory . '/settings.testing.php');
@@ -766,7 +765,7 @@ class ViewsTest extends SearchApiBrowserTestBase {
       file_put_contents($directory . '/settings.php', "\n\$test_class = '" . get_class($this) . "';\n" . 'include DRUPAL_ROOT . \'/\' . $site_path . \'/settings.testing.php\';' . "\n", FILE_APPEND);
     }
 
-    $settings_services_file = DRUPAL_ROOT . '/' . $this->originalSiteDirectory . '/testing.services.yml';
+    $settings_services_file = DRUPAL_ROOT . '/' . $original_site . '/testing.services.yml';
     if (!file_exists($settings_services_file)) {
       // Otherwise, use the default services as a starting point for overrides.
       $settings_services_file = DRUPAL_ROOT . '/sites/default/default.services.yml';
@@ -780,7 +779,7 @@ class ViewsTest extends SearchApiBrowserTestBase {
       $services['services']['simpletest.config_schema_checker'] = [
         'class' => ConfigSchemaChecker::class,
         'arguments' => ['@config.typed', $this->getConfigSchemaExclusions()],
-        'tags' => [['name' => 'event_subscriber']]
+        'tags' => [['name' => 'event_subscriber']],
       ];
       file_put_contents($directory . '/services.yml', Yaml::encode($services));
     }

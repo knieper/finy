@@ -26,6 +26,7 @@ use Drupal\search_api\Entity\Index;
 use Drupal\search_api\Plugin\PluginFormTrait;
 use Drupal\search_api\SearchApiException;
 use Drupal\search_api\IndexInterface;
+use Drupal\search_api\Utility\FieldsHelperInterface;
 use Drupal\search_api\Utility\Utility;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -91,6 +92,13 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
   protected $languageManager;
 
   /**
+   * The fields helper.
+   *
+   * @var \Drupal\search_api\Utility\FieldsHelperInterface|null
+   */
+  protected $fieldsHelper;
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(array $configuration, $plugin_id, array $plugin_definition) {
@@ -121,6 +129,7 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
     $datasource->setTypedDataManager($container->get('typed_data_manager'));
     $datasource->setConfigFactory($container->get('config.factory'));
     $datasource->setLanguageManager($container->get('language_manager'));
+    $datasource->setFieldsHelper($container->get('search_api.fields_helper'));
 
     return $datasource;
   }
@@ -136,43 +145,13 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
   }
 
   /**
-   * Retrieves the entity field manager.
-   *
-   * @return \Drupal\Core\Entity\EntityFieldManagerInterface
-   *   The entity field manager.
-   */
-  public function getEntityFieldManager() {
-    return $this->entityFieldManager ?: \Drupal::getContainer()->get('entity_field.manager');
-  }
-
-  /**
-   * Retrieves the entity display repository.
-   *
-   * @return \Drupal\Core\Entity\EntityDisplayRepositoryInterface
-   *   The entity entity display repository.
-   */
-  public function getEntityDisplayRepository() {
-    return $this->entityDisplayRepository ?: \Drupal::getContainer()->get('entity_display.repository');
-  }
-
-  /**
-   * Retrieves the entity display repository.
-   *
-   * @return \Drupal\Core\Entity\EntityTypeBundleInfoInterface
-   *   The entity entity display repository.
-   */
-  public function getEntityTypeBundleInfo() {
-    return $this->entityTypeBundleInfo ?: \Drupal::getContainer()->get('entity_type.bundle.info');
-  }
-
-  /**
    * Retrieves the entity storage.
    *
    * @return \Drupal\Core\Entity\EntityStorageInterface
    *   The entity storage.
    */
   protected function getEntityStorage() {
-    return $this->getEntityTypeManager()->getStorage($this->pluginDefinition['entity_type']);
+    return $this->getEntityTypeManager()->getStorage($this->getEntityTypeId());
   }
 
   /**
@@ -182,7 +161,8 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
    *   The entity type definition.
    */
   protected function getEntityType() {
-    return $this->getEntityTypeManager()->getDefinition($this->getEntityTypeId());
+    return $this->getEntityTypeManager()
+      ->getDefinition($this->getEntityTypeId());
   }
 
   /**
@@ -199,6 +179,16 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
   }
 
   /**
+   * Retrieves the entity field manager.
+   *
+   * @return \Drupal\Core\Entity\EntityFieldManagerInterface
+   *   The entity field manager.
+   */
+  public function getEntityFieldManager() {
+    return $this->entityFieldManager ?: \Drupal::service('entity_field.manager');
+  }
+
+  /**
    * Sets the entity field manager.
    *
    * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
@@ -212,6 +202,16 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
   }
 
   /**
+   * Retrieves the entity display repository.
+   *
+   * @return \Drupal\Core\Entity\EntityDisplayRepositoryInterface
+   *   The entity entity display repository.
+   */
+  public function getEntityDisplayRepository() {
+    return $this->entityDisplayRepository ?: \Drupal::service('entity_display.repository');
+  }
+
+  /**
    * Sets the entity display repository.
    *
    * @param \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository
@@ -222,6 +222,16 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
   public function setEntityDisplayRepository(EntityDisplayRepositoryInterface $entity_display_repository) {
     $this->entityDisplayRepository = $entity_display_repository;
     return $this;
+  }
+
+  /**
+   * Retrieves the entity display repository.
+   *
+   * @return \Drupal\Core\Entity\EntityTypeBundleInfoInterface
+   *   The entity entity display repository.
+   */
+  public function getEntityTypeBundleInfo() {
+    return $this->entityTypeBundleInfo ?: \Drupal::service('entity_type.bundle.info');
   }
 
   /**
@@ -299,7 +309,7 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
   /**
    * Retrieves the language manager.
    *
-   * @return \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   * @return \Drupal\Core\Language\LanguageManagerInterface
    *   The language manager.
    */
   public function getLanguageManager() {
@@ -317,6 +327,29 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
   }
 
   /**
+   * Retrieves the fields helper.
+   *
+   * @return \Drupal\search_api\Utility\FieldsHelperInterface
+   *   The fields helper.
+   */
+  public function getFieldsHelper() {
+    return $this->fieldsHelper ?: \Drupal::service('search_api.fields_helper');
+  }
+
+  /**
+   * Sets the fields helper.
+   *
+   * @param \Drupal\search_api\Utility\FieldsHelperInterface $fields_helper
+   *   The new fields helper.
+   *
+   * @return $this
+   */
+  public function setFieldsHelper(FieldsHelperInterface $fields_helper) {
+    $this->fieldsHelper = $fields_helper;
+    return $this;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getPropertyDefinitions() {
@@ -329,9 +362,15 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
     }
     // Exclude properties with custom storage, since we can't extract them
     // currently, due to a shortcoming of Core's Typed Data API. See #2695527.
+    // Computed properties should mostly be OK, though, even though they still
+    // count as having "custom storage". The "Path" field from the Core module
+    // does not work, though, so we explicitly exclude it here to avoid
+    // confusion.
     foreach ($properties as $key => $property) {
-      if ($property->getFieldStorageDefinition()->hasCustomStorage()) {
-        unset($properties[$key]);
+      if (!$property->isComputed() || $key === 'path') {
+        if ($property->getFieldStorageDefinition()->hasCustomStorage()) {
+          unset($properties[$key]);
+        }
       }
     }
     return $properties;
@@ -588,40 +627,6 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
   /**
    * {@inheritdoc}
    */
-  public function getDescription() {
-    $summary = '';
-
-    // Add bundle information in the description.
-    if ($this->hasBundles()) {
-      $bundles = array_values(array_intersect_key($this->getEntityBundleOptions(), array_flip($this->configuration['bundles']['selected'])));
-      if ($this->configuration['bundles']['default']) {
-        $summary .= $this->t('Excluded bundles: @bundles', array('@bundles' => implode(', ', $bundles)));
-      }
-      else {
-        $summary .= $this->t('Included bundles: @bundles', array('@bundles' => implode(', ', $bundles)));
-      }
-    }
-
-    // Add language information in the description.
-    if ($this->isTranslatable()) {
-      if ($summary) {
-        $summary .= '; ';
-      }
-      $languages = array_intersect_key($this->getTranslationOptions(), array_flip($this->configuration['languages']['selected']));
-      if ($this->configuration['languages']['default']) {
-        $summary .= $this->t('Excluded languages: @languages', array('@languages' => implode(', ', $languages)));
-      }
-      else {
-        $summary .= $this->t('Included languages: @languages', array('@languages' => implode(', ', $languages)));
-      }
-    }
-
-    return $summary;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getEntityTypeId() {
     $plugin_definition = $this->getPluginDefinition();
     return $plugin_definition['entity_type'];
@@ -661,7 +666,9 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
    * {@inheritdoc}
    */
   public function getPartialItemIds($page = NULL, array $bundles = NULL, array $languages = NULL) {
-    $select = \Drupal::entityQuery($this->getEntityTypeId());
+    $select = $this->getEntityTypeManager()
+      ->getStorage($this->getEntityTypeId())
+      ->getQuery();
 
     // We want to determine all entities of either one of the given bundles OR
     // one of the given languages. That means we can't just filter for $bundles
@@ -906,7 +913,7 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
       }
     }
 
-    $property = Utility::getInnerProperty($property);
+    $property = $this->getFieldsHelper()->getInnerProperty($property);
 
     if ($property instanceof EntityDataDefinitionInterface) {
       $entity_type_definition = $this->getEntityTypeManager()
@@ -918,7 +925,8 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
     }
 
     if (isset($nested_path) && $property instanceof ComplexDataDefinitionInterface) {
-      $nested_dependencies = $this->getPropertyPathDependencies($nested_path, Utility::getNestedProperties($property));
+      $nested = $this->getFieldsHelper()->getNestedProperties($property);
+      $nested_dependencies = $this->getPropertyPathDependencies($nested_path, $nested);
       foreach ($nested_dependencies as $type => $names) {
         $dependencies += array($type => array());
         $dependencies[$type] += $names;
@@ -926,62 +934,6 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
     }
 
     return array_map('array_values', $dependencies);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getFieldDependenciesForEntityType($entity_type_id, array $fields, array $all_fields) {
-    $field_dependencies = array();
-
-    // Figure out which fields are directly on the item and which need to be
-    // extracted from nested items.
-    $direct_fields = array();
-    $nested_fields = array();
-    foreach ($fields as $field) {
-      if (strpos($field, ':entity:') !== FALSE) {
-        list($direct, $nested) = explode(':entity:', $field, 2);
-        $nested_fields[$direct][] = $nested;
-      }
-      else {
-        // Support nested Search API fields.
-        $base_field_name = explode(':', $field, 2)[0];
-        $direct_fields[$base_field_name] = TRUE;
-      }
-    }
-
-    // Extract the config dependency name for direct fields.
-    foreach (array_keys($this->getEntityTypeBundleInfo()->getBundleInfo($entity_type_id)) as $bundle) {
-      foreach ($this->getEntityFieldManager()->getFieldDefinitions($entity_type_id, $bundle) as $field_name => $field_definition) {
-        if ($field_definition instanceof FieldConfigInterface) {
-          if (isset($direct_fields[$field_name]) || isset($nested_fields[$field_name])) {
-            // Make a mapping of dependencies and fields that depend on them.
-            $storage_definition = $field_definition->getFieldStorageDefinition();
-            if (!$storage_definition instanceof EntityInterface) {
-              continue;
-            }
-            $dependency = $storage_definition->getConfigDependencyName();
-            $search_api_fields = array();
-
-            // Get a list of enabled fields on the datasource.
-            foreach ($all_fields as $field_id => $property_path) {
-              if (strpos($property_path, $field_definition->getName()) !== FALSE) {
-                $search_api_fields[] = $field_id;
-              }
-            }
-            $field_dependencies[$dependency] = $search_api_fields;
-          }
-
-          // Recurse for nested fields.
-          if (isset($nested_fields[$field_name])) {
-            $entity_type = $field_definition->getSetting('target_type');
-            $field_dependencies += $this->getFieldDependenciesForEntityType($entity_type, $nested_fields[$field_name], $all_fields);
-          }
-        }
-      }
-    }
-
-    return $field_dependencies;
   }
 
   /**
