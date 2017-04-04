@@ -11,6 +11,7 @@ foreach (glob($includes_path) as $filename) {
 }
 
 function finy2_preprocess_node(&$variables){
+  $variables['product_type'] = '';
    //set potential set formats to match the following taxonomy term ids for physical or downloadable audio set, video or book
    $sets = array('22','33', '34','36', '32', '31');
    //check that field exists
@@ -26,5 +27,25 @@ function finy2_preprocess_node(&$variables){
         $variables['product_type'] = 'single';
       }
    //dpm($variables['product_type']);
+  }
+}
+
+function finy2_preprocess_search_api_page_result(&$variables) {
+  if($variables['entity']->hasField('field_price')){
+    //there will only ever be one price per product
+    $priceArray = $variables['entity']->get('field_price')->getValue()['0'];
+    foreach($priceArray as $key => $value){
+      $variables['price'] = '$'.(string)$value;
+    }
+  }
+  if($variables['entity']->hasField('field_author_practitioner')){
+    //there maybe multiple practitioners
+    $practitionerArray = $variables['entity']->get('field_author_practitioner')->getValue()['0'];
+    foreach($practitionerArray as $key => $value){
+      $tid = (string) $value;
+      $practitioner = \Drupal\taxonomy\Entity\Term::load($tid)->name->value;
+      $variables['practitioner'] .= $practitioner.' ';
+    }
+    //dpm($variables['practitioner']);
   }
 }

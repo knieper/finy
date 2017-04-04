@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: small_hero
-label: 'small hero (1000x563)'
+label: 'small hero (1000x500)'
 effects:
   fd046702-d4e5-41a5-a526-dbbb7999ed1a:
     uuid: fd046702-d4e5-41a5-a526-dbbb7999ed1a
@@ -11,4 +11,4 @@ effects:
     weight: 1
     data:
       width: 1000
-      height: 563
+      height: 500

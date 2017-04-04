@@ -12,6 +12,13 @@
 </h3>
 {{ title_suffix }}
 {% if snippet %}
-  <p{{ content_attributes }}>{{ snippet }}</p>
+  <p>{{ content_attributes }}{{ snippet }}</p>
 {% endif %}
-
+<div class="details">
+{% if practitioner %}
+	by {{ practitioner }}<br/>
+{% endif %}
+{% if price %}
+	Price: {{ price }}
+{% endif %}
+</div>

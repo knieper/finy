@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: xsmall_hero
-label: 'xsmall hero (700 x 394)'
+label: 'xsmall hero (700 x 490)'
 effects:
   96413275-68df-4883-8388-316e4167108a:
     uuid: 96413275-68df-4883-8388-316e4167108a
@@ -11,4 +11,4 @@ effects:
     weight: 1
     data:
       width: 700
-      height: 394
+      height: 490
