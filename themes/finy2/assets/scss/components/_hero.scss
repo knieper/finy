@@ -1,26 +1,4 @@
 /// styling on hero
-.btn-hero-lg{
-  @extend .btn-primary;
-      background-color: transparent;
-      border: solid $border-radius-base white;
-      color: white;
-      display:block;
-      font-size: $font-size-h4;
-      @include breakpoint(sm){
-        font-size: $font-size-h2;
-      }
-      &:hover, &:focus {
-        background-color: rgba(255,255,255, .3);
-        border-color: white;
-      }
-      a{
-        color:white;
-        &:hover, &:focus{
-          text-decoration: none;
-        }
-      }
-}
-
 .hero {
   .highlight{
     color: white;

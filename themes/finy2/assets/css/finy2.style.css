@@ -2862,65 +2862,59 @@ fieldset[disabled] .media-widget > a {
     color: #fff;
     background-color: #333; }
 
-.btn-primary, body.maintenance-page .form-actions .btn:first-child, body.maintenance-page .form-actions .media-widget > a:first-child, .btn-hero-lg, .btn-alt-light, .btn-alt-dark {
+.btn-primary, body.maintenance-page .form-actions .btn:first-child, body.maintenance-page .form-actions .media-widget > a:first-child, .btn-alt-light, .btn-alt-dark {
   color: #fff;
   background-color: #527194;
   border-color: #496484; }
-  .btn-primary:focus, body.maintenance-page .form-actions .btn:focus:first-child, body.maintenance-page .form-actions .media-widget > a:focus:first-child, .btn-hero-lg:focus, .btn-alt-light:focus, .btn-alt-dark:focus, .btn-primary.focus, body.maintenance-page .form-actions .focus.btn:first-child, body.maintenance-page .form-actions .media-widget > a.focus:first-child, .focus.btn-hero-lg, .focus.btn-alt-light, .focus.btn-alt-dark {
+  .btn-primary:focus, body.maintenance-page .form-actions .btn:focus:first-child, body.maintenance-page .form-actions .media-widget > a:focus:first-child, .btn-alt-light:focus, .btn-alt-dark:focus, .btn-primary.focus, body.maintenance-page .form-actions .focus.btn:first-child, body.maintenance-page .form-actions .media-widget > a.focus:first-child, .focus.btn-alt-light, .focus.btn-alt-dark {
     color: #fff;
     background-color: #405873;
     border-color: #1b2632; }
-  .btn-primary:hover, body.maintenance-page .form-actions .btn:hover:first-child, body.maintenance-page .form-actions .media-widget > a:hover:first-child, .btn-hero-lg:hover, .btn-alt-light:hover, .btn-alt-dark:hover {
+  .btn-primary:hover, body.maintenance-page .form-actions .btn:hover:first-child, body.maintenance-page .form-actions .media-widget > a:hover:first-child, .btn-alt-light:hover, .btn-alt-dark:hover {
     color: #fff;
     background-color: #405873;
     border-color: #33465c; }
-  .btn-primary:active, body.maintenance-page .form-actions .btn:active:first-child, body.maintenance-page .form-actions .media-widget > a:active:first-child, .btn-hero-lg:active, .btn-alt-light:active, .btn-alt-dark:active, .btn-primary.active, body.maintenance-page .form-actions .active.btn:first-child, body.maintenance-page .form-actions .media-widget > a.active:first-child, .active.btn-hero-lg, .active.btn-alt-light, .active.btn-alt-dark,
+  .btn-primary:active, body.maintenance-page .form-actions .btn:active:first-child, body.maintenance-page .form-actions .media-widget > a:active:first-child, .btn-alt-light:active, .btn-alt-dark:active, .btn-primary.active, body.maintenance-page .form-actions .active.btn:first-child, body.maintenance-page .form-actions .media-widget > a.active:first-child, .active.btn-alt-light, .active.btn-alt-dark,
   .open > .btn-primary.dropdown-toggle, body.maintenance-page .form-actions
   .open > .dropdown-toggle.btn:first-child, body.maintenance-page .form-actions
   .media-widget.open > a.dropdown-toggle:first-child,
-  .open > .dropdown-toggle.btn-hero-lg,
   .open > .dropdown-toggle.btn-alt-light,
   .open > .dropdown-toggle.btn-alt-dark {
     color: #fff;
     background-color: #405873;
     border-color: #33465c; }
-    .btn-primary:active:hover, body.maintenance-page .form-actions .btn:active:hover:first-child, body.maintenance-page .form-actions .media-widget > a:active:hover:first-child, .btn-hero-lg:active:hover, .btn-alt-light:active:hover, .btn-alt-dark:active:hover, .btn-primary:active:focus, body.maintenance-page .form-actions .btn:active:focus:first-child, body.maintenance-page .form-actions .media-widget > a:active:focus:first-child, .btn-hero-lg:active:focus, .btn-alt-light:active:focus, .btn-alt-dark:active:focus, .btn-primary:active.focus, body.maintenance-page .form-actions .btn:active.focus:first-child, body.maintenance-page .form-actions .media-widget > a:active.focus:first-child, .btn-hero-lg:active.focus, .btn-alt-light:active.focus, .btn-alt-dark:active.focus, .btn-primary.active:hover, body.maintenance-page .form-actions .active.btn:hover:first-child, body.maintenance-page .form-actions .media-widget > a.active:hover:first-child, .active.btn-hero-lg:hover, .active.btn-alt-light:hover, .active.btn-alt-dark:hover, .btn-primary.active:focus, body.maintenance-page .form-actions .active.btn:focus:first-child, body.maintenance-page .form-actions .media-widget > a.active:focus:first-child, .active.btn-hero-lg:focus, .active.btn-alt-light:focus, .active.btn-alt-dark:focus, .btn-primary.active.focus, body.maintenance-page .form-actions .active.focus.btn:first-child, body.maintenance-page .form-actions .media-widget > a.active.focus:first-child, .active.focus.btn-hero-lg, .active.focus.btn-alt-light, .active.focus.btn-alt-dark,
+    .btn-primary:active:hover, body.maintenance-page .form-actions .btn:active:hover:first-child, body.maintenance-page .form-actions .media-widget > a:active:hover:first-child, .btn-alt-light:active:hover, .btn-alt-dark:active:hover, .btn-primary:active:focus, body.maintenance-page .form-actions .btn:active:focus:first-child, body.maintenance-page .form-actions .media-widget > a:active:focus:first-child, .btn-alt-light:active:focus, .btn-alt-dark:active:focus, .btn-primary:active.focus, body.maintenance-page .form-actions .btn:active.focus:first-child, body.maintenance-page .form-actions .media-widget > a:active.focus:first-child, .btn-alt-light:active.focus, .btn-alt-dark:active.focus, .btn-primary.active:hover, body.maintenance-page .form-actions .active.btn:hover:first-child, body.maintenance-page .form-actions .media-widget > a.active:hover:first-child, .active.btn-alt-light:hover, .active.btn-alt-dark:hover, .btn-primary.active:focus, body.maintenance-page .form-actions .active.btn:focus:first-child, body.maintenance-page .form-actions .media-widget > a.active:focus:first-child, .active.btn-alt-light:focus, .active.btn-alt-dark:focus, .btn-primary.active.focus, body.maintenance-page .form-actions .active.focus.btn:first-child, body.maintenance-page .form-actions .media-widget > a.active.focus:first-child, .active.focus.btn-alt-light, .active.focus.btn-alt-dark,
     .open > .btn-primary.dropdown-toggle:hover, body.maintenance-page .form-actions
     .open > .dropdown-toggle.btn:hover:first-child, body.maintenance-page .form-actions
     .media-widget.open > a.dropdown-toggle:hover:first-child,
-    .open > .dropdown-toggle.btn-hero-lg:hover,
     .open > .dropdown-toggle.btn-alt-light:hover,
     .open > .dropdown-toggle.btn-alt-dark:hover,
     .open > .btn-primary.dropdown-toggle:focus, body.maintenance-page .form-actions
     .open > .dropdown-toggle.btn:focus:first-child, body.maintenance-page .form-actions
     .media-widget.open > a.dropdown-toggle:focus:first-child,
-    .open > .dropdown-toggle.btn-hero-lg:focus,
     .open > .dropdown-toggle.btn-alt-light:focus,
     .open > .dropdown-toggle.btn-alt-dark:focus,
     .open > .btn-primary.dropdown-toggle.focus, body.maintenance-page .form-actions
     .open > .dropdown-toggle.focus.btn:first-child, body.maintenance-page .form-actions
     .media-widget.open > a.dropdown-toggle.focus:first-child,
-    .open > .dropdown-toggle.focus.btn-hero-lg,
     .open > .dropdown-toggle.focus.btn-alt-light,
     .open > .dropdown-toggle.focus.btn-alt-dark {
       color: #fff;
       background-color: #33465c;
       border-color: #1b2632; }
-  .btn-primary:active, body.maintenance-page .form-actions .btn:active:first-child, body.maintenance-page .form-actions .media-widget > a:active:first-child, .btn-hero-lg:active, .btn-alt-light:active, .btn-alt-dark:active, .btn-primary.active, body.maintenance-page .form-actions .active.btn:first-child, body.maintenance-page .form-actions .media-widget > a.active:first-child, .active.btn-hero-lg, .active.btn-alt-light, .active.btn-alt-dark,
+  .btn-primary:active, body.maintenance-page .form-actions .btn:active:first-child, body.maintenance-page .form-actions .media-widget > a:active:first-child, .btn-alt-light:active, .btn-alt-dark:active, .btn-primary.active, body.maintenance-page .form-actions .active.btn:first-child, body.maintenance-page .form-actions .media-widget > a.active:first-child, .active.btn-alt-light, .active.btn-alt-dark,
   .open > .btn-primary.dropdown-toggle, body.maintenance-page .form-actions
   .open > .dropdown-toggle.btn:first-child, body.maintenance-page .form-actions
   .media-widget.open > a.dropdown-toggle:first-child,
-  .open > .dropdown-toggle.btn-hero-lg,
   .open > .dropdown-toggle.btn-alt-light,
   .open > .dropdown-toggle.btn-alt-dark {
     background-image: none; }
-  .btn-primary.disabled:hover, body.maintenance-page .form-actions .disabled.btn:hover:first-child, body.maintenance-page .form-actions .media-widget > a.disabled:hover:first-child, .disabled.btn-hero-lg:hover, .disabled.btn-alt-light:hover, .disabled.btn-alt-dark:hover, .btn-primary.disabled:focus, body.maintenance-page .form-actions .disabled.btn:focus:first-child, body.maintenance-page .form-actions .media-widget > a.disabled:focus:first-child, .disabled.btn-hero-lg:focus, .disabled.btn-alt-light:focus, .disabled.btn-alt-dark:focus, .btn-primary.disabled.focus, body.maintenance-page .form-actions .disabled.focus.btn:first-child, body.maintenance-page .form-actions .media-widget > a.disabled.focus:first-child, .disabled.focus.btn-hero-lg, .disabled.focus.btn-alt-light, .disabled.focus.btn-alt-dark, .btn-primary[disabled]:hover, body.maintenance-page .form-actions [disabled].btn:hover:first-child, body.maintenance-page .form-actions .media-widget > a[disabled]:hover:first-child, [disabled].btn-hero-lg:hover, [disabled].btn-alt-light:hover, [disabled].btn-alt-dark:hover, .btn-primary[disabled]:focus, body.maintenance-page .form-actions [disabled].btn:focus:first-child, body.maintenance-page .form-actions .media-widget > a[disabled]:focus:first-child, [disabled].btn-hero-lg:focus, [disabled].btn-alt-light:focus, [disabled].btn-alt-dark:focus, .btn-primary[disabled].focus, body.maintenance-page .form-actions [disabled].focus.btn:first-child, body.maintenance-page .form-actions .media-widget > a[disabled].focus:first-child, [disabled].focus.btn-hero-lg, [disabled].focus.btn-alt-light, [disabled].focus.btn-alt-dark,
+  .btn-primary.disabled:hover, body.maintenance-page .form-actions .disabled.btn:hover:first-child, body.maintenance-page .form-actions .media-widget > a.disabled:hover:first-child, .disabled.btn-alt-light:hover, .disabled.btn-alt-dark:hover, .btn-primary.disabled:focus, body.maintenance-page .form-actions .disabled.btn:focus:first-child, body.maintenance-page .form-actions .media-widget > a.disabled:focus:first-child, .disabled.btn-alt-light:focus, .disabled.btn-alt-dark:focus, .btn-primary.disabled.focus, body.maintenance-page .form-actions .disabled.focus.btn:first-child, body.maintenance-page .form-actions .media-widget > a.disabled.focus:first-child, .disabled.focus.btn-alt-light, .disabled.focus.btn-alt-dark, .btn-primary[disabled]:hover, body.maintenance-page .form-actions [disabled].btn:hover:first-child, body.maintenance-page .form-actions .media-widget > a[disabled]:hover:first-child, [disabled].btn-alt-light:hover, [disabled].btn-alt-dark:hover, .btn-primary[disabled]:focus, body.maintenance-page .form-actions [disabled].btn:focus:first-child, body.maintenance-page .form-actions .media-widget > a[disabled]:focus:first-child, [disabled].btn-alt-light:focus, [disabled].btn-alt-dark:focus, .btn-primary[disabled].focus, body.maintenance-page .form-actions [disabled].focus.btn:first-child, body.maintenance-page .form-actions .media-widget > a[disabled].focus:first-child, [disabled].focus.btn-alt-light, [disabled].focus.btn-alt-dark,
   fieldset[disabled] .btn-primary:hover,
   fieldset[disabled] body.maintenance-page .form-actions .btn:hover:first-child, body.maintenance-page .form-actions
   fieldset[disabled] .btn:hover:first-child,
   fieldset[disabled] body.maintenance-page .form-actions .media-widget > a:hover:first-child, body.maintenance-page .form-actions
   fieldset[disabled] .media-widget > a:hover:first-child,
-  fieldset[disabled] .btn-hero-lg:hover,
   fieldset[disabled] .btn-alt-light:hover,
   fieldset[disabled] .btn-alt-dark:hover,
   fieldset[disabled] .btn-primary:focus,
@@ -2928,7 +2922,6 @@ fieldset[disabled] .media-widget > a {
   fieldset[disabled] .btn:focus:first-child,
   fieldset[disabled] body.maintenance-page .form-actions .media-widget > a:focus:first-child, body.maintenance-page .form-actions
   fieldset[disabled] .media-widget > a:focus:first-child,
-  fieldset[disabled] .btn-hero-lg:focus,
   fieldset[disabled] .btn-alt-light:focus,
   fieldset[disabled] .btn-alt-dark:focus,
   fieldset[disabled] .btn-primary.focus,
@@ -2936,12 +2929,11 @@ fieldset[disabled] .media-widget > a {
   fieldset[disabled] .focus.btn:first-child,
   fieldset[disabled] body.maintenance-page .form-actions .media-widget > a.focus:first-child, body.maintenance-page .form-actions
   fieldset[disabled] .media-widget > a.focus:first-child,
-  fieldset[disabled] .focus.btn-hero-lg,
   fieldset[disabled] .focus.btn-alt-light,
   fieldset[disabled] .focus.btn-alt-dark {
     background-color: #527194;
     border-color: #496484; }
-  .btn-primary .badge, body.maintenance-page .form-actions .btn:first-child .badge, body.maintenance-page .form-actions .media-widget > a:first-child .badge, .btn-hero-lg .badge, .btn-alt-light .badge, .btn-alt-dark .badge {
+  .btn-primary .badge, body.maintenance-page .form-actions .btn:first-child .badge, body.maintenance-page .form-actions .media-widget > a:first-child .badge, .btn-alt-light .badge, .btn-alt-dark .badge {
     color: #527194;
     background-color: #fff; }
 
@@ -8601,23 +8593,6 @@ footer {
   #search-api-page-block-form #edit-submit {
     margin-left: 15px; }
 
-.btn-hero-lg {
-  background-color: transparent;
-  border: solid 2px white;
-  color: white;
-  display: block;
-  font-size: 21px; }
-  @media (min-width: 768px) {
-    .btn-hero-lg {
-      font-size: 37px; } }
-  .btn-hero-lg:hover, .btn-hero-lg:focus {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-color: white; }
-  .btn-hero-lg a {
-    color: white; }
-    .btn-hero-lg a:hover, .btn-hero-lg a:focus {
-      text-decoration: none; }
-
 .hero .highlight {
   color: white; }
   @media (min-width: 768px) {
@@ -9313,7 +9288,7 @@ ol.breadcrumb {
   padding-left: 0px;
   padding-right: 0px; }
 
-.btn-primary, body.maintenance-page .form-actions .btn:first-child, body.maintenance-page .form-actions .media-widget > a:first-child, .btn-hero-lg, .btn-alt-light, .btn-alt-dark {
+.btn-primary, body.maintenance-page .form-actions .btn:first-child, body.maintenance-page .form-actions .media-widget > a:first-child, .btn-alt-light, .btn-alt-dark {
   margin: 1.5em 0px; }
 
 .btn-alt-light {
