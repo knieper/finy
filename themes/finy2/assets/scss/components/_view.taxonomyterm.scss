@@ -1,0 +1,17 @@
+// View: taxonomy terms
+// -----------------------------------------------------------------------------
+.view--taxonomy-term {
+  h3 {
+    display: inline-block;
+  }
+  .views-field-type{
+    padding-left: 10px;
+    &:before{
+      content: ' (';
+    }
+    &:after{
+      content: ') ';
+    }
+  }
+
+}

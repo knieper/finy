@@ -12,7 +12,7 @@ _core:
 id: finy2_login
 theme: finy2
 region: content
-weight: -5
+weight: -8
 provider: null
 plugin: user_login_block
 settings:

@@ -11,11 +11,11 @@ foreach (glob($includes_path) as $filename) {
 }
 
 function finy2_preprocess_node(&$variables){
-  $variables['product_type'] = '';
-   //set potential set formats to match the following taxonomy term ids for physical or downloadable audio set, video or book
-   $sets = array('22','33', '34','36', '32', '31');
-   //check that field exists
+   //check that field format exists
    if($variables['elements']['#node']->hasField('field_format')){
+      //set potential set formats to match the following taxonomy term ids for physical or downloadable audio set, video or book
+      $sets = array('22','33', '34','36', '32', '31');
+      $variables['product_type'] = '';
       $format_values = $variables['elements']['#node']->get('field_format')->getValue();
       foreach($format_values as $value){
         if(in_array($value['target_id'], $sets)){

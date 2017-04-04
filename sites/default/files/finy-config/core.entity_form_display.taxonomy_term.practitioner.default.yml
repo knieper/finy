@@ -15,7 +15,7 @@ dependencies:
     - taxonomy.vocabulary.practitioner
   module:
     - entity_browser
-    - link
+    - link_class
     - path
     - text
 id: taxonomy_term.practitioner.default
@@ -68,8 +68,11 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: 'Book an appointment with [staff name]'
+      link_class_mode: force_class
+      link_class_force: 'btn btn-primary'
+      link_class_select: ''
     third_party_settings: {  }
-    type: link_default
+    type: link_class_field_widget
   field_teachers_studied_with:
     weight: 6
     settings:

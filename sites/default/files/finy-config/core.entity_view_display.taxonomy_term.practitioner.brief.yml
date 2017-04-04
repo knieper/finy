@@ -1,8 +1,9 @@
-uuid: 8615b072-27c1-4167-8c2a-d90055b764a8
+uuid: 935ed11e-9812-4c0d-b232-e672dcfde2f5
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.taxonomy_term.brief
     - field.field.taxonomy_term.practitioner.field_are
     - field.field.taxonomy_term.practitioner.field_for_more_information
     - field.field.taxonomy_term.practitioner.field_how_you_got_started_
@@ -11,16 +12,16 @@ dependencies:
     - field.field.taxonomy_term.practitioner.field_teachers_studied_with
     - field.field.taxonomy_term.practitioner.field_type
     - field.field.taxonomy_term.practitioner.field_year_certified
+    - image.style.thumbnail
     - taxonomy.vocabulary.practitioner
   module:
     - image
     - link
-    - options
     - text
-id: taxonomy_term.practitioner.default
+id: taxonomy_term.practitioner.brief
 targetEntityType: taxonomy_term
 bundle: practitioner
-mode: default
+mode: brief
 content:
   description:
     label: hidden
@@ -28,20 +29,8 @@ content:
     weight: 2
     settings: {  }
     third_party_settings: {  }
-  field_are:
-    weight: 6
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
   field_for_more_information:
     weight: 8
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
-  field_how_you_got_started_:
-    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -50,7 +39,7 @@ content:
     weight: 0
     label: hidden
     settings:
-      image_style: ''
+      image_style: thumbnail
       image_link: ''
     third_party_settings: {  }
     type: image
@@ -65,25 +54,10 @@ content:
       target: '0'
     third_party_settings: {  }
     type: link
-  field_teachers_studied_with:
-    weight: 4
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
-  field_type:
-    weight: 1
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-  field_year_certified:
-    weight: 5
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    type: number_integer
 hidden:
+  field_are: true
+  field_how_you_got_started_: true
+  field_teachers_studied_with: true
+  field_type: true
+  field_year_certified: true
   langcode: true

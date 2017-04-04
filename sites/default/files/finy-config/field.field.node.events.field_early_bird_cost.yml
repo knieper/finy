@@ -10,7 +10,7 @@ field_name: field_early_bird_cost
 entity_type: node
 bundle: events
 label: 'Early bird cost'
-description: ''
+description: 'Available until 24 hours prior to the event.'
 required: false
 translatable: false
 default_value: {  }

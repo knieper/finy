@@ -8692,6 +8692,11 @@ ol.breadcrumb {
         padding: .5em;
         line-height: 1rem; }
 
+.events .events__field-cost .field__item,
+.events .events__field-early-bird-cost .field__item,
+.events .events__field-member-cost .field__item {
+  display: inline-block; }
+
 .events.events--brief-event {
   margin-bottom: 1em; }
   .events.events--brief-event > div {
@@ -9139,6 +9144,16 @@ ol.breadcrumb {
 
 .view--daily-classes-and-workshops tr td:last-of-type {
   text-align: center; }
+
+.view--taxonomy-term h3 {
+  display: inline-block; }
+
+.view--taxonomy-term .views-field-type {
+  padding-left: 10px; }
+  .view--taxonomy-term .views-field-type:before {
+    content: ' ('; }
+  .view--taxonomy-term .views-field-type:after {
+    content: ') '; }
 
 .viewsreference-title {
   font-size: 37px;

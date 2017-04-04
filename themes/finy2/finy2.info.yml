@@ -14,14 +14,15 @@ regions:
   navbar_right: 'Navbar right'
   top_content: 'Top content'
   content: Content
+  bottom_content: 'Bottom content'
   footer: Footer
 
 libraries:
   - finy2/base
-  
+
 libraries-override:
   radix/bootstrap: false
-  radix/style: false 
+  radix/style: false
 
 # Information added by Drupal.org packaging script on 2016-12-22
 version: '8.x-3.0'

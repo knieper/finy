@@ -1,0 +1,10 @@
+uuid: 59b0de39-8224-4d60-9d6e-d33230fec7a3
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.brief
+label: brief
+targetEntityType: taxonomy_term
+cache: true

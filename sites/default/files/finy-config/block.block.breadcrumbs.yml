@@ -9,7 +9,7 @@ dependencies:
 id: breadcrumbs
 theme: finy2
 region: content
-weight: -10
+weight: -12
 provider: null
 plugin: system_breadcrumb_block
 settings:

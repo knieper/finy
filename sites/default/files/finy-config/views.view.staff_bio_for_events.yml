@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.taxonomy_term.brief
     - node.type.events
   module:
     - node
@@ -110,7 +111,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          view_mode: default
+          view_mode: brief
           entity_type: taxonomy_term
           plugin_id: rendered_entity
       filters:
@@ -204,6 +205,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:core.entity_view_display.taxonomy_term.practitioner.brief'
         - 'config:core.entity_view_display.taxonomy_term.practitioner.default'
   block_1:
     display_plugin: block
@@ -220,4 +222,5 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:core.entity_view_display.taxonomy_term.practitioner.brief'
         - 'config:core.entity_view_display.taxonomy_term.practitioner.default'

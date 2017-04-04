@@ -103,8 +103,8 @@ content:
     weight: 13
     label: inline
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: long
     third_party_settings: {  }
     type: datetime_default
   field_run_time:

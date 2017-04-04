@@ -5,22 +5,26 @@ dependencies:
   config:
     - views.view.staff_bio_for_events
   module:
+    - block_class
     - ctools
     - views
   theme:
     - finy2
+third_party_settings:
+  block_class:
+    classes: ''
 id: views_block__staff_bio_for_events_block_1
 theme: finy2
-region: content
-weight: -6
+region: bottom_content
+weight: -11
 provider: null
 plugin: 'views_block:staff_bio_for_events-block_1'
 settings:
   id: 'views_block:staff_bio_for_events-block_1'
-  label: ''
+  label: 'About the practitioner'
   provider: views
   label_display: '0'
-  views_label: ''
+  views_label: 'About the practitioner'
   items_per_page: none
 visibility:
   'entity_bundle:node':

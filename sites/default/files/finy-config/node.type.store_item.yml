@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - menu_ui
     - scheduler
 third_party_settings:
   scheduler:
@@ -16,7 +17,11 @@ third_party_settings:
     unpublish_enable: false
     unpublish_required: false
     unpublish_revision: false
-name: Product
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Store Item'
 type: store_item
 description: 'Use for posting items to the FINY store'
 help: ''

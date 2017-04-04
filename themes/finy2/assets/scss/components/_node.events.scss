@@ -3,6 +3,13 @@
 //--color styling for the events list is set _view.events
 //--overriding padding on column classes is in _views
 .events {
+  .events__field-cost,
+  .events__field-early-bird-cost,
+  .events__field-member-cost {
+    .field__item{
+      display: inline-block;
+    }
+  }
   //--view-mode brief event
   &.events--brief-event{
     margin-bottom: 1em;
