@@ -1,0 +1,35 @@
+uuid: 45cc9597-9a1c-4c63-9b58-c716b5cba55e
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:hero:59041e87-f98a-41f0-8367-3252533108e4'
+  module:
+    - block_class
+    - block_content
+    - system
+  theme:
+    - finy2
+third_party_settings:
+  block_class:
+    classes: ''
+id: testoption2
+theme: finy2
+region: top_content
+weight: -2
+provider: null
+plugin: 'block_content:59041e87-f98a-41f0-8367-3252533108e4'
+settings:
+  id: 'block_content:59041e87-f98a-41f0-8367-3252533108e4'
+  label: 'expanding your possibilities 2'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: "/about-method\r\n"
+    negate: false
+    context_mapping: {  }

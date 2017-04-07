@@ -1,0 +1,35 @@
+uuid: d1dfefde-77a1-458c-bdb7-b9ceb13a3ac2
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:hero:0d1169bd-66d1-486d-b101-d27652bbc517'
+  module:
+    - block_class
+    - block_content
+    - system
+  theme:
+    - finy2
+third_party_settings:
+  block_class:
+    classes: ''
+id: joinandsaveoption2
+theme: finy2
+region: top_content
+weight: -3
+provider: null
+plugin: 'block_content:0d1169bd-66d1-486d-b101-d27652bbc517'
+settings:
+  id: 'block_content:0d1169bd-66d1-486d-b101-d27652bbc517'
+  label: 'Let us move you'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /individual-sessions
+    negate: false
+    context_mapping: {  }
