@@ -1,24 +1,27 @@
-uuid: 11641c6a-c79b-4d4b-8671-3fd1f080a30a
+uuid: 630971d8-131b-4f52-8dc8-7338e76404a6
 langcode: en
 status: true
 dependencies:
+  content:
+    - 'block_content:hero:283cfb00-50cd-4fa5-af52-7dc4d36eb063'
   module:
     - block_class
+    - block_content
     - system
   theme:
     - finy2
 third_party_settings:
   block_class:
     classes: ''
-id: practiceanytimeanywheresingleimage
+id: expandyourpossibilities
 theme: finy2
 region: top_content
 weight: 0
 provider: null
-plugin: 'block_content:5aa73754-0e84-4e17-9381-ee748cc8e93e'
+plugin: 'block_content:283cfb00-50cd-4fa5-af52-7dc4d36eb063'
 settings:
-  id: 'block_content:5aa73754-0e84-4e17-9381-ee748cc8e93e'
-  label: 'Practice anytime anywhere single image'
+  id: 'block_content:283cfb00-50cd-4fa5-af52-7dc4d36eb063'
+  label: 'Expand your possibilities'
   provider: block_content
   label_display: '0'
   status: true
@@ -27,6 +30,6 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: /test-page
+    pages: /about-method
     negate: false
     context_mapping: {  }

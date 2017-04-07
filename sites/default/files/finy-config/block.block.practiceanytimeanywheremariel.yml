@@ -1,9 +1,9 @@
-uuid: 45cc9597-9a1c-4c63-9b58-c716b5cba55e
+uuid: 52946ca7-4119-4d0a-b8b5-395203800e3e
 langcode: en
 status: true
 dependencies:
   content:
-    - 'block_content:hero:59041e87-f98a-41f0-8367-3252533108e4'
+    - 'block_content:hero:a6c7920c-2103-4018-b697-d2c94a3da73a'
   module:
     - block_class
     - block_content
@@ -13,15 +13,15 @@ dependencies:
 third_party_settings:
   block_class:
     classes: ''
-id: testoption2
+id: practiceanytimeanywheremariel
 theme: finy2
 region: top_content
-weight: -2
+weight: 0
 provider: null
-plugin: 'block_content:59041e87-f98a-41f0-8367-3252533108e4'
+plugin: 'block_content:a6c7920c-2103-4018-b697-d2c94a3da73a'
 settings:
-  id: 'block_content:59041e87-f98a-41f0-8367-3252533108e4'
-  label: 'expanding your possibilities 2'
+  id: 'block_content:a6c7920c-2103-4018-b697-d2c94a3da73a'
+  label: 'Practice anytime anywhere - Mariel'
   provider: block_content
   label_display: '0'
   status: true
@@ -30,6 +30,6 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: "/about-method\r\n"
+    pages: /feldenkrais-home
     negate: false
     context_mapping: {  }

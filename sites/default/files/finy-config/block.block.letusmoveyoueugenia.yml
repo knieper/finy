@@ -1,9 +1,9 @@
-uuid: d1dfefde-77a1-458c-bdb7-b9ceb13a3ac2
+uuid: beeec731-efc0-4cb3-8e6c-762e3914fc38
 langcode: en
 status: true
 dependencies:
   content:
-    - 'block_content:hero:0d1169bd-66d1-486d-b101-d27652bbc517'
+    - 'block_content:hero:b2aee152-3bd4-490b-ae85-c713259cf2c9'
   module:
     - block_class
     - block_content
@@ -13,15 +13,15 @@ dependencies:
 third_party_settings:
   block_class:
     classes: ''
-id: joinandsaveoption2
+id: letusmoveyoueugenia
 theme: finy2
 region: top_content
-weight: -3
+weight: 0
 provider: null
-plugin: 'block_content:0d1169bd-66d1-486d-b101-d27652bbc517'
+plugin: 'block_content:b2aee152-3bd4-490b-ae85-c713259cf2c9'
 settings:
-  id: 'block_content:0d1169bd-66d1-486d-b101-d27652bbc517'
-  label: 'Let us move you'
+  id: 'block_content:b2aee152-3bd4-490b-ae85-c713259cf2c9'
+  label: 'Let us move you -Eugenia'
   provider: block_content
   label_display: '0'
   status: true

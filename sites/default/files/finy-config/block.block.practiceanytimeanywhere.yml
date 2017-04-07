@@ -1,6 +1,6 @@
 uuid: 8caafa53-d180-4b84-b633-41372e02ad35
 langcode: en
-status: true
+status: false
 dependencies:
   content:
     - 'block_content:hero:0024d443-5957-4120-af85-c2057485a4a9'
