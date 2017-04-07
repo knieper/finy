@@ -40,16 +40,19 @@ content:
       summary_rows: 3
       placeholder: ''
     third_party_settings: {  }
+    region: content
   created:
     type: datetime_timestamp
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_audience:
     weight: 32
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
   field_author_practitioner:
     weight: 33
     settings:
@@ -58,21 +61,25 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_color_coding:
     weight: 44
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_day_of_the_week:
     weight: 34
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_format:
     weight: 35
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
   field_image:
     weight: 36
     settings:
@@ -85,12 +92,14 @@ content:
       view_mode: default
     third_party_settings: {  }
     type: entity_browser_file
+    region: content
   field_price:
     weight: 38
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
   field_product_keywords:
     weight: 37
     settings:
@@ -99,12 +108,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_published_year:
     weight: 42
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
   field_purchase_link:
     weight: 39
     settings:
@@ -115,11 +126,13 @@ content:
       link_class_select: ''
     third_party_settings: {  }
     type: link_class_field_widget
+    region: content
   field_recorded_date:
     weight: 43
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_related_products:
     weight: 40
     settings:
@@ -128,6 +141,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_run_time:
     weight: 41
     settings:
@@ -135,6 +149,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_subtitle:
     weight: 45
     settings:
@@ -142,37 +157,44 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   langcode:
     type: language_select
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
   path:
     type: path
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 15
     third_party_settings: {  }
+    region: content
   publish_on:
     type: datetime_timestamp_no_default
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
   scheduler_settings:
     weight: 20
     settings: {  }
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 16
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: -5
@@ -180,6 +202,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 5
@@ -188,9 +211,11 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   unpublish_on:
     type: datetime_timestamp_no_default
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }

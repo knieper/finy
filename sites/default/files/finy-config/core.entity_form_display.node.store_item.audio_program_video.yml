@@ -7,7 +7,18 @@ dependencies:
     - field.field.node.store_item.body
     - field.field.node.store_item.field_audience
     - field.field.node.store_item.field_author_practitioner
+    - field.field.node.store_item.field_color_coding
     - field.field.node.store_item.field_day_of_the_week
+    - field.field.node.store_item.field_format
+    - field.field.node.store_item.field_image
+    - field.field.node.store_item.field_price
+    - field.field.node.store_item.field_product_keywords
+    - field.field.node.store_item.field_published_year
+    - field.field.node.store_item.field_purchase_link
+    - field.field.node.store_item.field_recorded_date
+    - field.field.node.store_item.field_related_products
+    - field.field.node.store_item.field_run_time
+    - field.field.node.store_item.field_subtitle
     - node.type.store_item
   module:
     - path
@@ -26,11 +37,13 @@ content:
       summary_rows: 3
       placeholder: ''
     third_party_settings: {  }
+    region: content
   created:
     type: datetime_timestamp
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_audience:
     weight: 32
     settings:
@@ -39,6 +52,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_author_practitioner:
     weight: 33
     settings:
@@ -47,37 +61,44 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   langcode:
     type: language_select
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
   path:
     type: path
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 15
     third_party_settings: {  }
+    region: content
   publish_on:
     type: datetime_timestamp_no_default
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
   scheduler_settings:
     weight: 20
     settings: {  }
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 16
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: -5
@@ -85,6 +106,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 5
@@ -93,12 +115,15 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   unpublish_on:
     type: datetime_timestamp_no_default
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
+  field_color_coding: true
   field_day_of_the_week: true
   field_format: true
   field_image: true
@@ -109,3 +134,4 @@ hidden:
   field_recorded_date: true
   field_related_products: true
   field_run_time: true
+  field_subtitle: true

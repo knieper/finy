@@ -12,7 +12,7 @@ dependencies:
 id: reaching
 theme: finy2
 region: top_content
-weight: 0
+weight: -5
 provider: null
 plugin: 'block_content:cb7b403a-8837-491e-abfb-cf4b2557ecc5'
 settings:

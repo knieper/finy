@@ -14,19 +14,23 @@ content:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
   google_analytics:
     weight: 1
     settings: {  }
     third_party_settings: {  }
+    region: content
   path:
     type: path
     weight: 3
     settings: {  }
     third_party_settings: {  }
+    region: content
   timezone:
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   langcode: true
   language: true

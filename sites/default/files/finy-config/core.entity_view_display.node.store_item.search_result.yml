@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.store_item.body
     - field.field.node.store_item.field_audience
     - field.field.node.store_item.field_author_practitioner
+    - field.field.node.store_item.field_color_coding
     - field.field.node.store_item.field_day_of_the_week
     - field.field.node.store_item.field_format
     - field.field.node.store_item.field_image
@@ -17,6 +18,7 @@ dependencies:
     - field.field.node.store_item.field_recorded_date
     - field.field.node.store_item.field_related_products
     - field.field.node.store_item.field_run_time
+    - field.field.node.store_item.field_subtitle
     - node.type.store_item
   module:
     - datetime
@@ -36,6 +38,7 @@ content:
     weight: 101
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_audience:
     weight: 102
     label: above
@@ -43,6 +46,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_author_practitioner:
     weight: 103
     label: above
@@ -50,12 +54,14 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_day_of_the_week:
     weight: 104
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: content
   field_format:
     weight: 105
     label: above
@@ -63,6 +69,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_image:
     weight: 106
     label: above
@@ -71,6 +78,7 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_price:
     weight: 108
     label: above
@@ -81,6 +89,7 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
+    region: content
   field_product_keywords:
     weight: 107
     label: above
@@ -88,6 +97,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_published_year:
     weight: 112
     label: above
@@ -96,6 +106,7 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_integer
+    region: content
   field_purchase_link:
     weight: 109
     label: above
@@ -107,6 +118,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_recorded_date:
     weight: 113
     label: above
@@ -115,6 +127,7 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_related_products:
     weight: 110
     label: above
@@ -122,6 +135,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_run_time:
     weight: 111
     label: above
@@ -129,6 +143,9 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
 hidden:
+  field_color_coding: true
+  field_subtitle: true
   langcode: true
   links: true

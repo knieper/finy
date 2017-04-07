@@ -8,8 +8,8 @@ _core:
   default_config_hash: PffmQ-ABSz5tFjWmVsR7NesunDnEivvopnJnBjl8KNE
 id: finy2_local_actions
 theme: finy2
-region: '-1'
-weight: -3
+region: navbar_branding
+weight: -11
 provider: null
 plugin: local_actions_block
 settings:

@@ -5,6 +5,20 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.store_item.body
+    - field.field.node.store_item.field_audience
+    - field.field.node.store_item.field_author_practitioner
+    - field.field.node.store_item.field_color_coding
+    - field.field.node.store_item.field_day_of_the_week
+    - field.field.node.store_item.field_format
+    - field.field.node.store_item.field_image
+    - field.field.node.store_item.field_price
+    - field.field.node.store_item.field_product_keywords
+    - field.field.node.store_item.field_published_year
+    - field.field.node.store_item.field_purchase_link
+    - field.field.node.store_item.field_recorded_date
+    - field.field.node.store_item.field_related_products
+    - field.field.node.store_item.field_run_time
+    - field.field.node.store_item.field_subtitle
     - node.type.store_item
   module:
     - text
@@ -21,7 +35,23 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
+    region: content
   links:
     weight: 100
+    region: content
 hidden:
+  field_audience: true
+  field_author_practitioner: true
+  field_color_coding: true
+  field_day_of_the_week: true
+  field_format: true
+  field_image: true
+  field_price: true
+  field_product_keywords: true
+  field_published_year: true
+  field_purchase_link: true
+  field_recorded_date: true
+  field_related_products: true
+  field_run_time: true
+  field_subtitle: true
   langcode: true

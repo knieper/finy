@@ -10,6 +10,12 @@
       display: inline-block;
     }
   }
+  .events__field-practitioner {
+    &::before{
+      content: 'with ';
+    }
+  }
+
   //--view-mode brief event
   &.events--brief-event{
     margin-bottom: 1em;
@@ -45,9 +51,6 @@
       display: inline-block;
     }
     .events__field-practitioner {
-      &::before{
-        content: 'with ';
-      }
       a{
         color: white;
       }

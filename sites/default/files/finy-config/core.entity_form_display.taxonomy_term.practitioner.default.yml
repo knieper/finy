@@ -30,6 +30,7 @@ content:
       rows: 5
       placeholder: '(about you)'
     third_party_settings: {  }
+    region: content
   field_are:
     weight: 7
     settings:
@@ -37,6 +38,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_for_more_information:
     weight: 9
     settings:
@@ -44,6 +46,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_how_you_got_started_:
     weight: 4
     settings:
@@ -51,6 +54,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_image:
     weight: 2
     settings:
@@ -63,6 +67,7 @@ content:
       view_mode: default
     third_party_settings: {  }
     type: entity_browser_file
+    region: content
   field_link_to_appointment_widget:
     weight: 8
     settings:
@@ -73,6 +78,7 @@ content:
       link_class_select: ''
     third_party_settings: {  }
     type: link_class_field_widget
+    region: content
   field_teachers_studied_with:
     weight: 6
     settings:
@@ -80,22 +86,26 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_type:
     weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_year_certified:
     weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
   langcode:
     type: language_select
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
   name:
     type: string_textfield
     weight: 0
@@ -103,9 +113,11 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   path:
     type: path
     weight: 11
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }

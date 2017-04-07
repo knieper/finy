@@ -5,14 +5,18 @@ dependencies:
   content:
     - 'block_content:hero:789bc922-5032-43f9-bce2-117e99eb2cba'
   module:
+    - block_class
     - block_content
     - system
   theme:
     - finy2
+third_party_settings:
+  block_class:
+    classes: ''
 id: rethinkwellness
 theme: finy2
 region: top_content
-weight: 0
+weight: -4
 provider: null
 plugin: 'block_content:789bc922-5032-43f9-bce2-117e99eb2cba'
 settings:
@@ -26,6 +30,6 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: "/classes-workshops\r\n/classes-workshops/*"
+    pages: "/classes-workshops\r\n"
     negate: false
     context_mapping: {  }

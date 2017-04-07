@@ -16,26 +16,32 @@ content:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
   google_analytics:
     weight: 3
     settings: {  }
     third_party_settings: {  }
+    region: content
   langcode:
     type: language_select
     weight: 4
     settings: {  }
     third_party_settings: {  }
+    region: content
   language:
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
   path:
     type: path
     weight: 5
     settings: {  }
     third_party_settings: {  }
+    region: content
   timezone:
     weight: 1
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }

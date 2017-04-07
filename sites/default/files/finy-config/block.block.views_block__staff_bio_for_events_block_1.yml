@@ -23,9 +23,10 @@ settings:
   id: 'views_block:staff_bio_for_events-block_1'
   label: 'About the practitioner'
   provider: views
-  label_display: '0'
+  label_display: visible
   views_label: 'About the practitioner'
   items_per_page: none
+  context_mapping: {  }
 visibility:
   'entity_bundle:node':
     id: 'entity_bundle:node'

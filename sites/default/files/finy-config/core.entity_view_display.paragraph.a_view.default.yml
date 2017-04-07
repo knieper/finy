@@ -24,6 +24,7 @@ content:
         feed: 0
     third_party_settings: {  }
     type: viewsreference_formatter
+    region: content
 hidden:
   created: true
   field_classes: true

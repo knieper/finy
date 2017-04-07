@@ -12,8 +12,8 @@ _core:
   default_config_hash: DWAB7HaAfAJerAmyT8B2K-6qxicu9n0PcKVpDr--N4c
 id: finy2_admin
 theme: finy2
-region: '-1'
-weight: -2
+region: navbar_branding
+weight: -12
 provider: null
 plugin: 'system_menu_block:admin'
 settings:

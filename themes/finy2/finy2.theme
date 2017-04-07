@@ -11,7 +11,12 @@ foreach (glob($includes_path) as $filename) {
 }
 
 function finy2_preprocess_node(&$variables){
-   //check that field format exists
+    // check that field event start date and end date exist
+   if($variables['elements']['#node']->hasField('field_event_start_date') && $variables['elements']['#node']->hasField('field_event_end_date')){
+    //kint($variables['elements']['#node']->getFieldDefinition('field_event_start_date'));
+    //kint($variables['elements']['#node']->get('field_event_end_date')->getValue());
+   }
+   //check that field format exists for store items
    if($variables['elements']['#node']->hasField('field_format')){
       //set potential set formats to match the following taxonomy term ids for physical or downloadable audio set, video or book
       $sets = array('22','33', '34','36', '32', '31');

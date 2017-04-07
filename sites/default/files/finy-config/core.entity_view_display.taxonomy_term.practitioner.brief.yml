@@ -29,12 +29,14 @@ content:
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_for_more_information:
     weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_image:
     weight: 0
     label: hidden
@@ -43,6 +45,7 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_link_to_appointment_widget:
     weight: 7
     label: hidden
@@ -54,6 +57,7 @@ content:
       target: '0'
     third_party_settings: {  }
     type: link
+    region: content
 hidden:
   field_are: true
   field_how_you_got_started_: true

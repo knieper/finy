@@ -12,8 +12,8 @@ _core:
   default_config_hash: xCOijLdB1-UgXxQ9a0D1_pd8vxNEhfMnxXZc8jYhHjs
 id: finy2_tools
 theme: finy2
-region: '-1'
-weight: -4
+region: navbar_branding
+weight: -10
 provider: null
 plugin: 'system_menu_block:tools'
 settings:

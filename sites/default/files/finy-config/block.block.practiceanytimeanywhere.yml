@@ -12,7 +12,7 @@ dependencies:
 id: practiceanytimeanywhere
 theme: finy2
 region: top_content
-weight: 0
+weight: -7
 provider: null
 plugin: 'block_content:0024d443-5957-4120-af85-c2057485a4a9'
 settings:

@@ -9,6 +9,6 @@ label: 'Anonymous user'
 weight: 0
 is_admin: false
 permissions:
-  - 'access content'
   - 'access captcha_free index'
+  - 'access content'
   - 'view search api pages'

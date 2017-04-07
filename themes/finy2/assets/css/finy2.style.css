@@ -8575,11 +8575,6 @@ footer {
 .calendar-calendar.paragraph, .view .row > .list-group.paragraph, .col-lg-12.paragraph {
   margin-bottom: 3em; }
 
-.carousel {
-  width: 432px; }
-  .carousel .carousel-control {
-    background-image: none; }
-
 #search-api-page-block-form {
   display: -ms-flexbox;
   display: flex;
@@ -8697,6 +8692,9 @@ ol.breadcrumb {
 .events .events__field-member-cost .field__item {
   display: inline-block; }
 
+.events .events__field-practitioner::before {
+  content: 'with '; }
+
 .events.events--brief-event {
   margin-bottom: 1em; }
   .events.events--brief-event > div {
@@ -8721,8 +8719,6 @@ ol.breadcrumb {
   .events.events--brief-event .events__field-event-start-date,
   .events.events--brief-event .events__field-event-end-date {
     display: inline-block; }
-  .events.events--brief-event .events__field-practitioner::before {
-    content: 'with '; }
   .events.events--brief-event .events__field-practitioner a {
     color: white; }
 
