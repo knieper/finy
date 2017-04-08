@@ -1,8 +1,12 @@
 // View: Staff/Practitioner
 // -----------------------------------------------------------------------------
 .view--staff {
+  h1,h2,h3,h4,h5,h6{
+    clear:both;
+  }
   img{
     max-width: 100%;
+    border: 1px solid darken($gray-lighter, 5%);
   }
   .col-xs-6{
     padding-left: ceil($grid-gutter-width/8);
@@ -14,11 +18,31 @@
       padding-right: ceil($grid-gutter-width/4);
     }
   }
-  img{
-    border: 1px solid darken($gray-lighter, 5%);
-  }
   .views-field-name{
     padding-top: ceil(($grid-gutter-width / 8));
     padding-bottom: ceil(($grid-gutter-width / 4));
+    margin-bottom: 2em;
   }
 } // close of view--staff
+
+//staff bio for events
+.view--staff-bio-for-events{
+  .practitioner__field-image{
+    padding-right: floor(($grid-gutter-width));
+    padding-bottom: floor(($grid-gutter-width)/4);
+  }
+  h1,h2,h3,h4{
+    margin-bottom: 5px;
+  }
+  .practitioner__field-year-certified{
+    &:before{
+      content: 'Certified in ';
+    }
+    //line-height: $line-height-clusttered;
+    margin-bottom: 1em;
+  }
+  .practitioner__field-type{
+    //line-height: $line-height-clusttered;
+  }
+
+}

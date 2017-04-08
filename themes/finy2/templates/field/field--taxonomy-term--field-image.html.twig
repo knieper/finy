@@ -6,7 +6,8 @@
 #}
 {%
   set classes = [
-    bundle|clean_class ~ '__' ~ field_name_clean|clean_class
+    bundle|clean_class ~ '__' ~ field_name_clean|clean_class,
+    'pull-left'
   ]
 %}
 {%
@@ -18,18 +19,27 @@
 
 {% if label_hidden %}
   {% if multiple %}
+    <div{{ attributes.addClass(classes) }}>
       {% for item in items %}
-        <div{{ item.attributes.addClass('field__item') }}>{{ item.content }}</div>
+        {{ item.content }}
       {% endfor %}
+    </div>
   {% else %}
     {% for item in items %}
       <div{{ attributes.addClass(classes) }}>{{ item.content }}</div>
     {% endfor %}
   {% endif %}
 {% else %}
+  <div{{ attributes.addClass(classes) }}>
     <strong{{ title_attributes.addClass(title_classes) }}>{{ label }}</strong>
+    {% if multiple %}
+      <div class="field__items">
+    {% endif %}
     {% for item in items %}
-      <div{{ item.attributes.addClass('field__item') }}>{{ item.content }}</div>
+      {{ item.content }}
     {% endfor %}
+    {% if multiple %}
+      </div>
+    {% endif %}
   </div>
 {% endif %}

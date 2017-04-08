@@ -12,11 +12,11 @@ dependencies:
     - field.field.taxonomy_term.practitioner.field_teachers_studied_with
     - field.field.taxonomy_term.practitioner.field_type
     - field.field.taxonomy_term.practitioner.field_year_certified
-    - image.style.thumbnail
+    - image.style.smallest_headshot
     - taxonomy.vocabulary.practitioner
   module:
     - image
-    - link
+    - options
     - text
 id: taxonomy_term.practitioner.brief
 targetEntityType: taxonomy_term
@@ -26,42 +26,39 @@ content:
   description:
     label: hidden
     type: text_default
-    weight: 2
+    weight: 3
     settings: {  }
     third_party_settings: {  }
-    region: content
-  field_for_more_information:
-    weight: 8
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
     region: content
   field_image:
     weight: 0
     label: hidden
     settings:
-      image_style: thumbnail
+      image_style: smallest_headshot
       image_link: ''
     third_party_settings: {  }
     type: image
     region: content
-  field_link_to_appointment_widget:
-    weight: 7
+  field_type:
+    type: list_default
+    weight: 1
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_year_certified:
+    type: number_integer
+    weight: 2
+    region: content
     label: hidden
     settings:
-      trim_length: 80
-      rel: nofollow
-      url_only: false
-      url_plain: false
-      target: '0'
+      thousand_separator: ''
+      prefix_suffix: true
     third_party_settings: {  }
-    type: link
-    region: content
 hidden:
   field_are: true
+  field_for_more_information: true
   field_how_you_got_started_: true
+  field_link_to_appointment_widget: true
   field_teachers_studied_with: true
-  field_type: true
-  field_year_certified: true
   langcode: true

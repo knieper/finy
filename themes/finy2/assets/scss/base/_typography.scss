@@ -3,7 +3,8 @@
 
 //increase spacing for main content
 p{
-  margin-bottom: 1em;
+  //margin-bottom: 1em;
+  margin-bottom: 1.5em;
 }
 //@todo: consider completely at the end...not sure I like yet
 article{
@@ -17,13 +18,8 @@ a{
   }
 }
 
-h1,h2,h3,h4,h5,h6 {
-  clear:both;
-}
-
 .h1, .h2, .h3 {
    margin-bottom: $line-height-computed;
-   margin-bottom: 2em;
 }
 
 .highlight{

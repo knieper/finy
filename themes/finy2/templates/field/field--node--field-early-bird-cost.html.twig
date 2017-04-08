@@ -6,7 +6,8 @@
 #}
 {%
   set classes = [
-    bundle|clean_class ~ '__' ~ field_name_clean|clean_class
+    bundle|clean_class ~ '__' ~ field_name_clean|clean_class,
+    'events-field'
   ]
 %}
 {%
@@ -40,6 +41,6 @@
     {% if multiple %}
       </div>
     {% endif %}
-    <div class="local-clearfix"><small>Available until 24 hours before the event.</small></div>
+    <div><small>Available until 24 hours before the event.</small></div>
   </div>
 {% endif %}

@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: smallest_headshot
-label: 'smallest headshot'
+label: 'smallest headshot (180x180)'
 effects:
   f73a89e6-f7dc-4879-973c-a464c5e42589:
     uuid: f73a89e6-f7dc-4879-973c-a464c5e42589

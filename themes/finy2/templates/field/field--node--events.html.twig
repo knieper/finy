@@ -7,7 +7,7 @@
 {%
   set classes = [
     bundle|clean_class ~ '__' ~ field_name_clean|clean_class,
-    'h3'
+    'events-field'
   ]
 %}
 {%
@@ -21,7 +21,7 @@
   {% if multiple %}
     <div{{ attributes.addClass(classes) }}>
       {% for item in items %}
-        {{ item.content }}
+        <div{{ item.attributes.addClass('field__item') }}>{{ item.content }}</div>
       {% endfor %}
     </div>
   {% else %}
@@ -36,10 +36,10 @@
       <div class="field__items">
     {% endif %}
     {% for item in items %}
-      {{ item.content }}
+      <div{{ item.attributes.addClass('field__item') }}>{{ item.content }}</div>
     {% endfor %}
     {% if multiple %}
       </div>
     {% endif %}
-  </div>
+    </div>  
 {% endif %}

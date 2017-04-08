@@ -7,7 +7,7 @@
 {%
   set classes = [
     bundle|clean_class ~ '__' ~ field_name_clean|clean_class,
-    'events-field'
+    'store-item-field'
   ]
 %}
 {%
@@ -41,6 +41,5 @@
     {% if multiple %}
       </div>
     {% endif %}
-    <div> <small>Available for monthly FINY members. <a href="/rates-membership">Learn more about membership.</a></small></div>
   </div>
 {% endif %}

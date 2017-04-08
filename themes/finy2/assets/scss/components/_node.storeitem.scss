@@ -1,9 +1,16 @@
 // Node: Product / Store Item content type
 // -----------------------------------------------------------------------------
 .store-item {
+  .store-item-field{
+    margin-bottom: .5em;
+  }
+  .store-item__field-subtitle{
+    font-size: $font-size-h2;
+  }
   //add dollar sign
   .store-item__field-price{
     font-size: $font-size-h3;
+    margin-top: $font-size-h3;
     .field__item{
       &:before{
         content: '$';
@@ -11,9 +18,12 @@
     }
   }
   .store-item__field-author-practitioner{
+    .field__item{
       &:before{
         content: 'by ';
       }
+    }
+    font-size: $font-size-h3;
   }
   .store-item__field-audience{
     .field__item{
