@@ -26,11 +26,12 @@
 } // close of view--staff
 
 //staff bio for events
+.practitioner__field-image{
+  padding-right: floor(($grid-gutter-width));
+  padding-bottom: floor(($grid-gutter-width)/4);
+}
+
 .view--staff-bio-for-events{
-  .practitioner__field-image{
-    padding-right: floor(($grid-gutter-width));
-    padding-bottom: floor(($grid-gutter-width)/4);
-  }
   h1,h2,h3,h4{
     margin-bottom: 5px;
   }

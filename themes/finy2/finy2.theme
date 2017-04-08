@@ -35,22 +35,25 @@ function finy2_preprocess_node(&$variables){
   }
 }
 
-function finy2_preprocess_search_api_page_result(&$variables) {
+function finy2_preprocess_search_api_page_result(&$variables){
   if($variables['entity']->hasField('field_price')){
     //there will only ever be one price per product
-    $priceArray = $variables['entity']->get('field_price')->getValue()['0'];
-    foreach($priceArray as $key => $value){
-      $variables['price'] = '$'.(string)$value;
-    }
+    $priceArray = $variables['entity']->get('field_price')->getValue();
+    $priceArray = array_shift($priceArray);
+    $variables['price'] = '$'.$priceArray['value'];
   }
   if($variables['entity']->hasField('field_author_practitioner')){
     //there maybe multiple practitioners
-    $practitionerArray = $variables['entity']->get('field_author_practitioner')->getValue()['0'];
+    $practitionerArray = $variables['entity']->get('field_author_practitioner')->getValue();
+    $variables['practitioner'] = '';
     foreach($practitionerArray as $key => $value){
-      $tid = (string) $value;
+      $tid = $value['target_id'];
       $practitioner = \Drupal\taxonomy\Entity\Term::load($tid)->name->value;
+      if($key > 0){
+        $variables['practitioner'] .= 'and ';
+      }
       $variables['practitioner'] .= $practitioner.' ';
+
     }
-    //dpm($variables['practitioner']);
   }
 }
