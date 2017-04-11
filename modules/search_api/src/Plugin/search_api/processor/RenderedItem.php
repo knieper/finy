@@ -137,7 +137,7 @@ class RenderedItem extends ProcessorPluginBase {
   /**
    * Retrieves the theme manager.
    *
-   * @return \Drupal\Core\Theme\ThemeManagerInterface $theme_manager
+   * @return \Drupal\Core\Theme\ThemeManagerInterface
    *   The theme manager.
    */
   protected function getThemeManager() {
@@ -160,7 +160,7 @@ class RenderedItem extends ProcessorPluginBase {
   /**
    * Retrieves the theme initialization service.
    *
-   * @return \Drupal\Core\Theme\ThemeInitializationInterface $theme_initialization
+   * @return \Drupal\Core\Theme\ThemeInitializationInterface
    *   The theme initialization service.
    */
   protected function getThemeInitializer() {
@@ -183,7 +183,7 @@ class RenderedItem extends ProcessorPluginBase {
   /**
    * Retrieves the config factory service.
    *
-   * @return \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   * @return \Drupal\Core\Config\ConfigFactoryInterface
    *   The config factory.
    */
   protected function getConfigFactory() {
@@ -210,15 +210,15 @@ class RenderedItem extends ProcessorPluginBase {
    * {@inheritdoc}
    */
   public function getPropertyDefinitions(DatasourceInterface $datasource = NULL) {
-    $properties = array();
+    $properties = [];
 
     if (!$datasource) {
-      $definition = array(
-        'type' => 'field_item:text_long.string',
+      $definition = [
         'label' => $this->t('Rendered HTML output'),
         'description' => $this->t('The complete HTML which would be displayed when viewing the item'),
+        'type' => 'search_api_html',
         'processor_id' => $this->getPluginId(),
-      );
+      ];
       $properties['rendered_item'] = new RenderedItemProperty($definition);
     }
 
@@ -250,7 +250,7 @@ class RenderedItem extends ProcessorPluginBase {
 
       // Change the current user to our dummy implementation to ensure we are
       // using the configured roles.
-      $this->currentUser->setAccount(new UserSession(array('roles' => $configuration['roles'])));
+      $this->currentUser->setAccount(new UserSession(['roles' => $configuration['roles']]));
 
       $datasource_id = $item->getDatasourceId();
       $datasource = $item->getDatasource();
@@ -281,11 +281,11 @@ class RenderedItem extends ProcessorPluginBase {
     $this->getThemeManager()->setActiveTheme($active_theme);
 
     if ($unset_view_modes > 0) {
-      $context = array(
+      $context = [
         '%index' => $this->index->label(),
         '%processor' => $this->label(),
         '@count' => $unset_view_modes,
-      );
+      ];
       $this->getLogger()->warning('Warning: While indexing items on search index %index, @count item(s) did not have a view mode configured for one or more "Rendered item" fields.', $context);
     }
   }

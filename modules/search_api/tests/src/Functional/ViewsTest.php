@@ -2,18 +2,19 @@
 
 namespace Drupal\Tests\search_api\Functional;
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Serialization\Yaml;
 use Drupal\Component\Utility\Html;
-use Drupal\Component\Utility\SafeMarkup;
+// @todo Once we depend on Drupal 8.3+, change this import.
 use Drupal\Core\Config\Testing\ConfigSchemaChecker;
 use Drupal\Core\DrupalKernel;
 use Drupal\Core\Language\Language;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Session\UserSession;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
 use Drupal\entity_test\Entity\EntityTestMulRevChanged;
 use Drupal\language\Entity\ConfigurableLanguage;
-use Drupal\search_api\Display\DisplayInterface;
 use Drupal\search_api\Entity\Index;
 use Drupal\search_api\Utility\Utility;
 
@@ -368,6 +369,7 @@ class ViewsTest extends SearchApiBrowserTestBase {
   public function testViewsAdmin() {
     // Add a field from a related entity to the index to test whether it gets
     // displayed correctly.
+    /** @var \Drupal\search_api\IndexInterface $index */
     $index = Index::load($this->indexId);
     $field = \Drupal::getContainer()
       ->get('search_api.fields_helper')
@@ -377,7 +379,20 @@ class ViewsTest extends SearchApiBrowserTestBase {
         'datasource_id' => 'entity:entity_test_mulrev_changed',
         'property_path' => 'user_id:entity:name',
       ]);
-    $index->addField($field)->save();
+    $index->addField($field);
+    $field = \Drupal::getContainer()
+      ->get('search_api.fields_helper')
+      ->createField($index, 'rendered_item', [
+        'label' => 'Rendered HTML output',
+        'type' => 'text',
+        'property_path' => 'rendered_item',
+        'configuration' => [
+          'roles' => [AccountInterface::ANONYMOUS_ROLE],
+          'view_mode' => [],
+        ],
+      ]);
+    $index->addField($field);
+    $index->save();
 
     // Add some Dutch nodes.
     foreach ([1, 2, 3, 4, 5] as $id) {
@@ -466,6 +481,7 @@ class ViewsTest extends SearchApiBrowserTestBase {
       'search_api_entity_user.name',
       'search_api_index_database_search_index.author',
       'search_api_entity_user.roles',
+      'search_api_index_database_search_index.rendered_item',
     ];
     $edit = [];
     foreach ($fields as $field) {
@@ -552,7 +568,9 @@ class ViewsTest extends SearchApiBrowserTestBase {
         }
         foreach ($entities as $i => $field_entity) {
           if ($field != 'search_api_datasource') {
-            $data = Utility::extractFieldValues($field_entity->get($field));
+            $data = \Drupal::getContainer()
+              ->get('search_api.fields_helper')
+              ->extractFieldValues($field_entity->get($field));
             if (!$data) {
               $data = ['[EMPTY]'];
             }
@@ -685,6 +703,12 @@ class ViewsTest extends SearchApiBrowserTestBase {
         $edit['options[field_rendering]'] = FALSE;
         $edit['options[fallback_options][display_methods][user_role][display_method]'] = 'id';
         break;
+
+      case 'rendered_item':
+        // "Rendered item" isn't based on a Field API field, so there is no
+        // "Fallback options" form (added otherwise by SearchApiEntityField).
+        unset($edit['options[fallback_options][multi_separator]']);
+        break;
     }
 
     $this->submitPluginForm($edit);
@@ -719,14 +743,14 @@ class ViewsTest extends SearchApiBrowserTestBase {
     // @todo Once we depend on Drupal 8.3+, this can be simplified by a lot.
     $password = $this->randomMachineName();
     // Define information about the user 1 account.
-    $this->rootUser = new UserSession(array(
+    $this->rootUser = new UserSession([
       'uid' => 1,
       'name' => 'admin',
       'mail' => 'admin@example.com',
       'pass_raw' => $password,
       'passRaw' => $password,
       'timezone' => date_default_timezone_get(),
-    ));
+    ]);
 
     // The child site derives its session name from the database prefix when
     // running web tests.
@@ -745,10 +769,10 @@ class ViewsTest extends SearchApiBrowserTestBase {
     // All file system paths are created by System module during installation.
     // @see system_requirements()
     // @see TestBase::prepareEnvironment()
-    $settings['settings']['file_public_path'] = (object) array(
+    $settings['settings']['file_public_path'] = (object) [
       'value' => $this->publicFilesDirectory,
       'required' => TRUE,
-    );
+    ];
     $settings['settings']['file_private_path'] = (object) [
       'value' => $this->privateFilesDirectory,
       'required' => TRUE,
@@ -856,16 +880,16 @@ class ViewsTest extends SearchApiBrowserTestBase {
     // and thus removed from the test index. (We can't do it in setUp(), before
     // calling the parent method, since the container isn't set up at that
     // point.)
-    $bundles = array(
-      'entity_test_mulrev_changed' => array('label' => 'Entity Test Bundle'),
-      'item' => array('label' => 'item'),
-      'article' => array('label' => 'article'),
-    );
+    $bundles = [
+      'entity_test_mulrev_changed' => ['label' => 'Entity Test Bundle'],
+      'item' => ['label' => 'item'],
+      'article' => ['label' => 'article'],
+    ];
     \Drupal::state()->set('entity_test_mulrev_changed.bundles', $bundles);
 
     // Collect modules to install.
     $class = get_class($this);
-    $modules = array();
+    $modules = [];
     while ($class) {
       if (property_exists($class, 'modules')) {
         $modules = array_merge($modules, $class::$modules);
@@ -875,14 +899,13 @@ class ViewsTest extends SearchApiBrowserTestBase {
     if ($modules) {
       $modules = array_unique($modules);
       $success = $container->get('module_installer')->install($modules, TRUE);
-      $this->assertTrue($success, SafeMarkup::format('Enabled modules: %modules', array('%modules' => implode(', ', $modules))));
+      $this->assertTrue($success, new FormattableMarkup('Enabled modules: %modules', ['%modules' => implode(', ', $modules)]));
       $this->rebuildContainer();
     }
 
     // Reset/rebuild all data structures after enabling the modules, primarily
     // to synchronize all data structures and caches between the test runner and
     // the child site.
-    // Affects e.g. StreamWrapperManagerInterface::getWrappers().
     // @see \Drupal\Core\DrupalKernel::bootCode()
     // @todo Test-specific setUp() methods may set up further fixtures; find a
     //   way to execute this after setUp() is done, or to eliminate it entirely.

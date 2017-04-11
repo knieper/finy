@@ -37,14 +37,14 @@ class SearchApiDate extends Date {
     if (!empty($this->options['expose']['identifier'])) {
       $value = &$input[$this->options['expose']['identifier']];
       if (!is_array($value)) {
-        $value = array(
+        $value = [
           'value' => $value,
-        );
+        ];
       }
-      $value += array(
+      $value += [
         'min' => '',
         'max' => '',
-      );
+      ];
     }
 
     // Store this because it will get overwritten by the grandparent, and the
@@ -70,6 +70,7 @@ class SearchApiDate extends Date {
    */
   protected function opBetween($field) {
     if ($this->value['type'] == 'offset') {
+      // @todo Once we depend on Drupal 8.3+, replace REQUEST_TIME.
       $a = strtotime($this->value['min'], REQUEST_TIME);
       $b = strtotime($this->value['max'], REQUEST_TIME);
     }

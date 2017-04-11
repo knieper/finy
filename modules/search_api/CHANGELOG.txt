@@ -1,3 +1,24 @@
+Search API 1.0, RC 2 (2017-04-10):
+----------------------------------
+- #2846932 by drunken monkey, killua99, borisson_: Fixed error when changing
+  boost values with a Postgres database backend.
+- #2866454 by phenaproxima, drunken monkey: Fixed problems in update 8103.
+- #2844945 by drunken monkey: Fixed uncaught exception when adding too many
+  fields.
+
+Search API 1.0, RC 1 (2017-04-09):
+----------------------------------
+- #2776659 by drunken monkey, drholera: Removed the deprecated Utility methods.
+- #2268809 by drunken monkey: Converted all arrays in the code to use the short
+  syntax.
+- #2863736 by fran seva, drunken monkey: Added a setDataDefinition() method to
+  the Field class.
+- #2867118 by drunken monkey: Fixed reported coding standards problems.
+- #2839932 by drunken monkey,  borisson_, bmcclure, jacktonkin: Fixed Views
+  problems with "Rendered item" fields.
+- #2765317 by vasike: Added a "Last" aggregation for aggregated fields.
+- #2861657 by drunken monkey: Removed remaining usages of "e.g.".
+
 Search API 1.0, Beta 5 (2017-04-02):
 ------------------------------------
 - #2842029 by vasike, drunken monkey: Added a "plugin helper" service for

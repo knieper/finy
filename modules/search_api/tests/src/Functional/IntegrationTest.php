@@ -1062,7 +1062,7 @@ class IntegrationTest extends SearchApiBrowserTestBase {
     $this->assertTrue(!isset($fields['changed']), 'The changed field has not been added to the index.');
 
     // Find the "Remove" link for the "title" field.
-    $links = $this->xpath('//a[@data-drupal-selector=:id]', array(':id' => 'edit-fields-title-remove'));
+    $links = $this->xpath('//a[@data-drupal-selector=:id]', [':id' => 'edit-fields-title-remove']);
     $this->assertNotEmpty($links, 'Found "Remove" link for title field');
     $this->assertInternalType('array', $links);
     $url_target = $this->getAbsoluteUrl($links[0]->getAttribute('href'));
@@ -1198,13 +1198,17 @@ class IntegrationTest extends SearchApiBrowserTestBase {
     $this->drupalGet($fields_path);
     $this->submitForm(['fields[url][boost]' => '8.0'], 'Save changes');
     $this->assertSession()->pageTextContains('The changes were successfully saved.');
-    $this->assertOptionSelected('edit-fields-url-boost', '8.0', 'Boost is correctly saved.');
+    $option_field = $this->assertSession()
+      ->optionExists('edit-fields-url-boost', '8.0');
+    $this->assertTrue($option_field->hasAttribute('selected'), 'Boost is correctly saved.');
 
     // Change the type of the field.
     $this->drupalGet($fields_path);
     $this->submitForm(['fields[url][type]' => 'text'], 'Save changes');
     $this->assertSession()->pageTextContains('The changes were successfully saved.');
-    $this->assertOptionSelected('edit-fields-url-type', 'text', 'Type is correctly saved.');
+    $option_field = $this->assertSession()
+      ->optionExists('edit-fields-url-type', 'text');
+    $this->assertTrue($option_field->hasAttribute('selected'), 'Type is correctly saved.');
   }
 
   /**
