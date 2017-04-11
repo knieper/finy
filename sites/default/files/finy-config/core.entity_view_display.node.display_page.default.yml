@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.display_page.field_chunk
+    - field.field.node.display_page.field_files
     - node.type.display_page
   module:
     - entity_reference_revisions
@@ -15,7 +16,7 @@ mode: default
 content:
   field_chunk:
     type: entity_reference_revisions_entity_view
-    weight: 103
+    weight: 1
     label: hidden
     settings:
       view_mode: default
@@ -23,9 +24,10 @@ content:
     third_party_settings: {  }
     region: content
   links:
-    weight: 100
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
+  field_files: true
   langcode: true

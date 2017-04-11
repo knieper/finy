@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: large_hero
-label: 'Large hero (2000 x 800)'
+label: 'Large hero (2000 x 700)'
 effects:
   8720959e-6427-4308-a15d-952f0b64a30e:
     uuid: 8720959e-6427-4308-a15d-952f0b64a30e
@@ -11,4 +11,4 @@ effects:
     weight: 1
     data:
       width: 2000
-      height: 800
+      height: 700

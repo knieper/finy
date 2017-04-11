@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - image.style.large_hero
+    - image.style.largest_hero
     - image.style.medium_hero
     - image.style.small_hero
     - image.style.xsmall_hero
@@ -18,8 +19,9 @@ image_style_mappings:
       sizes: 100vw
       sizes_image_styles:
         - large_hero
+        - largest_hero
         - medium_hero
         - small_hero
         - xsmall_hero
 breakpoint_group: responsive_image
-fallback_image_style: medium_hero
+fallback_image_style: large_hero

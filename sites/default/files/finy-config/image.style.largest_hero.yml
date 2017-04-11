@@ -1,0 +1,14 @@
+uuid: 4ebddcb2-5c70-4caf-bd01-bcba092c2288
+langcode: en
+status: true
+dependencies: {  }
+name: largest_hero
+label: 'largest hero (2500 x 800)'
+effects:
+  cfffea36-2ef4-4a1a-a40a-2b66fc829327:
+    uuid: cfffea36-2ef4-4a1a-a40a-2b66fc829327
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 2500
+      height: 800

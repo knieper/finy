@@ -11,12 +11,12 @@ dependencies:
     - field.field.taxonomy_term.practitioner.field_teachers_studied_with
     - field.field.taxonomy_term.practitioner.field_type
     - field.field.taxonomy_term.practitioner.field_year_certified
-    - image.style.medium
+    - responsive_image.styles.headshot
     - taxonomy.vocabulary.practitioner
   module:
-    - image
     - link
     - options
+    - responsive_image
     - text
 id: taxonomy_term.practitioner.default
 targetEntityType: taxonomy_term
@@ -55,10 +55,10 @@ content:
     weight: 0
     label: hidden
     settings:
-      image_style: medium
+      responsive_image_style: headshot
       image_link: ''
     third_party_settings: {  }
-    type: image
+    type: responsive_image
     region: content
   field_link_to_appointment_widget:
     weight: 7

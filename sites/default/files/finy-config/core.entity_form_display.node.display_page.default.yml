@@ -4,8 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.node.display_page.field_chunk
+    - field.field.node.display_page.field_files
     - node.type.display_page
   module:
+    - file
     - paragraphs
     - path
     - scheduler
@@ -30,6 +32,13 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
+    region: content
+  field_files:
+    weight: 34
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
     region: content
   langcode:
     type: language_select
