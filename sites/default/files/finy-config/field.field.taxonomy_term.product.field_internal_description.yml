@@ -1,0 +1,19 @@
+uuid: 3cf1f8e8-5d27-4255-8e24-5c20ca9ed2a3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_internal_description
+    - taxonomy.vocabulary.product
+id: taxonomy_term.product.field_internal_description
+field_name: field_internal_description
+entity_type: taxonomy_term
+bundle: product
+label: 'Internal description'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

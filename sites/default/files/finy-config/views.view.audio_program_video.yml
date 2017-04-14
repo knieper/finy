@@ -10,6 +10,8 @@ dependencies:
     - responsive_image.styles.store_item
     - taxonomy.vocabulary.product
   content:
+    - 'taxonomy_term:product:49f69ef5-21d5-4337-9fba-a4e25e41bb57'
+    - 'taxonomy_term:product:4a192cbf-fcc6-445d-942b-13e6e1510176'
     - 'taxonomy_term:product:5e6143fe-b664-4081-8e7f-d7d8cbc28900'
     - 'taxonomy_term:product:b49f87e6-7892-4138-b7a7-710db97f85fc'
     - 'taxonomy_term:product:c0f6c977-ebdd-4fcc-84b6-49c5a20031c8'
@@ -432,7 +434,8 @@ display:
           value:
             22: 22
             33: 33
-            31: 31
+            30: 30
+            36: 36
             34: 34
           group: 1
           exposed: false
