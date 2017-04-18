@@ -1,3 +1,13 @@
+//SendOwl cartwidget styling
+#sendowl-cart-widget{
+  color: $link-color;
+  &:hover{
+    color: $link-hover-color;
+    text-decoration: underline;
+  }
+
+}
+
 ///--all product related views
 .view--audio-program-video{
   .view__content{

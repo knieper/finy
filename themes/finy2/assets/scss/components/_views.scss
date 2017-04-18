@@ -10,6 +10,11 @@
   text-align: center;
 }
 
+//reduces font size on
+.store .viewsreference-title{
+  font-size: $font-size-h3;
+}
+
 //---changes to grid
 //---changed default of grid to not start with a gutter on _page.
 

@@ -1,0 +1,7 @@
+uuid: c2986f2f-2a87-45ca-90a0-e7259be3c377
+langcode: en
+status: true
+dependencies: {  }
+id: store
+label: store
+classes: store

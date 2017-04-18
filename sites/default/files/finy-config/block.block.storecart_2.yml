@@ -1,0 +1,35 @@
+uuid: f73be711-ac34-430b-884e-a581fc59a75b
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:8aa90c65-a031-47a9-beb4-ef92f19b99de'
+  module:
+    - block_class
+    - block_content
+    - system
+  theme:
+    - finy2
+third_party_settings:
+  block_class:
+    classes: ''
+id: storecart_2
+theme: finy2
+region: content
+weight: -6
+provider: null
+plugin: 'block_content:8aa90c65-a031-47a9-beb4-ef92f19b99de'
+settings:
+  id: 'block_content:8aa90c65-a031-47a9-beb4-ef92f19b99de'
+  label: 'StoreCart on Store page'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /store
+    negate: false
+    context_mapping: {  }

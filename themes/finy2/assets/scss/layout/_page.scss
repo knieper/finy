@@ -5,6 +5,10 @@ main{
   @include breakpoint(sm){
       margin-top: floor($grid-gutter-width/2);
   }
+  //making the container relative positioning so that the cart link could be made absolute in the upper right corner of main container
+  .container{
+    position: relative;
+  }
 }
 
 footer{

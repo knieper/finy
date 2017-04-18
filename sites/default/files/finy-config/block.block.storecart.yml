@@ -1,0 +1,37 @@
+uuid: d804b23e-0493-44ab-8c2c-6a809fb01359
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:8aa90c65-a031-47a9-beb4-ef92f19b99de'
+  module:
+    - block_class
+    - block_content
+    - ctools
+  theme:
+    - finy2
+third_party_settings:
+  block_class:
+    classes: ''
+id: storecart
+theme: finy2
+region: content
+weight: -12
+provider: null
+plugin: 'block_content:8aa90c65-a031-47a9-beb4-ef92f19b99de'
+settings:
+  id: 'block_content:8aa90c65-a031-47a9-beb4-ef92f19b99de'
+  label: 'StoreCart on Store Item pages'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      store_item: store_item
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

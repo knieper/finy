@@ -40,7 +40,7 @@ filters:
     status: true
     weight: -10
     settings:
-      allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h3 id> <h4 id> <h5 id> <h6 id> <br> <h2 id class="text-center"> <hr> <p class="btn-primary text-center btn-hero-lg btn"> <drupal-entity data-entity-type data-entity-uuid data-entity-embed-display data-entity-embed-display-settings data-align data-caption data-embed-button> <a role href hreflang !href accesskey id rel target title class=" btn btn-primary"> <span class="red green small"> <div class="highlight text-center col-md-6"> <iframe src frameborder style allowfullscreen width height> <form action method> <input type name value class> <img data-entity-type data-entity-uuid data-align data-caption data-responsive-image-style>'
+      allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h3 id> <h4 id> <h5 id> <h6 id> <br> <h2 id class="text-center"> <hr> <p class="btn-primary text-center btn-hero-lg btn"> <drupal-entity data-entity-type data-entity-uuid data-entity-embed-display data-entity-embed-display-settings data-align data-caption data-embed-button> <a role href hreflang !href accesskey id rel target title class="btn btn-primary"> <span id class="btn btn-primary red green small"> <iframe src frameborder style allowfullscreen width height> <form action method> <input type name value class=""> <img data-entity-type data-entity-uuid data-align data-caption data-responsive-image-style src alt> <div id class="SendOwlCart text-center highlight col-md-6">'
       filter_html_help: true
       filter_html_nofollow: true
   filter_htmlcorrector:
@@ -67,6 +67,7 @@ filters:
       image_style_large: '1'
       image_style_large_hero: '0'
       image_style_largest_headshot: '0'
+      image_style_largest_hero: '0'
       image_style_linkit_result_thumbnail: '0'
       image_style_medium: '1'
       image_style_medium_hero: '0'

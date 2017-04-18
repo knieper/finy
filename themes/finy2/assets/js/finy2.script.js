@@ -4,10 +4,16 @@
  */
 (function ($) {
 
-  // Hello World.
-  Drupal.behaviors.helloWorld = {
+  // sendowl cart
+  Drupal.behaviors.sendOwl = {
     attach: function (context) {
-      console.log('Hello World');
+      sendOwl.cartWidget({merchantID: 31069,
+        parent: $(SendOwlCart)[0],
+        cartPhrase: "Your Cart - ",
+        useCartImage: false,
+        customStyle: true
+      });
+      //console.log('Hello World test');
     }
   }
 
