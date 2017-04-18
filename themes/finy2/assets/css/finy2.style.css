@@ -8577,7 +8577,8 @@ footer {
 .block-content--storecart-2 {
   position: absolute;
   top: 0;
-  right: 0; }
+  right: 0;
+  padding: 8px 15px; }
 
 #search-api-page-block-form {
   display: -ms-flexbox;
