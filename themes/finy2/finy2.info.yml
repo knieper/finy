@@ -18,7 +18,9 @@ regions:
   footer: Footer
 
 libraries:
+  - finy2/sendowl
   - finy2/base
+
 
 libraries-override:
   radix/bootstrap: false

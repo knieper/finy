@@ -10,3 +10,12 @@ base:
     - core/jquery
     - core/jquery.once
     - core/drupal
+
+sendowl:
+  remote: https://transactions.sendowl.com
+  version: 1.0
+  license:
+    name: sendowl
+    url: https://www.sendowl.com/terms
+  js:
+    https://transactions.sendowl.com/assets/sendowl.js: { type: external, minified: true }
