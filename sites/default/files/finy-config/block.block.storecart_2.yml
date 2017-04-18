@@ -1,9 +1,9 @@
-uuid: f73be711-ac34-430b-884e-a581fc59a75b
+uuid: 1a7017c9-e0e6-4e94-881a-e8a8fb5fbd7a
 langcode: en
 status: true
 dependencies:
   content:
-    - 'block_content:basic:8aa90c65-a031-47a9-beb4-ef92f19b99de'
+    - 'block_content:basic:a8717e3d-d205-43eb-9737-559967004cb0'
   module:
     - block_class
     - block_content
@@ -18,9 +18,9 @@ theme: finy2
 region: content
 weight: -6
 provider: null
-plugin: 'block_content:8aa90c65-a031-47a9-beb4-ef92f19b99de'
+plugin: 'block_content:a8717e3d-d205-43eb-9737-559967004cb0'
 settings:
-  id: 'block_content:8aa90c65-a031-47a9-beb4-ef92f19b99de'
+  id: 'block_content:a8717e3d-d205-43eb-9737-559967004cb0'
   label: 'StoreCart on Store page'
   provider: block_content
   label_display: '0'
