@@ -5,7 +5,6 @@ namespace Drupal\link_class\Plugin\Field\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use \Drupal\link\Plugin\Field\FieldWidget\LinkWidget;
-use Drupal\Component\Utility\Html;
 
 /**
  * Plugin implementation of the 'link_class_field_widget' widget.
@@ -73,7 +72,7 @@ class LinkClassFieldWidget extends LinkWidget {
       '#size' => '30',
       '#states' => [
         'visible' => [
-          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][link_class_mode]"]' => array('value' => 'select_class'),
+          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][link_class_mode]"]' => ['value' => 'select_class'],
         ],
       ],
     ];
@@ -99,13 +98,13 @@ class LinkClassFieldWidget extends LinkWidget {
   public function settingsSummary() {
     $summary = parent::settingsSummary();
     $option = $this->getSetting('link_class_mode');
-    $summary[] = $this->t('Mode: @link_class_mode', array('@link_class_mode' => $this->getModeOptions($option)));
+    $summary[] = $this->t('Mode: @link_class_mode', ['@link_class_mode' => $this->getModeOptions($option)]);
     if ($option == 'force_class') {
-      $summary[] = $this->t('Class(es) added: @link_class_force', array('@link_class_force' => $this->getSetting('link_class_force')));
+      $summary[] = $this->t('Class(es) added: @link_class_force', ['@link_class_force' => $this->getSetting('link_class_force')]);
     }
     if ($option == 'select_class') {
       $classes_available = $this->getSelectOptions($this->getSetting('link_class_select'), TRUE);
-      $summary[] = $this->t('Class(es) available: @link_class_select', array('@link_class_select' => $classes_available));
+      $summary[] = $this->t('Class(es) available: @link_class_select', ['@link_class_select' => $classes_available]);
     }
 
     return $summary;
@@ -187,12 +186,12 @@ class LinkClassFieldWidget extends LinkWidget {
    * @param bool $summary
    *   A flag to return a formatted list of classes available.
    *
-   * @return array $options
+   * @return array
    *   An array keyed by the classes.
    */
   protected function getSelectOptions($string, $summary = FALSE) {
     $options = [];
-    $lines = explode(PHP_EOL, trim($string));
+    $lines = preg_split("/\\r\\n|\\r|\\n/", trim($string));
     $lines = array_filter($lines);
 
     foreach ($lines as $line) {

@@ -2,10 +2,7 @@
 
 namespace Drupal\link_class\Tests;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Unicode;
-use Drupal\Core\Url;
-use Drupal\entity_test\Entity\EntityTest;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\link\LinkItemInterface;
 use Drupal\simpletest\WebTestBase;
@@ -74,10 +71,10 @@ class LinkClassWidgetTest extends WebTestBase {
   /**
    * Disable checking config schema.
    *
+   * @var bool
+   *
    * @todo remove this when #2823679 has landed.
    * See https://www.drupal.org/node/2823679
-   *
-   * @var bool
    */
   protected $strictConfigSchema = FALSE;
 
@@ -86,10 +83,7 @@ class LinkClassWidgetTest extends WebTestBase {
    */
   protected function setUp() {
     parent::setUp();
-//
-
     $this->drupalCreateContentType(['type' => 'article']);
-
     $this->drupalLogin($this->drupalCreateUser([
       'view test entity',
       'administer content types',
@@ -268,7 +262,7 @@ class LinkClassWidgetTest extends WebTestBase {
    * @param string $mode
    *   The mode name.
    */
-  protected function setFormDisplay($form_display_id, $entity_type, $bundle, $field_name, $widget_id, $settings, $mode = 'default') {
+  protected function setFormDisplay($form_display_id, $entity_type, $bundle, $field_name, $widget_id, array $settings, $mode = 'default') {
     // Set article's form display.
     $this->formDisplay = EntityFormDisplay::load($form_display_id);
 
@@ -307,7 +301,7 @@ class LinkClassWidgetTest extends WebTestBase {
    * @param string $mode
    *   The mode name.
    */
-  protected function setViewDisplay($form_display_id, $entity_type, $bundle, $field_name, $formatter_id, $settings, $mode = 'default') {
+  protected function setViewDisplay($form_display_id, $entity_type, $bundle, $field_name, $formatter_id, array $settings, $mode = 'default') {
     // Set article's view display.
     $this->viewDisplay = EntityViewDisplay::load($form_display_id);
     if (!$this->viewDisplay) {
