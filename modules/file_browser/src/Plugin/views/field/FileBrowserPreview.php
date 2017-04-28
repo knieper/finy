@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_browser\Plugin\views\field\FileBrowserPreview.
- */
-
 namespace Drupal\file_browser\Plugin\views\field;
 
 use Drupal\views\Plugin\views\field\FieldPluginBase;
@@ -30,7 +25,7 @@ class FileBrowserPreview extends FieldPluginBase {
 
     // Loading large files is slow, make sure it is an image mime type before
     // doing that.
-    list($type, ) = explode('/', $file->getMimeType(), 2);
+    list($type,) = explode('/', $file->getMimeType(), 2);
     if ($type == 'image' && ($image = $image_factory->get($file->getFileUri())) && $image->isValid()) {
       // Fake an ImageItem object.
       $item = new \stdClass();
@@ -44,7 +39,7 @@ class FileBrowserPreview extends FieldPluginBase {
       $build = [
         '#theme' => 'image_formatter',
         '#item' => $item,
-        '#image_style' => 'file_entity_browser_thumbnail'
+        '#image_style' => 'file_entity_browser_thumbnail',
       ];
     }
     // Use a placeholder image for now.
@@ -54,8 +49,8 @@ class FileBrowserPreview extends FieldPluginBase {
       $build = [
         '#theme' => 'image',
         '#attributes' => array(
-          'src' => base_path() . $path . '/images/document_placeholder.svg'
-        )
+          'src' => base_path() . $path . '/images/document_placeholder.svg',
+        ),
       ];
     }
 
@@ -70,6 +65,8 @@ class FileBrowserPreview extends FieldPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function clickSortable() { return FALSE; }
+  public function clickSortable() {
+    return FALSE;
+  }
 
 }

@@ -36,7 +36,7 @@ class ImageEmbedBlock extends BlockBase {
       'settings',
       'selection',
       'fids',
-      'entities'
+      'entities',
     ], []);
     $table = $form_state->getValue([
       'settings',
@@ -58,7 +58,7 @@ class ImageEmbedBlock extends BlockBase {
     $form['image_style'] = [
       '#type' => 'select',
       '#options' => image_style_options(),
-      '#title' => t('Image style'),
+      '#title' => $this->t('Image style'),
       '#default_value' => $this->configuration['image_style'],
     ];
 
@@ -84,12 +84,12 @@ class ImageEmbedBlock extends BlockBase {
       '#type' => 'entity_browser',
       '#entity_browser' => 'browse_files_modal',
       '#entity_browser_validators' => [
-        'entity_type' => ['type' => 'file']
+        'entity_type' => ['type' => 'file'],
       ],
       '#process' => [
         [
           '\Drupal\entity_browser\Element\EntityBrowserElement',
-          'processEntityBrowser'
+          'processEntityBrowser',
         ],
         [get_called_class(), 'processEntityBrowser'],
       ],
@@ -100,12 +100,12 @@ class ImageEmbedBlock extends BlockBase {
     $selection['table'] = [
       '#type' => 'table',
       '#header' => [
-        t('Preview'),
-        t('Filename'),
-        t('Metadata'),
-        t('Order', [], ['context' => 'Sort order']),
+        $this->t('Preview'),
+        $this->t('Filename'),
+        $this->t('Metadata'),
+        $this->t('Order', [], ['context' => 'Sort order']),
       ],
-      '#empty' => t('No files yet'),
+      '#empty' => $this->t('No files yet'),
       '#tabledrag' => [
         [
           'action' => 'order',
@@ -155,7 +155,7 @@ class ImageEmbedBlock extends BlockBase {
         ],
         '_weight' => [
           '#type' => 'weight',
-          '#title' => t('Weight for row @number', ['@number' => $delta + 1]),
+          '#title' => $this->t('Weight for row @number', ['@number' => $delta + 1]),
           '#title_display' => 'invisible',
           '#delta' => count($files),
           '#default_value' => $delta,
@@ -229,7 +229,7 @@ class ImageEmbedBlock extends BlockBase {
           '#theme' => 'image',
           '#width' => $width,
           '#height' => $height,
-          '#alt' => isset($info['settings']['alt']) ? t($info['settings']['alt']) : '',
+          '#alt' => isset($info['settings']['alt']) ? $this->t($info['settings']['alt']) : '',
           '#uri' => $uri,
         ];
 

@@ -21,7 +21,7 @@ selection_display_configuration:
   display: thumbnail
   display_settings:
     image_style: file_entity_browser_small
-  selection_hidden: true
+  selection_hidden: false
 widget_selector: tabs
 widget_selector_configuration: {  }
 widgets:
@@ -29,6 +29,7 @@ widgets:
     settings:
       view: file_entity_browser
       view_display: entity_browser_1
+      auto_select: true
     uuid: a4ad947c-9669-497c-9988-24351955a02f
     weight: 1
     label: 'Files listing'

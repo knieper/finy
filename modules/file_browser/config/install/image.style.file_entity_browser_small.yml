@@ -6,9 +6,8 @@ label: 'File Entity Browser small thumbnail'
 effects:
   374fe20a-a27c-45f5-b76d-d851cabcf7b0:
     uuid: 374fe20a-a27c-45f5-b76d-d851cabcf7b0
-    id: image_scale
+    id: image_scale_and_crop
     weight: 1
     data:
       width: 100
-      height: null
-      upscale: false
+      height: 100

@@ -18,8 +18,9 @@ view:
     theme:
       css/file_browser.view.css: {}
   dependencies:
-    - core/jquery
     - core/drupal
+    - core/jquery
+    - core/jquery.once
     - file_browser/imagesloaded
     - file_browser/masonry
 

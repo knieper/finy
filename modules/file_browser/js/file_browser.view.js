@@ -1,6 +1,7 @@
 /**
  * @file file_browser.view.js
  */
+
 (function ($, Drupal) {
 
   "use strict";
@@ -11,7 +12,7 @@
 
   Drupal.behaviors.FileBrowserView = {
     attach: function (context) {
-      var $view = $('.view-content');
+      var $view = $('.grid-item').parent();
       $view.prepend('<div class="grid-sizer"></div><div class="gutter-sizer"></div>').once();
 
       // Indicate that images are loading.
@@ -38,16 +39,60 @@
         $view.find('.ajax-progress').remove();
       });
 
-      $('.grid-item').once('bind-click-event').click(function () {
-        var input = $(this).find('.views-field-entity-browser-select input');
-        input.prop('checked', !input.prop('checked'));
-        if (input.prop('checked')) {
-          $(this).addClass('checked');
+      // Adjusts the body padding to account for out fixed actions bar.
+      function adjustBodyPadding() {
+        setTimeout(function () {
+          $('body').css('padding-bottom', $('.file-browser-actions').outerHeight() + 'px');
+        }, 2000);
+      }
+
+      // Indicate when files have been selected.
+      var $entities = $(context).find('.entities-list');
+      Drupal.file_browser = Drupal.file_browser || {
+          fileCounter: {}
+        };
+
+      function renderFileCounter() {
+        $('.file-browser-file-counter').each(function () {
+          $(this).remove();
+        });
+        for (var id in Drupal.file_browser.fileCounter) {
+          var count = Drupal.file_browser.fileCounter[id];
+          if (count > 0) {
+            var text = Drupal.formatPlural(count, 'Selected one time', 'Selected @count times');
+            var $counter = $('<div class="file-browser-file-counter"></div>').text(text);
+            $('[name="entity_browser_select[file:' + id + ']"]').closest('.grid-item').find('.grid-item-info').prepend($counter);
+          }
         }
-        else {
-          $(this).removeClass('checked');
-        }
-      });
+      }
+
+      $entities.once('file-browser-register-add-entities')
+        .bind('add-entities', function (event, entity_ids) {
+          adjustBodyPadding();
+          for (var i in entity_ids) {
+            var id = entity_ids[i].split(':')[1];
+            if (!Drupal.file_browser.fileCounter[id]) {
+              Drupal.file_browser.fileCounter[id] = 0;
+            }
+            Drupal.file_browser.fileCounter[id]++;
+          }
+          renderFileCounter();
+        });
+
+      $entities.once('file-browser-register-remove-entities')
+        .bind('remove-entities', function (event, entity_ids) {
+          adjustBodyPadding();
+          for (var i in entity_ids) {
+            var id = entity_ids[i].split('_')[1];
+            if (!Drupal.file_browser.fileCounter[id]) {
+              Drupal.file_browser.fileCounter[id] = 0;
+            }
+            else {
+              Drupal.file_browser.fileCounter[id]--;
+            }
+            renderFileCounter();
+          }
+        });
     }
   };
 

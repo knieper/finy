@@ -32,7 +32,6 @@ function radix_theme_suggestions_views_view_unformatted_alter(array &$suggestion
  */
 function radix_preprocess_views_view_table(&$variables) {
   // Add Bootstrap table classes.
-  $variables['classes_array'] = array(); //array is not being set and gives an undefined index error
   $variables['classes_array'] = array_merge($variables['classes_array'], array(
     'table',
     'table-striped',

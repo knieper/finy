@@ -1,7 +1,4 @@
 <?php
-/**
- * @file Contains logic for file_browser.
- */
 
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -29,7 +26,7 @@ function file_browser_form_alter(&$form, FormStateInterface &$form_state) {
   if (isset($form['#form_id'])) {
     if ($form['#form_id'] == 'entity_browser_browse_files_form' ||
         $form['#form_id'] == 'entity_browser_browse_files_modal_form') {
-      file_browser_attatch_file_browser_to_form($form);
+      file_browser_attach_file_browser_to_form($form);
     }
   }
 }
@@ -40,33 +37,14 @@ function file_browser_form_alter(&$form, FormStateInterface &$form_state) {
  * @param $form
  *   Nested array of form elements that comprise the form.
  */
-function file_browser_attatch_file_browser_to_form(&$form) {
+function file_browser_attach_file_browser_to_form(&$form) {
   // Attach our library.
   $form['#attached']['library'][] = 'file_browser/view';
   $form['#attached']['library'][] = 'file_browser/dropzone_css';
 
-  // Wrap actions so we can float them at the bottom of the browser.
-  $form['actions_wrap'] = [
-    '#type' => 'container',
-    '#attributes' => [
-      'class' => ['file-browser-actions'],
-    ],
-  ];
-
-  if (isset($form['actions'])) {
-    $form['actions_wrap'][] = $form['actions'];
-    unset($form['actions']);
-  }
-
-  if (isset($form['widget']) && isset($form['widget']['actions'])) {
-    $form['actions_wrap'][] = $form['widget']['actions'];
-    unset($form['widget']['actions']);
-  }
-
-  if (!empty($form['selection_display'])) {
-    $form['selection_display']['#weight'] = 100;
-    $form['actions_wrap'][] = $form['selection_display'];
-    unset($form['selection_display']);
+  if (isset($form['selection_display'])) {
+    $form['selection_display']['#type'] = 'container';
+    $form['selection_display']['#attributes']['class'] = 'file-browser-actions';
   }
 
   // Add a class for generic styling.
