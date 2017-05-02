@@ -411,7 +411,6 @@ display:
           admin_label: ''
           operator: or
           value:
-            Founder: Founder
             'Senior Practitioner': 'Senior Practitioner'
             'Staff Practitioner': 'Staff Practitioner'
           group: 1

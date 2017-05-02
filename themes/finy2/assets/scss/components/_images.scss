@@ -1,0 +1,9 @@
+//image formatting
+// -----------------------------------------------------------------------------
+//adds padding for most body images without adding to hero images. Applies to staff images on  their individual pages and on the moshe bio page image.
+main{
+  img{
+    padding-right: floor(($grid-gutter-width));
+    padding-bottom: floor(($grid-gutter-width)/4);
+  }
+}

@@ -26,24 +26,8 @@
 } // close of view--staff
 
 //staff bio for events
-.practitioner__field-image{
-  padding-right: floor(($grid-gutter-width));
-  padding-bottom: floor(($grid-gutter-width)/4);
-}
-
 .view--staff-bio-for-events{
   h1,h2,h3,h4{
     margin-bottom: 5px;
   }
-  .practitioner__field-year-certified{
-    &:before{
-      content: 'Certified in ';
-    }
-    //line-height: $line-height-clusttered;
-    margin-bottom: 1em;
-  }
-  .practitioner__field-type{
-    //line-height: $line-height-clusttered;
-  }
-
 }

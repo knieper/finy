@@ -8616,6 +8616,10 @@ footer {
     .top-content .hero .hero__field-tag .highlight {
       margin: auto; }
 
+main img {
+  padding-right: 30px;
+  padding-bottom: 7px; }
+
 ul ul, ol ul {
   list-style-type: disc; }
 
@@ -8929,17 +8933,8 @@ ol.breadcrumb {
   padding-bottom: 8px;
   margin-bottom: 2em; }
 
-.practitioner__field-image {
-  padding-right: 30px;
-  padding-bottom: 7px; }
-
 .view--staff-bio-for-events h1, .view--staff-bio-for-events h2, .view--staff-bio-for-events h3, .view--staff-bio-for-events h4 {
   margin-bottom: 5px; }
-
-.view--staff-bio-for-events .practitioner__field-year-certified {
-  margin-bottom: 1em; }
-  .view--staff-bio-for-events .practitioner__field-year-certified:before {
-    content: 'Certified in '; }
 
 #sendowl-cart-widget {
   color: #527194; }
@@ -9182,6 +9177,11 @@ ol.breadcrumb {
 
 .view--daily-classes-and-workshops tr td:last-of-type {
   text-align: center; }
+
+.practitioner__field-year-certified {
+  margin-bottom: 1em; }
+  .practitioner__field-year-certified:before {
+    content: 'Certified in '; }
 
 .view--taxonomy-term h3 {
   display: inline-block; }

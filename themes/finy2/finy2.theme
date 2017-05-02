@@ -16,6 +16,32 @@ function finy2_preprocess_node(&$variables){
     //kint($variables['elements']['#node']->getFieldDefinition('field_event_start_date'));
     //kint($variables['elements']['#node']->get('field_event_end_date')->getValue());
    }
+   if($variables['elements']['#node']->hasField('field_date_range')){
+    $date_range_array = $variables['elements']['#node']->get('field_date_range')->getValue();
+    //because date is stored as UTC create date object and then set new timezone before pulling format
+    $first_start_date = new DateTime($date_range_array['0']['value'], new DateTimeZone('UTC'));
+    $first_start_date->setTimezone(new DateTimeZone('America/New_York'));
+    $first_start_day = $first_start_date->format("l, F j, Y");
+    $first_start_time = $first_start_date->format("g:i a");
+    $last_end_date_array = array_pop($date_range_array);
+    $last_end_date = new DateTime($last_end_date_array['end_value'], new DateTimeZone('UTC'));
+    $last_end_date->setTimezone(new DateTimeZone('America/New_York'));
+    $last_end_day = $last_end_date->format("l, F j, Y");
+    $last_end_time = $last_end_date->format("g:i a");
+    $variables['broad_date_range'] = $first_start_day." at ".$first_start_time." to ";
+    //if the event has the same start and end day then just append the end time, otherwise add the final day
+    if($first_start_day == $last_end_day){
+      $variables['broad_date_range'] .= $last_end_time;
+    }
+    else{
+      $variables['broad_date_range'] .= $last_end_day." at ".$last_end_time;
+    }
+
+   }
+   if($variables['elements']['#node']->hasField('field_alternative_register')){
+     $altRegister = $variables['elements']['#node']->get('field_alternative_register')->getName();
+     kint($altRegister);
+   }
    //check that field format exists for store items
    if($variables['elements']['#node']->hasField('field_format')){
       //set potential set formats to match the following taxonomy term ids for physical or downloadable audio set, downloadable/streamable video, DVD set, or subscriptions

@@ -1,5 +1,13 @@
 // View: taxonomy terms
 // -----------------------------------------------------------------------------
+.practitioner__field-year-certified{
+  &:before{
+    content: 'Certified in ';
+  }
+  margin-bottom: 1em;
+}
+
+
 .view--taxonomy-term {
   h3 {
     display: inline-block;

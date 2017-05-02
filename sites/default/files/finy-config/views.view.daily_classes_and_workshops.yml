@@ -475,7 +475,7 @@ display:
           expose:
             label: ''
           granularity: second
-      title: 'Daily classes and workshops'
+      title: 'Class and workshop recordings'
       header: {  }
       footer: {  }
       empty: {  }
@@ -939,7 +939,7 @@ display:
     display_options:
       display_extenders: {  }
       path: store/daily-classes-and-workshops/highlight
-      title: 'Daily class and workshop recordings'
+      title: 'Class and workshop recordings'
       defaults:
         title: false
         style: false

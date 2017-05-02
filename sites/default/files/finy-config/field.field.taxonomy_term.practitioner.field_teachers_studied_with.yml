@@ -11,8 +11,8 @@ id: taxonomy_term.practitioner.field_teachers_studied_with
 field_name: field_teachers_studied_with
 entity_type: taxonomy_term
 bundle: practitioner
-label: 'Teachers studied with'
-description: ''
+label: 'Trained with'
+description: 'Teachers that you have studied with.'
 required: false
 translatable: false
 default_value: {  }

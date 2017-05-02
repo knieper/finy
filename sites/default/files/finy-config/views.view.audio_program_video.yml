@@ -501,7 +501,7 @@ display:
           expose:
             label: ''
           granularity: second
-      title: 'Audio program & video sets'
+      title: 'Audio program recordings and video sets'
       header: {  }
       footer: {  }
       empty: {  }
@@ -550,7 +550,7 @@ display:
     position: 2
     display_options:
       display_extenders: {  }
-      title: 'Audio program and video sets'
+      title: 'Audio program recordings and video sets'
       defaults:
         title: false
         filters: false

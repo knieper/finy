@@ -12,7 +12,7 @@ field_name: field_how_you_got_started_
 entity_type: taxonomy_term
 bundle: practitioner
 label: 'How you got started?'
-description: ''
+description: 'First person perspective. E.g. (''I first heard about Feldenkrais....'')'
 required: false
 translatable: false
 default_value: {  }
