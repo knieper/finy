@@ -4,8 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.node.events.body
+    - field.field.node.events.field_alternative_register
     - field.field.node.events.field_color_coding
     - field.field.node.events.field_cost
+    - field.field.node.events.field_date_range
     - field.field.node.events.field_early_bird_cost
     - field.field.node.events.field_event_end_date
     - field.field.node.events.field_event_start_date
@@ -17,7 +19,7 @@ dependencies:
     - image.style.thumbnail
     - node.type.events
   module:
-    - datetime
+    - datetime_range
     - image
     - link_class
     - path
@@ -30,7 +32,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 5
+    weight: 3
     settings:
       rows: 9
       summary_rows: 3
@@ -39,46 +41,48 @@ content:
     region: content
   created:
     type: datetime_timestamp
-    weight: 13
+    weight: 12
     settings: {  }
     third_party_settings: {  }
     region: content
+  field_alternative_register:
+    weight: 9
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textfield
+    region: content
   field_color_coding:
-    weight: 26
+    weight: 18
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_cost:
-    weight: 7
+    weight: 5
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_date_range:
+    weight: 19
+    settings: {  }
+    third_party_settings: {  }
+    type: daterange_default
     region: content
   field_early_bird_cost:
-    weight: 8
+    weight: 6
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_event_end_date:
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
-  field_event_start_date:
-    weight: 2
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
   field_image:
-    weight: 6
+    weight: 4
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -86,7 +90,7 @@ content:
     type: image_image
     region: content
   field_member_cost:
-    weight: 9
+    weight: 7
     settings:
       size: 60
       placeholder: ''
@@ -94,7 +98,7 @@ content:
     type: string_textfield
     region: content
   field_practitioner:
-    weight: 4
+    weight: 2
     settings:
       match_operator: CONTAINS
       size: 60
@@ -103,7 +107,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_register_link:
-    weight: 10
+    weight: 8
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -123,13 +127,13 @@ content:
     region: content
   langcode:
     type: language_select
-    weight: 11
+    weight: 10
     settings: {  }
     third_party_settings: {  }
     region: content
   path:
     type: path
-    weight: 18
+    weight: 17
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -137,12 +141,12 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 14
+    weight: 13
     third_party_settings: {  }
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 16
+    weight: 15
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -150,7 +154,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 15
+    weight: 14
     third_party_settings: {  }
     region: content
   title:
@@ -163,7 +167,7 @@ content:
     region: content
   uid:
     type: entity_reference_autocomplete
-    weight: 12
+    weight: 11
     settings:
       match_operator: CONTAINS
       size: 60
@@ -172,8 +176,10 @@ content:
     region: content
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 17
+    weight: 16
     settings: {  }
     third_party_settings: {  }
     region: content
-hidden: {  }
+hidden:
+  field_event_end_date: true
+  field_event_start_date: true

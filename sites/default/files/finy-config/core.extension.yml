@@ -36,6 +36,7 @@ module:
   file: 0
   file_browser: 0
   filter: 0
+  finymultiday: 0
   google_analytics: 0
   image: 0
   inline_form_errors: 0

@@ -1,0 +1,29 @@
+<?php
+/**
+ * Implementation of hook_ENTITY_TYPE_presave
+ */
+function finymultiday_node_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  //Check for event content type and only process those that have a field_date_range. Without a date range event will not display in any public view though can be published.
+  if($entity->bundle() == 'events'){
+    if($entity->hasField('field_date_range') && $dateRange = $entity->get('field_date_range')){
+      //set a default time to compare dates to, with the start time being absurdly far into the future
+      $firstStartDate = date('Y-m-d', strtotime('+5 years'));
+      $lastEndDate = '';
+      //iterate through all the date ranges provided and compare with the previous values to find the two extremes
+      foreach($dateRange as $dateRangeItem){
+        $endValue = $dateRangeItem->get('end_value')->getValue();
+        if($endValue > $lastEndDate){
+          $lastEndDate = $endValue;
+        }
+        $startValue = $dateRangeItem->get('value')->getValue();
+        if($startValue < $firstStartDate){
+          $firstStartDate = $startValue;
+        }
+      }
+      //set the extreme range values into new fields for alternative displays on the website
+      $entity->set('field_event_start_date', $firstStartDate);
+      $entity->set('field_event_end_date', $lastEndDate);
+    }
+  }
+
+}

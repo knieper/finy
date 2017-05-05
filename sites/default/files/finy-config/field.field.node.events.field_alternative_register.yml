@@ -1,0 +1,21 @@
+uuid: dbbf7077-7f1e-479d-837d-a8b6a41b2daa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_alternative_register
+    - node.type.events
+  module:
+    - text
+id: node.events.field_alternative_register
+field_name: field_alternative_register
+entity_type: node
+bundle: events
+label: 'Alternative register information'
+description: 'If the event does not have a MindBody register-able link describe how clients should register. E.g. ''Call 555-555-5555 to register''.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

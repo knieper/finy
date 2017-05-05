@@ -21,7 +21,7 @@ provider: null
 plugin: 'block_content:789bc922-5032-43f9-bce2-117e99eb2cba'
 settings:
   id: 'block_content:789bc922-5032-43f9-bce2-117e99eb2cba'
-  label: 'Rethink wellness'
+  label: 'Reimagine wellness'
   provider: block_content
   label_display: '0'
   status: true
@@ -30,6 +30,6 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: "/classes-workshops\r\n"
+    pages: "/classes-workshops\r\n/classes-workshops/upcoming-events\r\n/classes-workshops/past-events"
     negate: false
     context_mapping: {  }

@@ -5,8 +5,10 @@ dependencies:
   config:
     - core.entity_view_mode.node.brief_event
     - field.field.node.events.body
+    - field.field.node.events.field_alternative_register
     - field.field.node.events.field_color_coding
     - field.field.node.events.field_cost
+    - field.field.node.events.field_date_range
     - field.field.node.events.field_early_bird_cost
     - field.field.node.events.field_event_end_date
     - field.field.node.events.field_event_start_date
@@ -18,18 +20,29 @@ dependencies:
     - node.type.events
   module:
     - datetime
+    - datetime_range
     - user
 id: node.events.brief_event
 targetEntityType: node
 bundle: events
 mode: brief_event
 content:
+  field_date_range:
+    type: daterange_default
+    weight: 3
+    region: content
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: long
+      separator: '-'
+    third_party_settings: {  }
   field_event_end_date:
     weight: 2
     label: hidden
     settings:
       timezone_override: ''
-      format_type: time_only
+      format_type: long
     third_party_settings: {  }
     type: datetime_default
     region: content
@@ -43,7 +56,7 @@ content:
     type: datetime_default
     region: content
   field_practitioner:
-    weight: 3
+    weight: 4
     label: hidden
     settings:
       link: false
@@ -59,12 +72,13 @@ content:
     type: string
     region: content
   links:
-    weight: 10
+    weight: 5
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   body: true
+  field_alternative_register: true
   field_color_coding: true
   field_cost: true
   field_early_bird_cost: true

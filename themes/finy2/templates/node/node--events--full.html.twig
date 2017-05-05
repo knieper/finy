@@ -89,7 +89,12 @@ view_mode ? bundle ~ '--' ~ view_mode|clean_class,
   {% if content.field_subtitle %}
     <h3>{{ content.field_subtitle }}</h3>
   {% endif %}
-    {{ content|without('field_subtitle') }}
+  {% if content.field_register_link|render is not empty %}
+    {{ content|without('field_subtitle', 'field_alternative_register') }}
+  {% else %}
+    {{ content|without('field_subtitle', 'field_register_link') }}
+  {% endif %}
+
   </div>
 
 </article>

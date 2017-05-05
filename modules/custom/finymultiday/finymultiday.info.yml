@@ -1,0 +1,6 @@
+name: FINY MultiDay
+description: Stores the first date/time and last date/time of a multi day event in separate fields to allow for better sorting and display.
+package: FINY
+type: module
+version: 1.0
+core: 8.x

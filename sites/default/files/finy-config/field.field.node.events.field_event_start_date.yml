@@ -12,7 +12,7 @@ field_name: field_event_start_date
 entity_type: node
 bundle: events
 label: 'Start date and time'
-description: ''
+description: 'The earliest start time of an event. Not editable directly by editors, but set programmatically by the custom module finymultiday. '
 required: false
 translatable: false
 default_value:

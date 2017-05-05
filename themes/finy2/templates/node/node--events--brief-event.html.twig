@@ -87,7 +87,11 @@ view_mode ? bundle ~ '--' ~ view_mode|clean_class,
     <div class="col-xs-12 col-sm-6 col-md-6">
   	<div class="event-logistics">
       {{ content.field_practitioner }}
-      {{ content.field_event_start_date }} - {{ content.field_event_end_date }}
+      {% if same_day %}
+        {{ content.field_event_start_date }} to {{ end_time }}
+      {% else %}
+        {{ content.field_event_start_date }} - {{ content.field_event_end_date }}
+      {% endif %}
     </div>
     <div class="event-details">
       <a class="btn btn-alt-dark" role="button" title="Details and Register" rel="nofollow" href=" {{ url }} ">Details and Register</a>

@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: largest_headshot
-label: 'largest headshot'
+label: 'largest headshot 300x300'
 effects:
   7db78dcb-b141-44ce-8d55-1a2897668d72:
     uuid: 7db78dcb-b141-44ce-8d55-1a2897668d72
