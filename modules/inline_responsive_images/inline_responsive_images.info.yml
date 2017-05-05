@@ -15,8 +15,8 @@ dependencies:
 # project: 'inline_responsive_images'
 # datestamp: 1460108347
 
-# Information added by Drupal.org packaging script on 2016-06-06
-version: '8.x-2.0'
+# Information added by Drupal.org packaging script on 2017-05-04
+version: '8.x-2.1'
 core: '8.x'
 project: 'inline_responsive_images'
-datestamp: 1465196349
+datestamp: 1493929988

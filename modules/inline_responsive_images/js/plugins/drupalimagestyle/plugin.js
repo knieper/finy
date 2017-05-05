@@ -39,12 +39,12 @@
 
         // Override downcast().
         var originalDowncast = widgetDefinition.downcast;
-        
+
         widgetDefinition.downcast = function (element) {
           var img = originalDowncast.call(this, element);
           if (!img) {
             img = findElementByName(element, 'img');
-          }          
+          }
           img.attributes['data-image-style'] = this.data['data-image-style'];
           return img;
         };
@@ -59,12 +59,13 @@
           else if (element.attributes['data-cke-realelement']) {
             return;
           }
-          element = originalUpcast.call(this, element, data);
 
           // Parse the data-image-style attribute.
           data['data-image-style'] = element.attributes['data-image-style'];
-          data['width'] = element.attributes['width'];
-          data['height'] = element.attributes['height'];
+
+          // Upcast after parsing so correct element attributes are parsed.
+          element = originalUpcast.call(this, element, data);
+
           return element;
         };
 
@@ -78,7 +79,7 @@
       }, null, null, 20);
     }
   });
-  
+
   /**
    * Finds an element by its name.
    *
@@ -108,5 +109,5 @@
     }, CKEDITOR.NODE_ELEMENT);
     return found;
   }
-  
+
 })(CKEDITOR);

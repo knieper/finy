@@ -58,12 +58,13 @@
           else if (element.attributes['data-cke-realelement']) {
             return;
           }
-          element = originalUpcast.call(this, element, data);
 
           // Parse the data-responsive-image-style attribute.
           data['data-responsive-image-style'] = element.attributes['data-responsive-image-style'];
-          data['width'] = element.attributes['width'];
-          data['height'] = element.attributes['height'];        
+
+          // Upcast after parsing so correct element attributes are parsed.
+          element = originalUpcast.call(this, element, data);
+
           return element;
         };
 
@@ -77,7 +78,7 @@
       }, null, null, 20);
     }
   });
-  
+
   /**
    * Finds an element by its name.
    *
@@ -107,5 +108,5 @@
     }, CKEDITOR.NODE_ELEMENT);
     return found;
   }
-  
+
 })(CKEDITOR);

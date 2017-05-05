@@ -1,11 +1,12 @@
 <?php
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\file\Entity\File;
 
 /**
 * Implements hook_help().
 */
-function inline_responsive_images_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_match) {
+function inline_responsive_images_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'help.page.inline_responsive_images':
       $output = '<h3>' . t('About') . '</h3>';
@@ -31,14 +32,9 @@ function inline_responsive_images_help($route_name, \Drupal\Core\Routing\RouteMa
  */
 function inline_responsive_images_form_editor_image_dialog_alter(&$form, FormStateInterface $form_state) {
 
-  //$filter_format = $form_state->getBuildInfo()['args'][0];
-  //$filters = $filter_format->filters()->getAll();
-
-  //https://www.drupal.org/node/2829401#comment-11842377
-  /** @var \Drupal\editor\Entity\Editor $active_editor */
-  $active_editor = $form_state->getBuildInfo()['args'][0];
-  $format = $active_editor->getFilterFormat();
-  $filters = $format->filters()->getAll();
+  $editor = $form_state->getBuildInfo()['args'][0];
+  $filter_format = $editor->getFilterFormat();
+  $filters = $filter_format->filters()->getAll();
 
   $image_element = $form_state->getStorage()['image_element'];
 
@@ -51,22 +47,23 @@ function inline_responsive_images_form_editor_image_dialog_alter(&$form, FormSta
     $form['image_style'] = array(
       '#type' => 'item',
     );
-    
+
     $image_options = array();
     $image_styles = \Drupal::entityTypeManager()->getStorage('image_style')->loadMultiple();
 
     if ($image_styles && !empty($image_styles)) {
       foreach ($image_styles as $image_style_id => $image_style) {
-          if($filters['filter_imagestyle']->settings['image_style_'.$image_style_id]){
-            $image_options[$image_style_id] = $image_style->label();
-          }        
+        if($filters['filter_imagestyle']->settings['image_style_'.$image_style_id]) {
+          $image_options[$image_style_id] = $image_style->label();
+        }
       }
     }
-    
+
+    $image_style_fallback_default = !empty($image_options) ? reset($image_options) : NULL;
     $form['image_style']['selection'] = array(
       '#title' => t('Image style'),
       '#type' => 'select',
-      '#default_value' => isset($image_element['data-image-style']) ? $image_element['data-image-style'] : $image_options_keys[0],
+      '#default_value' => isset($image_element['data-image-style']) ? $image_element['data-image-style'] : $image_style_fallback_default,
       '#options' => $image_options,
       '#required' => TRUE,
       '#wrapper_attributes' => array('class' => array('container-inline')),
@@ -95,7 +92,7 @@ function inline_responsive_images_form_editor_image_dialog_alter(&$form, FormSta
         ),
       );
     }
-    
+
     $form['#attached']['library'][] = 'image/admin';
     $form['actions']['save_modal']['#validate'][] = 'inline_responsive_images_form_editor_image_dialog_imagestyle_validate';
   }
@@ -129,7 +126,7 @@ function inline_responsive_images_form_editor_image_dialog_alter(&$form, FormSta
     if ($responsive_image_styles && !empty($responsive_image_styles)) {
       foreach ($responsive_image_styles as $responsive_image_style_id => $responsive_image_style) {
         if ($responsive_image_style->hasImageStyleMappings()) {
-          if($filters['filter_responsive_image_style']->settings['responsive_style_'.$responsive_image_style_id]){
+          if($filters['filter_responsive_image_style']->settings['responsive_style_' . $responsive_image_style_id]) {
             $responsive_image_options[$responsive_image_style_id] = $responsive_image_style->label();
           }
         }
@@ -206,7 +203,7 @@ function inline_responsive_images_form_editor_image_dialog_alter(&$form, FormSta
  * @see image_form_editor_image_dialog_alter()
  */
 function inline_responsive_images_form_editor_image_dialog_imagestyle_validate(array &$form, FormStateInterface &$form_state) {
-  $attributes =& $form_state->getValue('attributes');  
+  $attributes = &$form_state->getValue('attributes');
   if (!empty($form_state->getValue('fid')[0])) {
     $image_style = \Drupal::entityTypeManager()->getStorage('image_style')->load($attributes['data-image-style']);
     $file = \Drupal\file\Entity\File::load($form_state->getValue('fid')[0]);
@@ -265,10 +262,10 @@ function inline_responsive_images_form_editor_image_dialog_responsive_validate(a
       case 'sizes':
         // More than one image style can be mapped. Use the smallest one.
         $transformed_dimensions = $dimensions;
-        
+
         foreach ($image_style_mapping['image_mapping']['sizes_image_styles'] as $mapped_image_style) {
           $new_dimensions = responsive_image_get_image_dimensions($mapped_image_style, $dimensions, $uri);
-          
+
           if (!$transformed_dimensions || $transformed_dimensions['width'] >= $new_dimensions['width']) {
             $image_style_name = $mapped_image_style;
             $transformed_dimensions = $new_dimensions;

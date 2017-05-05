@@ -11,7 +11,10 @@ This module lets users select a responsive style OR an image style to place imag
   * To submit bug reports and feature suggestions or to track changes:
     https://www.drupal.org/project/issues/inline_responsive_images
 
-
+This module is essentially a stand alone version of the patch in this issue:
+https://www.drupal.org/node/2061377
+When that patch makes it in into core, this module is no longer needed.
+    
 REQUIREMENTS
 ------------
 This module requires the following modules:
@@ -36,7 +39,22 @@ CONFIGURATION
    user can upload an image and assign an image style or responsive style by selecting style from the dropdown menu.
 
 
+CREDITS
+-------
+We would like to credit the original authors of the patch in #2061377: 
+ * Wim Leers - https://www.drupal.org/u/wim-leers
+ * mdrummond - https://www.drupal.org/u/mdrummond
+ * Jelle_S - https://www.drupal.org/u/jelle_s
+ * miraj9093 - https://www.drupal.org/u/miraj9093
+ * tonnosf - https://www.drupal.org/u/tonnosf
+ * erik.erskine - https://www.drupal.org/u/erikerskine
+ * dimaro - https://www.drupal.org/u/dimaro
+ * garphy - https://www.drupal.org/u/garphy
+ * juancasantito - https://www.drupal.org/u/juancasantito
+ 
+   
 MAINTAINERS
 -----------
 Current maintainers:
   * Mitch Albert (mitchalbert) - https://www.drupal.org/user/2255518
+  * Jeroen Vreuls (jeroen_betawerk) - https://www.drupal.org/u/jeroen_betawerk
