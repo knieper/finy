@@ -8777,6 +8777,13 @@ ol.breadcrumb {
 .store-item--full .store-item__field-price .field__item {
   display: inline; }
 
+.view--emergency-announcement .view__content {
+  padding: 1em; }
+
+.view--emergency-announcement p {
+  margin: 0px;
+  text-align: center; }
+
 .view--events .color-1 .events--brief-event {
   background: #2e3f52; }
 

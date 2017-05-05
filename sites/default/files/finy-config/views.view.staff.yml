@@ -6,7 +6,6 @@ dependencies:
     - field.storage.taxonomy_term.field_image
     - field.storage.taxonomy_term.field_type
     - responsive_image.styles.headshot
-    - system.menu.main
     - taxonomy.vocabulary.practitioner
   module:
     - options
@@ -33,8 +32,12 @@ display:
         options:
           perm: 'access content'
       cache:
-        type: tag
-        options: {  }
+        type: time
+        options:
+          results_lifespan: 3600
+          results_lifespan_custom: 0
+          output_lifespan: 518400
+          output_lifespan_custom: 0
       query:
         type: views_query
         options:
@@ -429,9 +432,9 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: about-finy/staff
+      path: staff
       menu:
-        type: normal
+        type: none
         title: Staff
         description: ''
         expanded: false
@@ -439,7 +442,6 @@ display:
         weight: 0
         context: '0'
         menu_name: main
-        enabled: false
       display_description: ''
       filters:
         vid:
