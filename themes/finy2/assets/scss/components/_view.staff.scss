@@ -4,9 +4,13 @@
   h1,h2,h3,h4,h5,h6{
     clear:both;
   }
+  h3{
+    text-align: center;
+  }
   img{
     max-width: 100%;
     border: 1px solid darken($gray-lighter, 5%);
+    padding: 0px;
   }
   .col-xs-6{
     padding-left: ceil($grid-gutter-width/8);
@@ -22,6 +26,10 @@
     padding-top: ceil(($grid-gutter-width / 8));
     padding-bottom: ceil(($grid-gutter-width / 4));
     margin-bottom: 2em;
+    text-align: center;
+  }
+  .views-field-field-image{
+    text-align: center;
   }
 } // close of view--staff
 

@@ -8915,9 +8915,13 @@ ol.breadcrumb {
 .view--staff h1, .view--staff h2, .view--staff h3, .view--staff h4, .view--staff h5, .view--staff h6 {
   clear: both; }
 
+.view--staff h3 {
+  text-align: center; }
+
 .view--staff img {
   max-width: 100%;
-  border: 1px solid #e2e2e2; }
+  border: 1px solid #e2e2e2;
+  padding: 0px; }
 
 .view--staff .col-xs-6 {
   padding-left: 4px;
@@ -8931,7 +8935,11 @@ ol.breadcrumb {
 .view--staff .views-field-name {
   padding-top: 4px;
   padding-bottom: 8px;
-  margin-bottom: 2em; }
+  margin-bottom: 2em;
+  text-align: center; }
+
+.view--staff .views-field-field-image {
+  text-align: center; }
 
 .view--staff-bio-for-events h1, .view--staff-bio-for-events h2, .view--staff-bio-for-events h3, .view--staff-bio-for-events h4 {
   margin-bottom: 5px; }
