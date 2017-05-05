@@ -21,6 +21,12 @@ settings:
       value: 'Staff Practitioner'
       label: 'Staff Practitioner'
     -
+      value: 'Executive Director'
+      label: 'Executive Director'
+    -
+      value: 'Office Manager'
+      label: 'Office Manager'
+    -
       value: 'Office Staff'
       label: 'Office Staff'
   allowed_values_function: ''
