@@ -34,7 +34,7 @@ before_script:
 
 script:
   - cd $TRAVIS_BUILD_DIR
-  - composer phpcs
+  - composer phpcs-n
   - cd tests
   - ./vendor/bin/phpunit
 

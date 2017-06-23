@@ -3,6 +3,7 @@
 namespace Drupal\Tests\config_split\Kernel;
 
 use Drupal\config\Controller\ConfigController;
+use Drupal\config_filter\Config\FilteredStorage;
 use Drupal\Core\Archiver\Tar;
 use Drupal\Core\Config\Config;
 use Drupal\Core\Config\FileStorage;
@@ -80,7 +81,7 @@ class ConfigSplitCliServiceTest extends KernelTestBase {
     $this->assertEmpty($split_export->getChildren(), 'Before exporting the folder is empty.');
 
     // Do the export without a split configuration to the export folder.
-    $this->container->get('config_split.cli')->export('', $primary);
+    $this->container->get('config_split.cli')->export($primary);
 
     // Assert that the exported configuration is the same in both cases.
     $this->assertEquals(count($core_export->getChildren()), count($split_export->getChildren()), 'The same amount of config is exported.');
@@ -105,6 +106,7 @@ class ConfigSplitCliServiceTest extends KernelTestBase {
     $primary = new FileStorage($split->url() . '/sync');
     $config = new Config('config_split.config_split.test_split', $this->container->get('config.storage'), $this->container->get('event_dispatcher'), $this->container->get('config.typed'));
     $config->initWithData([
+      'id' => 'test_split',
       'folder' => $split->url() . '/split',
       'module' => ['config_test' => 0],
       'theme' => [],
@@ -116,11 +118,13 @@ class ConfigSplitCliServiceTest extends KernelTestBase {
     $vanilla = vfsStream::setup('vanilla');
     $vanilla_root = vfsStreamWrapper::getRoot();
     $vanilla_primary = new FileStorage($vanilla->url());
-    $this->container->get('config_split.cli')->export('', $vanilla_primary);
+    $this->container->get('config_split.cli')->export($vanilla_primary);
 
     vfsStreamWrapper::setRoot($split_root);
     // Export the configuration without the test configuration.
-    $this->container->get('config_split.cli')->export('config_split.config_split.test_split', $primary);
+    $filter = $this->container->get('plugin.manager.config_filter')->getFilterInstance('config_split:test_split');
+    $storage = new FilteredStorage($primary, [$filter]);
+    $this->container->get('config_split.cli')->export($storage);
 
     // Extract the configuration for easier comparison.
     $vanilla_config = [];
@@ -175,6 +179,7 @@ class ConfigSplitCliServiceTest extends KernelTestBase {
     $primary = new FileStorage($split->url() . '/sync');
     $config = new Config('config_split.config_split.test_split', $this->container->get('config.storage'), $this->container->get('event_dispatcher'), $this->container->get('config.typed'));
     $config->initWithData([
+      'id' => 'test_split',
       'folder' => $split->url() . '/split',
       'module' => [],
       'theme' => [],
@@ -183,7 +188,7 @@ class ConfigSplitCliServiceTest extends KernelTestBase {
     ])->save();
 
     // Export the configuration like core.
-    $this->container->get('config_split.cli')->export('', $primary);
+    $this->container->get('config_split.cli')->export($primary);
 
     $original_config = [];
     foreach ($split->getChild('sync')->getChildren() as $child) {
@@ -200,7 +205,9 @@ class ConfigSplitCliServiceTest extends KernelTestBase {
     $this->config('config_test.system')->set('foo', 'baz')->save();
 
     // Export the configuration with filtering.
-    $this->container->get('config_split.cli')->export('config_split.config_split.test_split', $primary);
+    $filter = $this->container->get('plugin.manager.config_filter')->getFilterInstance('config_split:test_split');
+    $storage = new FilteredStorage($primary, [$filter]);
+    $this->container->get('config_split.cli')->export($storage);
 
     $sync_config = [];
     foreach ($split->getChild('sync')->getChildren() as $child) {
@@ -235,7 +242,9 @@ class ConfigSplitCliServiceTest extends KernelTestBase {
     ])->save();
 
     // Export the configuration with filtering.
-    $this->container->get('config_split.cli')->export('config_split.config_split.test_split', $primary);
+    $filter = $this->container->get('plugin.manager.config_filter')->getFilterInstance('config_split:test_split');
+    $storage = new FilteredStorage($primary, [$filter]);
+    $this->container->get('config_split.cli')->export($storage);
 
     $sync_config = [];
     foreach ($split->getChild('sync')->getChildren() as $child) {

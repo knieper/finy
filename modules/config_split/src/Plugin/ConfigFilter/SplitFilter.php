@@ -4,9 +4,12 @@ namespace Drupal\config_split\Plugin\ConfigFilter;
 
 use Drupal\config_filter\Plugin\ConfigFilterBase;
 use Drupal\Core\Config\ConfigManagerInterface;
+use Drupal\Core\Config\DatabaseStorage;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Config\StorageInterface;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Component\PhpStorage\FileStorage as PhpFileStorage;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -22,6 +25,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class SplitFilter extends ConfigFilterBase implements ContainerFactoryPluginInterface {
+
+  use DependencySerializationTrait;
 
   /**
    * The Configuration manager to calculate the dependencies.
@@ -58,7 +63,7 @@ class SplitFilter extends ConfigFilterBase implements ContainerFactoryPluginInte
    *   A configuration array containing information about the plugin instance.
    * @param string $plugin_id
    *   The plugin_id for the plugin instance.
-   * @param array $plugin_definition
+   * @param mixed $plugin_definition
    *   The plugin implementation definition.
    * @param \Drupal\Core\Config\ConfigManagerInterface $manager
    *   The config manager for retrieving dependent config.
@@ -98,7 +103,7 @@ class SplitFilter extends ConfigFilterBase implements ContainerFactoryPluginInte
       $plugin_id,
       $plugin_definition,
       $container->get('config.manager'),
-      self::getSecondaryStorage($config)
+      self::getSecondaryStorage($config, $container->get('database'))
     );
   }
 
@@ -126,9 +131,13 @@ class SplitFilter extends ConfigFilterBase implements ContainerFactoryPluginInte
       // to the ones defined in the primary storage's 'core.extension'.
       // So we need to read the configuration as it will be imported, as the
       // filter configuration could be split off itself.
+      $modules = [];
+      $themes = [];
       $updated = $this->filtered->read($this->configuration['config_name']);
-      $modules = $updated['module'];
-      $themes = $updated['theme'];
+      if (is_array($updated)) {
+        $modules = $updated['module'];
+        $themes = $updated['theme'];
+      }
     }
 
     $data['module'] = array_merge($data['module'], $modules);
@@ -149,10 +158,12 @@ class SplitFilter extends ConfigFilterBase implements ContainerFactoryPluginInte
    * {@inheritdoc}
    */
   public function filterWrite($name, array $data) {
+    if (!$this->secondaryStorage) {
+      throw new \InvalidArgumentException('The split storage has to be set and exist for write operations.');
+    }
+
     if (in_array($name, $this->blacklist)) {
-      if ($this->secondaryStorage) {
-        $this->secondaryStorage->write($name, $data);
-      }
+      $this->secondaryStorage->write($name, $data);
 
       return NULL;
     }
@@ -161,9 +172,7 @@ class SplitFilter extends ConfigFilterBase implements ContainerFactoryPluginInte
         // The configuration is in the graylist but skip-equal is not set or
         // the source does not have the same data, so write to secondary and
         // return source data or null if it doesn't exist in the source.
-        if ($this->secondaryStorage) {
-          $this->secondaryStorage->write($name, $data);
-        }
+        $this->secondaryStorage->write($name, $data);
 
         // If the source has it, return that so it doesn't get changed.
         if ($this->source) {
@@ -174,7 +183,7 @@ class SplitFilter extends ConfigFilterBase implements ContainerFactoryPluginInte
       }
     }
 
-    if ($this->secondaryStorage && $this->secondaryStorage->exists($name)) {
+    if ($this->secondaryStorage->exists($name)) {
       // If the secondary storage has the file but should not then delete it.
       $this->secondaryStorage->delete($name);
     }
@@ -215,7 +224,7 @@ class SplitFilter extends ConfigFilterBase implements ContainerFactoryPluginInte
       $this->secondaryStorage->delete($name);
     }
 
-    if (in_array($name, $this->graylist)) {
+    if (in_array($name, $this->graylist) && !in_array($name, $this->blacklist)) {
       // Do not delete graylisted config.
       return FALSE;
     }
@@ -356,7 +365,7 @@ class SplitFilter extends ConfigFilterBase implements ContainerFactoryPluginInte
    * @return bool
    *   True if the name is considered to be in the list.
    */
-  protected static function inFilterList($name, $list) {
+  protected static function inFilterList($name, array $list) {
     // Prepare the list for regex matching by quoting all regex symbols and
     // replacing back the original '*' with '.*' to allow it to catch all.
     $list = array_map(function ($line) {
@@ -376,11 +385,13 @@ class SplitFilter extends ConfigFilterBase implements ContainerFactoryPluginInte
    *
    * @param \Drupal\Core\Config\ImmutableConfig $config
    *   The configuration for the split.
+   * @param \Drupal\Core\Database\Connection $connection
+   *   The database connection for creating a database storage.
    *
    * @return \Drupal\Core\Config\StorageInterface
    *   The secondary storage to split to and from.
    */
-  protected static function getSecondaryStorage(ImmutableConfig $config) {
+  protected static function getSecondaryStorage(ImmutableConfig $config, Connection $connection) {
     // Here we could determine to use relative paths etc.
     if ($directory = $config->get('folder')) {
 
@@ -396,10 +407,16 @@ class SplitFilter extends ConfigFilterBase implements ContainerFactoryPluginInte
         }
       }
 
-      return new FileStorage($directory);
+      if (file_exists($directory) || strpos($directory, 'vfs://') === 0) {
+        // Allow virtual file systems even if file_exists is false.
+        return new FileStorage($directory);
+      }
+
+      return NULL;
     }
 
-    return NULL;
+    // When the folder is not set use a database.
+    return new DatabaseStorage($connection, $connection->escapeTable(strtr($config->getName(), ['.' => '_'])));
   }
 
 }

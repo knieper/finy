@@ -80,7 +80,7 @@ class FilteredStorage implements FilteredStorageInterface {
     foreach ($this->filters as $filter) {
       $data = $filter->filterReadMultiple($names, $data);
     }
-
+    ksort($data);
     return $data;
   }
 
@@ -91,6 +91,10 @@ class FilteredStorage implements FilteredStorageInterface {
     foreach ($this->filters as $filter) {
       if ($data) {
         $data = $filter->filterWrite($name, $data);
+      }
+      else {
+        // The filterWrite has an array type hint in the interface.
+        $data = $filter->filterWrite($name, []);
       }
     }
 
@@ -165,7 +169,7 @@ class FilteredStorage implements FilteredStorageInterface {
     foreach ($this->filters as $filter) {
       $data = $filter->filterListAll($prefix, $data);
     }
-
+    sort($data);
     return $data;
   }
 
@@ -216,7 +220,7 @@ class FilteredStorage implements FilteredStorageInterface {
     foreach ($this->filters as $filter) {
       $collections = $filter->filterGetAllCollectionNames($collections);
     }
-
+    sort($collections);
     return $collections;
   }
 

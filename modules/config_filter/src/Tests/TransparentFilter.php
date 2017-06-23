@@ -17,4 +17,24 @@ class TransparentFilter extends ConfigFilterBase implements StorageFilterInterfa
     parent::__construct([], 'transparent_test', []);
   }
 
+  /**
+   * Get the read-only source Storage.
+   *
+   * @return \Drupal\Core\Config\StorageInterface
+   *   The source storage.
+   */
+  public function getPrivateSourceStorage() {
+    return $this->getSourceStorage();
+  }
+
+  /**
+   * Get the decorator storage which applies the filters.
+   *
+   * @return \Drupal\Core\Config\StorageInterface
+   *   The filtered decorator storage.
+   */
+  public function getPrivateFilteredStorage() {
+    return $this->getFilteredStorage();
+  }
+
 }

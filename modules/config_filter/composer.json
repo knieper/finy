@@ -27,6 +27,7 @@
       "cp ./tests/scripts/pre-push.sh .git/hooks/pre-push && chmod +x .git/hooks/pre-push"
     ],
     "phpcs": "./vendor/bin/phpcs --standard=Drupal,DrupalPractice . --ignore=./vendor,./tests",
+    "phpcs-n": "./vendor/bin/phpcs --standard=Drupal,DrupalPractice . --ignore=./vendor,./tests -n",
     "phpcbf": "./vendor/bin/phpcbf --standard=Drupal,DrupalPractice . --ignore=./vendor,./tests"
   }
 }

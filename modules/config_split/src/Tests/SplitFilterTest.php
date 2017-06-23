@@ -3,10 +3,11 @@
 namespace Drupal\config_split\Tests;
 
 use Drupal\config_split\Plugin\ConfigFilter\SplitFilter;
+use Drupal\Core\Config\DatabaseStorage;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Config\NullStorage;
 use Drupal\Core\Config\StorageInterface;
-use \Drupal\Tests\UnitTestCase;
+use Drupal\Tests\UnitTestCase;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamFile;
 use Prophecy\Argument;
@@ -17,13 +18,6 @@ use Prophecy\Argument;
  * @group config_split
  */
 class SplitFilterTest extends UnitTestCase {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setUp() {
-    parent::setUp();
-  }
 
   /**
    * Test that the blacklist is correctly calculated.
@@ -52,7 +46,7 @@ class SplitFilterTest extends UnitTestCase {
     $filter = new SplitFilter($configuration, 'config_split', [], $manager->reveal());
 
     // Get the protected blacklist property.
-    $blacklist = new \ReflectionProperty('Drupal\config_split\Plugin\ConfigFilter\SplitFilter', 'blacklist');
+    $blacklist = new \ReflectionProperty(SplitFilter::class, 'blacklist');
     $blacklist->setAccessible(TRUE);
     $actual = $blacklist->getValue($filter);
     // The order of values and keys are not important.
@@ -87,7 +81,7 @@ class SplitFilterTest extends UnitTestCase {
     $filter = new SplitFilter($configuration, 'config_split', [], $manager->reveal());
 
     // Get the protected blacklist property.
-    $graylist = new \ReflectionProperty('Drupal\config_split\Plugin\ConfigFilter\SplitFilter', 'graylist');
+    $graylist = new \ReflectionProperty(SplitFilter::class, 'graylist');
     $graylist->setAccessible(TRUE);
     $actual = $graylist->getValue($filter);
     // The order of values and keys are not important.
@@ -149,10 +143,10 @@ class SplitFilterTest extends UnitTestCase {
     $filter = new SplitFilter($configuration, 'config_split', [], $manager->reveal());
 
     // Get the protected blacklist property.
-    $blacklist = new \ReflectionProperty('Drupal\config_split\Plugin\ConfigFilter\SplitFilter', 'blacklist');
+    $blacklist = new \ReflectionProperty(SplitFilter::class, 'blacklist');
     $blacklist->setAccessible(TRUE);
     $black = $blacklist->getValue($filter);
-    $graylist = new \ReflectionProperty('Drupal\config_split\Plugin\ConfigFilter\SplitFilter', 'graylist');
+    $graylist = new \ReflectionProperty(SplitFilter::class, 'graylist');
     $graylist->setAccessible(TRUE);
     $gray = $graylist->getValue($filter);
 
@@ -174,7 +168,7 @@ class SplitFilterTest extends UnitTestCase {
     // Filter with a storage that has an alternative.
     $name2 = $this->randomMachineName();
     $data2 = (array) $this->getRandomGenerator()->object();
-    $storage = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $storage = $this->prophesize(StorageInterface::class);
     $storage->read($name)->willReturn(NULL);
     $storage->read($name2)->willReturn($data2);
     $filter = $this->getFilter($storage->reveal());
@@ -217,10 +211,18 @@ class SplitFilterTest extends UnitTestCase {
 
     // Test with reading from the wrapper storage.
     $filter = $this->getFilter(NULL, [], ['none' => 0], ['none' => 0], [], $name);
-    $storage = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $storage = $this->prophesize(StorageInterface::class);
     $storage->read($name)->willReturn(['module' => $modules, 'theme' => $themes]);
     $filter->setFilteredStorage($storage->reveal());
     $this->assertEquals($extensions_extra, $filter->filterRead('core.extension', $extensions));
+    $this->assertEquals($extensions_extra, $filter->filterRead('core.extension', $extensions_extra));
+
+    // Test with reading from the wrapper storage.
+    $filter = $this->getFilter(NULL, [], ['none' => 0], ['none' => 0], [], $name);
+    $storage = $this->prophesize(StorageInterface::class);
+    $storage->read($name)->willReturn(FALSE);
+    $filter->setFilteredStorage($storage->reveal());
+    $this->assertEquals($extensions, $filter->filterRead('core.extension', $extensions));
     $this->assertEquals($extensions_extra, $filter->filterRead('core.extension', $extensions_extra));
   }
 
@@ -231,16 +233,26 @@ class SplitFilterTest extends UnitTestCase {
     // Transparent filter.
     $name = $this->randomMachineName();
     $data = (array) $this->getRandomGenerator()->object();
-    $filter = $this->getFilter();
+
+    try {
+      $filter = $this->getFilter();
+      $filter->filterWrite($name, $data);
+      $this->fail('The filter needs a storage.');
+    }
+    catch (\InvalidArgumentException $exception) {
+      $this->assertTrue(TRUE, 'Exception thrown.');
+    }
+
+    $filter = $this->getFilter(new NullStorage());
     $this->assertEquals($data, $filter->filterWrite($name, $data));
 
     // Filter with a blacklist.
     $name2 = $this->randomMachineName();
-    $filter = $this->getFilter(NULL, [$name2], [], []);
+    $filter = $this->getFilter(new NullStorage(), [$name2], [], []);
     $this->assertEquals($data, $filter->filterWrite($name, $data));
     $this->assertNull($filter->filterWrite($name2, $data));
     // Filter with a blacklist and a storage.
-    $storage = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $storage = $this->prophesize(StorageInterface::class);
     $storage->write(Argument::cetera())->willReturn(TRUE);
     $storage->exists($name)->willReturn(FALSE);
     $filter = $this->getFilter($storage->reveal(), [$name2], [], []);
@@ -250,7 +262,7 @@ class SplitFilterTest extends UnitTestCase {
     // Filter with a gray list and a storage.
     $name3 = $this->randomMachineName();
     $data3 = (array) $this->getRandomGenerator()->object();
-    $storage = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $storage = $this->prophesize(StorageInterface::class);
     $storage->write(Argument::cetera())->willReturn(TRUE);
     $storage->read($name3)->willReturn($data3);
     $storage->exists($name)->willReturn(TRUE);
@@ -263,10 +275,10 @@ class SplitFilterTest extends UnitTestCase {
     $this->assertEquals($data3, $filter->filterWrite($name3, $data));
 
     // Filter with graylist and skipping equal data.
-    $primary = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $primary = $this->prophesize(StorageInterface::class);
     $primary->read($name3)->willReturn($data3);
     $primary = $primary->reveal();
-    $secondary = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $secondary = $this->prophesize(StorageInterface::class);
     $secondary->exists($name)->willReturn(FALSE);
     $secondary->write($name2, $data)->willReturn(TRUE);
     $secondary->write($name3, $data)->willReturn(TRUE);
@@ -311,7 +323,7 @@ class SplitFilterTest extends UnitTestCase {
       ],
       'theme' => ['stable' => 0, 'classy' => 0, 'custom_theme' => 0],
     ];
-    $filter = $this->getFilter(NULL, [], $modules, $themes);
+    $filter = $this->getFilter(new NullStorage(), [], $modules, $themes);
     $this->assertEquals($extensions, $filter->filterWrite('core.extension', $extensions));
     $this->assertEquals($extensions, $filter->filterWrite('core.extension', $extensions_extra));
   }
@@ -320,7 +332,7 @@ class SplitFilterTest extends UnitTestCase {
    * Test that the filter checks existence correctly.
    */
   public function testFilterExists() {
-    $storage = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $storage = $this->prophesize(StorageInterface::class);
     $storage->exists('Yes')->willReturn(TRUE);
     $storage->exists('No')->willReturn(FALSE);
 
@@ -342,7 +354,7 @@ class SplitFilterTest extends UnitTestCase {
    * Test that the filter deletes correctly.
    */
   public function testFilterDelete() {
-    $storage = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $storage = $this->prophesize(StorageInterface::class);
     $storage->exists('Yes')->willReturn(TRUE);
     $storage->delete('Yes')->willReturn(TRUE);
 
@@ -364,7 +376,7 @@ class SplitFilterTest extends UnitTestCase {
     $primary = (array) $this->getRandomGenerator()->object(rand(3, 10));
     $secondary = (array) $this->getRandomGenerator()->object(rand(3, 10));
     $merged = array_merge($primary, $secondary);
-    $storage = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $storage = $this->prophesize(StorageInterface::class);
     $storage->readMultiple(Argument::cetera())->willReturn($secondary);
 
     $transparent = $this->getFilter(NULL);
@@ -397,7 +409,7 @@ class SplitFilterTest extends UnitTestCase {
    * Test that the filter deletes all correctly.
    */
   public function testFilterDeleteAll() {
-    $storage = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $storage = $this->prophesize(StorageInterface::class);
     $storage->deleteAll('Yes')->willReturn(TRUE);
 
     $transparent = $this->getFilter(NULL);
@@ -410,7 +422,7 @@ class SplitFilterTest extends UnitTestCase {
     $this->assertFalse($filter->filterDeleteAll('No', FALSE));
 
     // Test that the storage can throw an exception without affecting execution.
-    $failing = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $failing = $this->prophesize(StorageInterface::class);
     $failing->deleteAll('Yes')->willThrow('\UnexpectedValueException');
 
     $filter = $this->getFilter($failing->reveal());
@@ -423,7 +435,7 @@ class SplitFilterTest extends UnitTestCase {
   public function testFilterCreateCollection() {
     $collection = $this->randomMachineName();
     $collection_storage = new NullStorage();
-    $storage = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $storage = $this->prophesize(StorageInterface::class);
     $storage->createCollection($collection)->willReturn($collection_storage);
 
     $transparent = $this->getFilter(NULL);
@@ -433,7 +445,7 @@ class SplitFilterTest extends UnitTestCase {
     $new_filter = $filter->filterCreateCollection($collection);
 
     // Get the protected storage property.
-    $internal = new \ReflectionProperty('Drupal\config_split\Plugin\ConfigFilter\SplitFilter', 'secondaryStorage');
+    $internal = new \ReflectionProperty(SplitFilter::class, 'secondaryStorage');
     $internal->setAccessible(TRUE);
     $actual = $internal->getValue($new_filter);
     $this->assertEquals($collection_storage, $actual);
@@ -445,7 +457,7 @@ class SplitFilterTest extends UnitTestCase {
   public function testFilterGetAllCollectionNames() {
     $collections = array_keys((array) $this->getRandomGenerator()->object(rand(3, 10)));
     $extra = array_keys((array) $this->getRandomGenerator()->object(rand(3, 10)));
-    $storage = $this->prophesize('Drupal\Core\Config\StorageInterface');
+    $storage = $this->prophesize(StorageInterface::class);
     $storage->getAllCollectionNames()->willReturn($extra);
 
     $transparent = $this->getFilter(NULL);
@@ -473,6 +485,8 @@ class SplitFilterTest extends UnitTestCase {
         'graylist' => [],
       ],
     ]));
+    $database = $this->prophesize('Drupal\Core\Database\Connection');
+    $container->get('database')->willReturn($database->reveal());
 
     $configuration = [
       'config_name' => $name,
@@ -483,6 +497,34 @@ class SplitFilterTest extends UnitTestCase {
 
     $folder->addChild(new vfsStreamFile($name . '.' . FileStorage::getFileExtension()));
     $this->assertTrue($filter->filterExists($name, FALSE), 'Assert filename');
+
+    // Test split with db storage.
+    $name = 'config_split.' . $this->getRandomGenerator()->name();
+    $container = $this->prophesize('Symfony\Component\DependencyInjection\ContainerInterface');
+    $container->get('config.manager')->willReturn($this->getConfigManagerMock());
+    $container->get('config.factory')->willReturn($this->getConfigFactoryStub([
+      $name => [
+        'folder' => '',
+        'module' => [],
+        'theme' => [],
+        'blacklist' => [],
+        'graylist' => [],
+      ],
+    ]));
+    $database = $this->prophesize('Drupal\Core\Database\Connection')->reveal();
+    $container->get('database')->willReturn($database);
+
+    $configuration = [
+      'config_name' => $name,
+    ];
+
+    $filter = SplitFilter::create($container->reveal(), $configuration, $this->getRandomGenerator()->name(), []);
+    // Get the protected secondaryStorage property.
+    $storage = new \ReflectionProperty(SplitFilter::class, 'secondaryStorage');
+    $storage->setAccessible(TRUE);
+    $secondary = $storage->getValue($filter);
+
+    $this->assertInstanceOf(DatabaseStorage::class, $secondary);
   }
 
   /**
@@ -500,6 +542,8 @@ class SplitFilterTest extends UnitTestCase {
    *   The graylisted configuration that is filtered out.
    * @param string $name
    *   The name of the prophesied config object.
+   * @param bool $skip_equal
+   *   The flag to skip equal config in graylist exports.
    *
    * @return \Drupal\config_split\Plugin\ConfigFilter\SplitFilter
    *   The filter to test.

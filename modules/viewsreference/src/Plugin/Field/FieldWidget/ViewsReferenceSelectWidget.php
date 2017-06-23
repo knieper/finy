@@ -2,12 +2,9 @@
 
 namespace Drupal\viewsreference\Plugin\Field\FieldWidget;
 
-use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\OptionsSelectWidget;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\viewsreference\Plugin\Field\FieldWidget\ViewsReferenceTrait;
 
 /**
  * Plugin implementation of the 'options_select' widget.
@@ -29,15 +26,25 @@ class ViewsReferenceSelectWidget extends OptionsSelectWidget {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+
     $select_element['target_id'] = parent::formElement($items, $delta, $element, $form, $form_state);
 
     $select_element = $this->fieldElement($select_element, $items, $delta);
-
     $select_element['target_id']['#multiple'] = FALSE;
-    $select_element['target_id']['#empty_option'] = t('- None -');
+    if (!$this->isDefaultValueWidget($form_state)) {
+      $selected_views = $items->getSetting('preselect_views');
+      $selected_views = array_diff($selected_views, array("0"));
+      $selected_views = $this->getViewNames($selected_views);
+      if (count($selected_views) >= 1) {
+        $first_option = array("- None -");
+        $select_element['target_id']['#options'] = array_merge($first_option, $selected_views);
+      }
+      else {
+        $select_element['target_id']['#empty_option'] = '- None -';
+      }
+    }
 
     return $select_element;
   }
-
 
 }

@@ -50,7 +50,7 @@ interface StorageFilterInterface {
    * @param array|bool $data
    *   The configuration data to filter.
    *
-   * @return array
+   * @return array|bool
    *   The filtered data.
    */
   public function filterRead($name, $data);
@@ -63,7 +63,7 @@ interface StorageFilterInterface {
    * @param array $data
    *   The configuration data to filter.
    *
-   * @return array
+   * @return array|null
    *   The filtered data.
    */
   public function filterWrite($name, array $data);

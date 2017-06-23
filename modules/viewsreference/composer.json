@@ -13,11 +13,5 @@
   "conflict": {
     "drupal/viewsreferennce": "*"
   },
-//  "require": {
-//    "drupal/viewsreference": "*"
-//  },
-  "replace": {
-    "drupal/viewsreferennce": "*"
-  },
   "require": { }
 }

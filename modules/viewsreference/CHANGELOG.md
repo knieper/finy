@@ -30,3 +30,11 @@ Add select widget
 Change to views_embed_view function
 Add view plugin select to limit plugins available in field
 Attempt to fix composer problem
+
+8.x-1.0-beta1
+Fix argument handling: https://www.drupal.org/node/2847192
+Add multiple arguments: https://www.drupal.org/node/2846625
+Fix placeholder error: https://www.drupal.org/node/2838413
+Remove redundant code
+Remove extra settings: https://www.drupal.org/node/2851184
+Add preexecute: https://www.drupal.org/node/2851058

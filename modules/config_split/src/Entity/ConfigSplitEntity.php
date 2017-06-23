@@ -3,7 +3,7 @@
 namespace Drupal\config_split\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
-use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
  * Defines the Configuration Split Setting entity.
@@ -103,11 +103,15 @@ class ConfigSplitEntity extends ConfigEntityBase implements ConfigSplitEntityInt
 
   /**
    * Include the graylist dependents flag.
+   *
+   * @var bool
    */
   protected $graylist_dependents = TRUE;
 
   /**
    * Skip graylisted config without a change flag.
+   *
+   * @var bool
    */
   protected $graylist_skip_equal = TRUE;
 
@@ -120,7 +124,27 @@ class ConfigSplitEntity extends ConfigEntityBase implements ConfigSplitEntityInt
 
   /**
    * The status, whether to be used by default.
+   *
+   * @var bool
    */
   protected $status = TRUE;
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function invalidateTagsOnSave($update) {
+    parent::invalidateTagsOnSave($update);
+    // Clear the config_filter plugin cache.
+    \Drupal::service('plugin.manager.config_filter')->clearCachedDefinitions();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static function invalidateTagsOnDelete(EntityTypeInterface $entity_type, array $entities) {
+    parent::invalidateTagsOnDelete($entity_type, $entities);
+    // Clear the config_filter plugin cache.
+    \Drupal::service('plugin.manager.config_filter')->clearCachedDefinitions();
+  }
 
 }

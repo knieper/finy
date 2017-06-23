@@ -2,14 +2,13 @@
 
 namespace Drupal\viewsreference\Plugin\Field\FieldFormatter;
 
-use Drupal\Component\Utility\Unicode;
-use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\views\Views;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 
-
 /**
+ * Field formatter for Viewsreference Field.
  *
  * @FieldFormatter(
  *   id = "viewsreference_formatter",
@@ -35,7 +34,7 @@ class ViewsReferenceFieldFormatter extends FormatterBase {
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $form = parent::settingsForm($form, $form_state);
 
-    $types = \Drupal\views\Views::pluginList();
+    $types = Views::pluginList();
     $options = array();
     foreach ($types as $key => $type) {
       if ($type['type'] == 'display') {
@@ -81,41 +80,52 @@ class ViewsReferenceFieldFormatter extends FormatterBase {
       $display_id = $item->getValue()['display_id'];
       $argument = $item->getValue()['argument'];
       $title = $item->getValue()['title'];
-      $view = \Drupal\views\Views::getView($view_name);
-      // Someone may have deleted the View
+      $view = Views::getView($view_name);
+      // Someone may have deleted the View.
       if (!is_object($view)) {
         continue;
       }
-      $view->setDisplay($display_id);
-      $view->build($display_id);
-      $view->execute($display_id);
-      // We find the result to avoid rendering an empty view
-      $result = $view->result;
-
-      if ($title) {
-        $title = $view->getTitle();
-        $title_render_array = array(
-          '#markup' => '<div class="viewsreference-title">' . t('@title', ['@title'=> $title]) . '</div>'
-        );
+      $arguments = [$argument];
+      if (preg_match('/\//', $argument)) {
+        $arguments = explode('/', $argument);
       }
 
-      if ($this->getSetting('plugin_types')) {
-        if ($title && !empty($result)) {
-          $elements[$delta]['title'] = $title_render_array;
+      $node = \Drupal::routeMatch()->getParameter('node');
+      $token_service = \Drupal::token();
+      if (is_array($arguments)) {
+        foreach ($arguments as $index => $argument) {
+          if (!empty($token_service->scan($argument))) {
+            $arguments[$index] = $token_service->replace($argument, ['node' => $node]);
+          }
         }
-        $elements[$delta]['contents'] = views_embed_view($view_name, $display_id, $argument);
       }
 
+      $view->setDisplay($display_id);
+      $view->setArguments($arguments);
+      $view->build($display_id);
+      $view->preExecute();
+      $view->execute($display_id);
+
+      if (!empty($view->result) || !empty($view->empty)) {
+        if ($title) {
+          $title = $view->getTitle();
+          $title_render_array = array(
+            '#theme' => 'viewsreference__view_title',
+            '#title' => $this->t($title),
+          );
+        }
+
+        if ($this->getSetting('plugin_types')) {
+          if ($title) {
+            $elements[$delta]['title'] = $title_render_array;
+          }
+        }
+
+        $elements[$delta]['contents'] = $view->buildRenderable($display_id);
+      }
     }
 
     return $elements;
   }
-
-  /**
-   * {@inheritdoc}
-   */
-//  public static function isApplicable(FieldDefinitionInterface $field_definition) {
-//    return $field_definition->getTargetEntityTypeId() === 'user' && $field_definition->getName() === 'name';
-//  }
 
 }

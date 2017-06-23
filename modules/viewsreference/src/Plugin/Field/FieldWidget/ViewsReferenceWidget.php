@@ -6,7 +6,6 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget;
-use Drupal\viewsreference\Plugin\Field\FieldWidget\ViewsReferenceTrait;
 
 /**
  * Plugin implementation of the 'entity_reference_autocomplete' widget.
@@ -57,7 +56,6 @@ class ViewsReferenceWidget extends EntityReferenceAutocompleteWidget {
     return $element;
   }
 
-
   /**
    * {@inheritdoc}
    */
@@ -71,6 +69,5 @@ class ViewsReferenceWidget extends EntityReferenceAutocompleteWidget {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     return parent::massageFormValues($values, $form, $form_state);
   }
-
 
 }

@@ -1,22 +1,25 @@
 <?php
-
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+/**
+ * @file module functions for viewsreference
+ */
 
 /**
- * Implements template_preprocess_select().
- *
+ * Implements hook_theme().
+ */
+function viewsreference_theme($existing, $type, $theme, $path) {
+  return array(
+    'viewsreference__view_title' => array(
+      'template' => 'viewsreference--view-title',
+      'render element' => 'variables',
+    )
+  );
+}
+
+/**
+ * Implements HOOK_preprocess_HOOK().
+ * 
  * @param $variables
  */
-function viewsreference_preprocess_select(&$variables) {
-
-  if (isset($variables['element']['#target_type'])
-    && $variables['element']['#target_type'] == 'view'
-    && $variables['element']['#key_column'] == 'target_id') {
-
-    $variables['element']['#empty_value'] = new TranslatableMarkup('');
-    // This removes the default _none option
-    // Todo is there are more robust way of doing this?
-    //
-    unset($variables['options'][1]);
-  }
+function viewsreference_preprocess_viewsreference__view_title(&$variables) {
+  $variables['title'] = $variables['variables']['#title'];
 }
