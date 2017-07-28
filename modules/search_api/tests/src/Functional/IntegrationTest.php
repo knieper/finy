@@ -741,6 +741,7 @@ class IntegrationTest extends SearchApiBrowserTestBase {
     $url_options['query']['datasource'] = 'entity:node';
     $this->drupalGet($this->getIndexPath('fields/add/nojs'), $url_options);
     $this->assertHtmlEscaped($field_name);
+    $this->assertSession()->responseContains('(<code>field__field_</code>)');
 
     $this->addField('entity:node', 'field__field_', $field_name);
 
@@ -1114,7 +1115,7 @@ class IntegrationTest extends SearchApiBrowserTestBase {
     $this->drupalGet('node/2/edit');
     $edit = ['field__reference_field_[0][target_id]' => 'Something (2)'];
     $this->drupalGet('node/2/edit');
-    $this->submitForm($edit, 'Save and keep published');
+    $this->submitForm($edit, 'Save');
     $indexed_values = \Drupal::state()->get("search_api_test.backend.indexed.{$this->indexId}", []);
     $this->assertEquals([2], $indexed_values['entity:node/2:en']['field__reference_field_'], 'Correct value indexed for nested non-base field.');
   }
@@ -1138,6 +1139,7 @@ class IntegrationTest extends SearchApiBrowserTestBase {
         'fields' => [
           'title',
         ],
+        'all_fields' => FALSE,
       ];
       $this->assertEquals($expected, $configuration, 'Title field enabled for ignore case filter.');
     }

@@ -14,7 +14,6 @@ use Drupal\search_api\LoggerTrait;
 use Drupal\search_api\ParseMode\ParseModeInterface;
 use Drupal\search_api\Query\ConditionGroupInterface;
 use Drupal\search_api\Query\QueryInterface;
-use Drupal\search_api\Query\ResultSetInterface;
 use Drupal\search_api\Utility\Utility;
 use Drupal\user\Entity\User;
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
@@ -380,6 +379,10 @@ class SearchApiQuery extends QueryPluginBase {
 
     // Save query information for Views UI.
     $view->build_info['query'] = (string) $this->query;
+
+    // Add the properties to be retrieved to the query, as information for the
+    // backend.
+    $this->query->setOption('search_api_retrieved_properties', $this->retrievedProperties);
   }
 
   /**
@@ -608,9 +611,9 @@ class SearchApiQuery extends QueryPluginBase {
   /**
    * Retrieves the Search API result set returned for this query.
    *
-   * @return \Drupal\search_api\Query\ResultSetInterface|null
-   *   The result set of this query, if it has been retrieved already. NULL
-   *   otherwise.
+   * @return \Drupal\search_api\Query\ResultSetInterface
+   *   The result set of this query. Might not contain the actual results yet if
+   *   the query hasn't been executed yet.
    */
   public function getSearchApiResults() {
     return $this->query->getResults();
